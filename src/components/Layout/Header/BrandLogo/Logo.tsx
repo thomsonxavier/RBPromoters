@@ -4,18 +4,18 @@ const Logo: React.FC = () => {
   return (
     <>
       <Image
-        src={'/images/header/dark-logo.svg'}
+     src={'/images/hero/dark-logo.png'}
         alt='logo'
-        width={150}
-        height={68}
+        width={100}
+        height={80}
         unoptimized={true}
         className='dark:hidden'
       />
       <Image
-        src={'/images/header/logo.svg'}
+        src={'/images/hero/logo1.png'}
         alt='logo'
-        width={150}
-        height={68}
+        width={100}
+        height={80}
         unoptimized={true}
         className='dark:block hidden'
       />

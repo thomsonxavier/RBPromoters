@@ -3,6 +3,12 @@ export type PropertyImage = {
   alt: string
 }
 
+export type ApartmentConfig = {
+  type: string
+  size: string
+  price: string
+}
+
 export type PropertyHomes = {
   name: string
   slug: string
@@ -23,6 +29,7 @@ export type PropertyHomes = {
   status?: string // e.g., "Under Construction", "Ready to Move"
   features?: string[] // e.g., ["Near by Sri Oragandi Yellai Amman Temple", "No Brokerage"]
   description?: string // Short description
+  amenities?: string[] // e.g., ["Swimming Pool", "Gym", "Parking", "Security"]
   pincode?: string // e.g., "600130", "600127"
   state?: string // e.g., "Tamil Nadu"
   city?: string // e.g., "Chennai"
@@ -36,4 +43,6 @@ export type PropertyHomes = {
   agent?: string // e.g., "Prakash"
   // Project specific fields
   totalUnits?: number // e.g., 55
+  // Apartment configurations for details page
+  apartmentConfigs?: ApartmentConfig[] // Multiple apartment configurations
 }

@@ -5,7 +5,7 @@
 
 @theme {
   /* Gradient colors */
-  --color-primary: #07be8a;
+  --color-primary: #3572EF;
   --color-skyblue: #79adff;
   --color-lightskyblue: #9cc2dd;
   --color-dark: #172023;
@@ -128,4 +128,98 @@ section {
 
 .blog-details p {
   @apply text-dark dark:text-white text-xm leading-[1.2]
+}
+
+/* EMI Calculator Slider Styling */
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: #e5e7eb;
+  outline: none;
+  border-radius: 8px;
+  height: 8px;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dark .slider {
+  background: #374151;
+}
+
+.dark .slider::-webkit-slider-thumb {
+  background: var(--color-primary);
+}
+
+.dark .slider::-moz-range-thumb {
+  background: var(--color-primary);
+}
+
+/* Carousel Styles */
+.embla {
+  overflow: hidden;
+}
+
+.embla__container {
+  display: flex;
+}
+
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+/* Modal Styles */
+.modal-backdrop {
+  backdrop-filter: blur(4px);
+}
+
+/* Custom scrollbar for thumbnails */
+.thumbnail-scrollbar::-webkit-scrollbar {
+  height: 4px;
+}
+
+.thumbnail-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 2px;
+}
+
+.thumbnail-scrollbar::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 2px;
+}
+
+.thumbnail-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Dark mode scrollbar */
+.dark .thumbnail-scrollbar::-webkit-scrollbar-track {
+  background: #374151;
+}
+
+.dark .thumbnail-scrollbar::-webkit-scrollbar-thumb {
+  background: #6b7280;
+}
+
+.dark .thumbnail-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
 }

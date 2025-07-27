@@ -4,6 +4,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Share2, Phone, MessageCircle, MapPin, Home, LandPlot, Building } from 'lucide-react'
 
+// Interface for apartment configuration
+interface ApartmentConfig {
+  type: string;
+  size: string;
+  price: string;
+}
+
 const PropertyCard: React.FC<{ item: PropertyHomes }> = ({ item }) => {
   const {
     name,
@@ -56,10 +63,63 @@ const PropertyCard: React.FC<{ item: PropertyHomes }> = ({ item }) => {
 
   const typeInfo = getPropertyTypeInfo(propertyType);
 
+  // Generate apartment configurations based on actual data
+  const generateApartmentConfigurations = (): ApartmentConfig[] | null => {
+    if (!config || !sizeRange || !priceRange) {
+      return null;
+    }
+
+    // Extract BHK from config
+    const bhkMatch = config.match(/(\d+)\s*BHK/i);
+    if (!bhkMatch) {
+      return null;
+    }
+
+    const bhk = parseInt(bhkMatch[1]);
+    
+    // Generate configurations based on BHK
+    const configurations: ApartmentConfig[] = [];
+    
+    if (bhk >= 1) {
+      configurations.push({
+        type: '1 BHK Flats',
+        size: '650 - 750',
+        price: '60 L - 65 L'
+      });
+    }
+    
+    if (bhk >= 2) {
+      configurations.push({
+        type: '2 BHK Flats',
+        size: sizeRange,
+        price: priceRange
+      });
+    }
+    
+    if (bhk >= 3) {
+      configurations.push({
+        type: '3 BHK Flats',
+        size: '1352 - 1770',
+        price: '1.55 Cr - 2.02 Cr'
+      });
+    }
+    
+    if (bhk >= 4) {
+      configurations.push({
+        type: '4 BHK Flats',
+        size: '2699 - 2750',
+        price: '3 Cr - 3.25 Cr'
+      });
+    }
+
+    return configurations;
+  };
+
   // Apartment card layout with multiple BHK configurations
   const renderApartmentCard = () => {
-    // Check if this is an apartment project with multiple configurations
-    const isApartmentProject = config && config.includes('BHK') && sizeRange && priceRange;
+    // Check if this is an apartment with configuration data
+    const isApartmentWithConfig = config && config.includes('BHK') && sizeRange && priceRange;
+    const apartmentConfigs = generateApartmentConfigurations();
     
     return (
       <div className='bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden flex flex-col h-full'>
@@ -105,7 +165,7 @@ const PropertyCard: React.FC<{ item: PropertyHomes }> = ({ item }) => {
           </div>
 
           {/* Apartment Configurations Table */}
-          {isApartmentProject ? (
+          {isApartmentWithConfig && apartmentConfigs && apartmentConfigs.length > 0 ? (
             <div className='bg-gray-50 dark:bg-gray-700 rounded-lg p-4 mb-4'>
               <div className='overflow-x-auto'>
                 <table className='w-full text-sm'>
@@ -117,21 +177,13 @@ const PropertyCard: React.FC<{ item: PropertyHomes }> = ({ item }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className='border-b border-gray-200 dark:border-gray-600'>
-                      <td className='py-2 font-medium text-dark dark:text-white'>2 BHK Flats</td>
-                      <td className='py-2 text-center font-medium text-dark dark:text-white'>1001 - 1229</td>
-                      <td className='py-2 text-right font-medium text-primary'>1.2 Cr - 1.47 Cr *</td>
-                    </tr>
-                    <tr className='border-b border-gray-200 dark:border-gray-600'>
-                      <td className='py-2 font-medium text-dark dark:text-white'>3 BHK Flats</td>
-                      <td className='py-2 text-center font-medium text-dark dark:text-white'>1352 - 1770</td>
-                      <td className='py-2 text-right font-medium text-primary'>1.55 Cr - 2.02 Cr *</td>
-                    </tr>
-                    <tr>
-                      <td className='py-2 font-medium text-dark dark:text-white'>4 BHK Flats</td>
-                      <td className='py-2 text-center font-medium text-dark dark:text-white'>2699 - 2750</td>
-                      <td className='py-2 text-right font-medium text-primary'>3 Cr - 3.25 Cr *</td>
-                    </tr>
+                    {apartmentConfigs.map((config, index) => (
+                      <tr key={index} className={index < apartmentConfigs.length - 1 ? 'border-b border-gray-200 dark:border-gray-600' : ''}>
+                        <td className='py-2 font-medium text-dark dark:text-white'>{config.type}</td>
+                        <td className='py-2 text-center font-medium text-dark dark:text-white'>{config.size}</td>
+                        <td className='py-2 text-right font-medium text-primary'>{config.price} *</td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>

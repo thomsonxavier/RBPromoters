@@ -39,24 +39,24 @@ const Header: React.FC = () => {
   const isHomepage = pathname === '/'
 
   return (
-    <header className={`fixed h-24 py-1 z-50 w-full bg-transparent transition-all duration-300 lg:px-0 px-4 ${sticky ? "top-3" : "top-0"}`}>
-      <nav className={`container mx-auto max-w-8xl flex items-center justify-between py-4 duration-300 ${sticky ? "shadow-lg bg-white dark:bg-dark rounded-full top-5 px-4 " : "shadow-none top-0"}`}>
+    <header className={`fixed h-22 py-1 z-50 w-full bg-transparent transition-all duration-300 lg:px-0 px-4 ${sticky ? "top-3" : "top-0"}`}>
+      <nav className={`container mx-auto max-w-8xl flex items-center justify-between py-1 duration-300 ${sticky ? "shadow-lg bg-white dark:bg-dark rounded-full top-5 px-4 " : "shadow-none top-0"}`}>
         <div className='flex justify-between items-center gap-2 w-full'>
           <div>
             <Link href='/'>
               <Image
-                src={'/images/header/dark-logo.svg'}
+           src={'/images/hero/dark-logo.png'}
                 alt='logo'
-                width={150}
-                height={68}
+                width={100}
+                height={80}
                 unoptimized={true}
                 className={`${isHomepage ? sticky ? "block dark:hidden" : "hidden" : sticky ? "block dark:hidden" : "block dark:hidden"}`}
               />
               <Image
-                src={'/images/header/logo.svg'}
+           src={'/images/hero/logo1.png'}
                 alt='logo'
-                width={150}
-                height={68}
+                width={100}
+                height={80}
                 unoptimized={true}
                 className={`${isHomepage ? sticky ? "hidden dark:block" : "block" : sticky ? "dark:block hidden" : "dark:block hidden"}`}
               />
@@ -86,7 +86,7 @@ const Header: React.FC = () => {
               />
             </button>
             <div className={`hidden md:block`}>
-              <Link href='#' className={`text-base text-inherit flex items-center gap-2 border-r pr-6 ${isHomepage
+              <Link href="tel:+918883568814"  className={`text-base text-inherit flex items-center gap-2 border-r pr-6 ${isHomepage
                 ? sticky
                   ? 'text-dark dark:text-white hover:text-primary border-dark dark:border-white'
                   : 'text-white hover:text-primary'
@@ -155,14 +155,14 @@ const Header: React.FC = () => {
                 {navLinks.map((item, index) => (
                   <NavLink key={index} item={item} onClick={() => setNavbarOpen(false)} />
                 ))}
-                <li className='flex items-center gap-4'>
+                {/* <li className='flex items-center gap-4'>
                   <Link href="/signin" className='py-4 px-8 bg-primary text-base leading-4 block w-fit text-white rounded-full border border-primary font-semibold mt-3 hover:bg-transparent hover:text-primary duration-300'>
                     Sign In
                   </Link>
                   <Link href="/" className='py-4 px-8 bg-transparent border border-primary text-base leading-4 block w-fit text-primary rounded-full font-semibold mt-3 hover:bg-primary hover:text-white duration-300'>
                     Sign up
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </nav>
           </div>
@@ -171,10 +171,10 @@ const Header: React.FC = () => {
             <p className='text-base sm:text-xm font-normal text-white/40'>
               Contact
             </p>
-            <Link href="#" className='text-base sm:text-xm font-medium text-inherit hover:text-primary'>
+            <Link href="mailto:rbpromoters@gmail.com" className='text-base sm:text-xm font-medium text-inherit hover:text-primary'>
               rbpromoters@gmail.com
             </Link>
-            <Link href="#" className='text-base sm:text-xm font-medium text-inherit hover:text-primary'>
+            <Link href="tel:+918883568814" className='text-base sm:text-xm font-medium text-inherit hover:text-primary'>
             +91 88835 68814{' '}
             </Link>
           </div>

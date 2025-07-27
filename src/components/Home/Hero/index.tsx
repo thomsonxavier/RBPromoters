@@ -34,7 +34,7 @@ const Hero: React.FC = () => {
   ]
 
   const getActiveTabColor = (tabId: string) => {
-    return activeTab === tabId ? 'bg-primary hover:bg-primary' : 'bg-gray-700 hover:bg-gray-600'
+    return activeTab === tabId ? 'bg-[var(--color-primary)] hover:bg-[var(--color-primary)]' : 'bg-[var(--color-dark)]/70 hover:bg-[var(--color-dark)]/60'
   }
 
   const showMultipleInputs = activeTab === 'buy' || activeTab === 'sell'
@@ -89,21 +89,21 @@ const Hero: React.FC = () => {
               Futuristic Haven
             </h1>
             
+            {/* Category Tabs */}
+            <div className='flex flex-wrap justify-center md:justify-start gap-2 mb-6'>
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`px-6 py-2.5 text-white font-medium rounded-full transition-all duration-300 transform hover:scale-105 ${getActiveTabColor(tab.id)}`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
             {/* Search Interface */}
             <div className='max-w-6xl mb-3'>
-              {/* Category Tabs */}
-              <div className='flex flex-wrap justify-center md:justify-start gap-2 mb-6'>
-                {tabs.map((tab) => (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`px-6 py-2.5 text-white font-medium rounded-full transition-all duration-300 transform hover:scale-105 ${getActiveTabColor(tab.id)}`}
-                  >
-                    {tab.label}
-                  </button>
-                ))}
-              </div>
-
               {/* Search Bar */}
               <div className='bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-xl dark:shadow-white/10 backdrop-blur-sm'>
                 <form onSubmit={(e) => e.preventDefault()}>
@@ -113,7 +113,7 @@ const Hero: React.FC = () => {
                       {/* Property Type */}
                       <div className='flex-1 w-full lg:w-auto'>
                         <Select value={propertyType} onValueChange={setPropertyType}>
-                          <SelectTrigger className='w-full px-3 py-2.5 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-700 dark:text-white focus:ring-2 focus:ring-green-500 transition-all duration-300'>
+                          <SelectTrigger className='w-full px-3 py-2.5 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-700 dark:text-white focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300'>
                             <SelectValue placeholder='Property Type*' />
                           </SelectTrigger>
                           <SelectContent className='bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 min-w-[200px]'>
@@ -135,20 +135,20 @@ const Hero: React.FC = () => {
 
                       {/* Search Input */}
                       <div className='flex-1 w-full lg:w-auto'>
-                        <input
-                          type='text'
-                          placeholder='Search by locality*'
-                          value={searchQuery}
-                          onChange={(e) => setSearchQuery(e.target.value)}
-                          required
-                          className='w-full px-3 py-2.5 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-700 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300'
-                        />
+                                                  <input
+                            type='text'
+                            placeholder='Search by locality*'
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            required
+                            className='w-full px-3 py-2.5 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-700 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300'
+                          />
                       </div>
 
                       {/* Bedroom */}
                       <div className='flex-1 w-full lg:w-auto'>
                         <Select value={bedroom} onValueChange={setBedroom}>
-                          <SelectTrigger className='w-full px-3 py-2.5 bg-white dark:bg-gray-700 border-2 border-green-500 rounded-xl text-gray-700 dark:text-white focus:ring-2 focus:ring-green-500 transition-all duration-300'>
+                          <SelectTrigger className='w-full px-3 py-2.5 bg-white dark:bg-gray-700 border-2 border-[var(--color-primary)] rounded-xl text-gray-700 dark:text-white focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300'>
                             <SelectValue placeholder='Bedroom*' />
                           </SelectTrigger>
                           <SelectContent className='bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600'>
@@ -171,7 +171,7 @@ const Hero: React.FC = () => {
                       {/* Search Button */}
                       <button 
                         type='submit'
-                        className='w-full lg:w-auto px-6 py-2.5 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl'
+                        className='w-full lg:w-auto px-6 py-2.5 bg-[var(--color-primary)] hover:bg-[var(--color-primary)]/90 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl'
                       >
                         <Search className='w-4 h-4' />
                         Search Properties
@@ -188,11 +188,11 @@ const Hero: React.FC = () => {
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             required
-                            className='w-full px-3 py-2.5 pr-10 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-700 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300'
+                            className='w-full px-3 py-2.5 pr-10 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-700 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300'
                           />
                           <button 
                             type='submit'
-                            className='absolute right-2 top-1/2 transform -translate-y-1/2 p-1.5 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-all duration-300'
+                            className='absolute right-2 top-1/2 transform -translate-y-1/2 p-1.5 bg-[var(--color-primary)] hover:bg-[var(--color-primary)]/90 text-white rounded-lg transition-all duration-300'
                           >
                             <Search className='w-4 h-4' />
                           </button>
@@ -215,7 +215,7 @@ const Hero: React.FC = () => {
           </div>
           <div className='hidden md:block absolute -top-0 -right-68'>
             <Image
-              src={'/images/hero/heroBanner.png'}
+              src={'/images/hero/newlanding.png'}
               alt='heroImg'
               width={1082}
               height={1016}
@@ -226,11 +226,11 @@ const Hero: React.FC = () => {
         </div>
         <div className='md:absolute bottom-0 md:-right-68 xl:right-0 bg-white dark:bg-black py-8 px-6 mobile:px-12 md:pl-12 md:pr-[200px] rounded-2xl md:rounded-none md:rounded-tl-2xl mt-16'>
           <div className='grid grid-cols-2 sm:grid-cols-4 md:flex gap-8 md:gap-16 sm:text-center dark:text-white text-black'>
-            <div className='flex flex-col sm:items-center gap-2 group'>
-              <div className='w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 dark:from-green-500 dark:to-green-700 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110'>
+                        <div className='flex flex-col sm:items-center gap-2 group'>
+              <div className='w-12 h-12 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary)]/80 dark:from-[var(--color-primary)] dark:to-[var(--color-primary)]/70 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110'>
                 <Home className='w-6 h-6 text-white' />
               </div>
-              <p className='text-xl sm:text-2xl font-bold text-green-600 dark:text-green-400 group-hover:text-green-700 dark:group-hover:text-green-300 transition-colors duration-300'>
+              <p className='text-xl sm:text-2xl font-bold text-[var(--color-primary)] dark:text-[var(--color-primary)]/80 group-hover:text-[var(--color-primary)]/90 dark:group-hover:text-[var(--color-primary)]/70 transition-colors duration-300'>
                 {stats.propertiesSold.toLocaleString()}+
               </p>
               <p className='text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors duration-300'>
@@ -238,10 +238,10 @@ const Hero: React.FC = () => {
               </p>
             </div>
             <div className='flex flex-col sm:items-center gap-2 group'>
-              <div className='w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 dark:from-blue-500 dark:to-blue-700 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110'>
+              <div className='w-12 h-12 bg-gradient-to-br from-[var(--color-skyblue)] to-[var(--color-skyblue)]/80 dark:from-[var(--color-skyblue)] dark:to-[var(--color-skyblue)]/70 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110'>
                 <Building2 className='w-6 h-6 text-white' />
               </div>
-              <p className='text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-300'>
+              <p className='text-xl sm:text-2xl font-bold text-[var(--color-skyblue)] dark:text-[var(--color-skyblue)]/80 group-hover:text-[var(--color-skyblue)]/90 dark:group-hover:text-[var(--color-skyblue)]/70 transition-colors duration-300'>
                 {stats.currentListings.toLocaleString()}+
               </p>
               <p className='text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors duration-300'>
@@ -249,10 +249,10 @@ const Hero: React.FC = () => {
               </p>
             </div>
             <div className='flex flex-col sm:items-center gap-2 group'>
-              <div className='w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 dark:from-purple-500 dark:to-purple-700 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110'>
+              <div className='w-12 h-12 bg-gradient-to-br from-[var(--color-lightskyblue)] to-[var(--color-lightskyblue)]/80 dark:from-[var(--color-lightskyblue)] dark:to-[var(--color-lightskyblue)]/70 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110'>
                 <Users className='w-6 h-6 text-white' />
               </div>
-              <p className='text-xl sm:text-2xl font-bold text-purple-600 dark:text-purple-400 group-hover:text-purple-700 dark:group-hover:text-purple-300 transition-colors duration-300'>
+              <p className='text-xl sm:text-2xl font-bold text-[var(--color-lightskyblue)] dark:text-[var(--color-lightskyblue)]/80 group-hover:text-[var(--color-lightskyblue)]/90 dark:group-hover:text-[var(--color-lightskyblue)]/70 transition-colors duration-300'>
                 {stats.happyClients.toLocaleString()}+
               </p>
               <p className='text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors duration-300'>
@@ -260,10 +260,10 @@ const Hero: React.FC = () => {
               </p>
             </div>
             <div className='flex flex-col sm:items-center gap-2 group'>
-              <div className='w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 dark:from-orange-500 dark:to-orange-700 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110'>
+              <div className='w-12 h-12 bg-gradient-to-br from-[var(--color-dark)] to-[var(--color-dark)]/80 dark:from-[var(--color-dark)] dark:to-[var(--color-dark)]/70 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110'>
                 <Award className='w-6 h-6 text-white' />
               </div>
-              <p className='text-xl sm:text-2xl font-bold text-orange-600 dark:text-orange-400 group-hover:text-orange-700 dark:group-hover:text-orange-300 transition-colors duration-300'>
+              <p className='text-xl sm:text-2xl font-bold text-[var(--color-dark)] dark:text-[var(--color-dark)]/80 group-hover:text-[var(--color-dark)]/90 dark:group-hover:text-[var(--color-dark)]/70 transition-colors duration-300'>
                 {stats.yearsExperience}+
               </p>
               <p className='text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors duration-300'>
