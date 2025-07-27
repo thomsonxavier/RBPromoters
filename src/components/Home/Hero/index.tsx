@@ -82,7 +82,7 @@ const Hero: React.FC = () => {
   return (
     <section className='!py-0'>
       <div className='bg-gradient-to-b from-skyblue via-lightskyblue dark:via-[#4298b0] to-white/10 dark:to-black/10 overflow-hidden relative'>
-        <div className='container max-w-8xl mx-auto px-5 2xl:px-0 pt-16 md:pt-32 md:pb-68'>
+        <div className='container max-w-8xl mx-auto px-5 2xl:px-0 pt-16 md:pt-32 md:pb-68 mt-8'>
           <div className='relative text-white dark:text-dark text-center md:text-start z-10'>
             <p className='text-inherit text-xm font-medium'>    Your Chennai real estate online destination to search, Buy, Sell and Rent Property in Chennai</p>
             <h1 className='text-inherit text-6xl sm:text-9xl font-semibold -tracking-wider md:max-w-45p mt-2  mb-2'>
