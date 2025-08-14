@@ -15,8 +15,6 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Modal } from "@/components/ui/modal";
-import ScheduleTour from "@/components/ScheduleTour";
-import CalenderWithTime from '@/components/comp-505';
 
 export default function Details() {
     const { slug } = useParams();
@@ -369,23 +367,130 @@ export default function Details() {
                         </div> */}
                     </div>
                     <div className="lg:col-span-4 col-span-12">
-                        {/* Schedule a Tour Form */}
-                        {/* <ScheduleTour /> */}
-                        {/* <CalenderWithTime /     > */}
-                        {/* Testimonial */}
-                        {/* {testimonials.slice(0, 1).map((item, index) => (
-                            <div key={index} className="border p-10 rounded-2xl border-dark/10 dark:border-white/20 mt-10 flex flex-col gap-6">
-                                <Icon icon="ph:house-simple" width={44} height={44} className="text-primary" />
-                                <p className='text-xm text-dark dark:text-white'>{item.review}</p>
-                                <div className="flex items-center gap-6">
-                                    <Image src={item.image} alt={item.name} width={400} height={500} className='w-20 h-20 rounded-2xl' unoptimized={true} />
-                                    <div className="">
-                                        <h3 className='text-xm text-dark dark:text-white'>{item.name}</h3>
-                                        <h4 className='text-base text-dark/50 dark:text-white/50'>{item.position}</h4>
-                                    </div>
+                        <div className="bg-primary/10 p-8 rounded-2xl relative z-10 overflow-hidden">
+                            <h4 className='text-dark text-3xl font-medium dark:text-white'>
+                                {item?.rate}
+                            </h4>
+                            <p className='text-sm text-dark/50 dark:text-white'>Discounted Price</p>
+                            {item?.ratePerSqft && (
+                                <p className='text-sm text-dark/50 dark:text-white mt-1'>{item.ratePerSqft}</p>
+                            )}
+                            {/* <Link href="#" className='py-4 px-8 bg-primary text-white rounded-full w-full block text-center hover:bg-dark duration-300 text-base mt-8 hover:cursor-pointer'>
+                                Get in touch
+                            </Link> */}
+                            <div className="absolute right-0 top-4 -z-[1]">
+                                <Image src="/images/properties/vector.svg" width={400} height={500} alt="vector" unoptimized={true} />
+                            </div>
+                        </div>
+
+                        {/* Contact Builder Section */}
+                        <div className="bg-primary/10 mt-4 p-8 rounded-2xl relative z-10 overflow-hidden">
+
+                        
+                            <h4 className="text-lg font-semibold mb-4">CONTACT BUILDER</h4>
+                            <div className="bg-white dark:bg-gray-800 p-4 rounded-xl mb-4">
+                                <div className="flex items-center gap-3 mb-3">
+                                    <Icon icon="ph:user" width={24} height={24} className="text-[var(--color-primary)]" />
+                                    <span className="text-gray-700 dark:text-gray-300 font-medium">{item?.builder || 'Developer'}</span>
+                                </div>
+                                <p className="text-gray-600 dark:text-gray-400 text-sm">+91-XXXXXXXXXX</p>
+                            </div>
+                            <button  className='py-4 px-8 bg-primary text-white rounded-full w-full block text-center hover:bg-dark duration-300 text-base mt-8 hover:cursor-pointer'>
+                                CONTACT BUILDER NOW
+                            </button>
+                            <div className="absolute right-0 top-4 -z-[1]">
+                                <Image src="/images/properties/vector.svg" width={400} height={500} alt="vector" unoptimized={true} />
+                            </div>
+                        </div>
+
+                        {/* Quick Links Section */}
+                        <div className="mt-8 bg-[var(--color-dark)] text-white p-6 rounded-2xl">
+                            <h4 className="text-lg font-semibold mb-4">QUICK LINKS</h4>
+                            <div className="bg-white dark:bg-gray-800 p-4 rounded-xl space-y-3">
+                                <Link href="#" className="block text-gray-700 dark:text-gray-300 hover:text-[var(--color-primary)] transition-colors duration-300">
+                                    Flats for sale in {item?.locality}
+                                </Link>
+                                <Link href="#" className="block text-gray-700 dark:text-gray-300 hover:text-[var(--color-primary)] transition-colors duration-300">
+                                    Individual House for sale in {item?.locality}
+                                </Link>
+                                <Link href="#" className="block text-gray-700 dark:text-gray-300 hover:text-[var(--color-primary)] transition-colors duration-300">
+                                    Plots for sale in {item?.locality}
+                                </Link>
+                            </div>
+                        </div>
+
+                        {/* EMI Calculator Section */}
+                        <div className="mt-8 bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+                            <h4 className="text-lg font-semibold mb-6 text-dark dark:text-white">EMI Calculator</h4>
+                            <div className="space-y-6">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        Home Loan Amount in Lakhs
+                                    </label>
+                                    <Range
+                                        value={[emiAmount]}
+                                        onValueChange={(value) => setEmiAmount(value[0])}
+                                        max={200}
+                                        min={0}
+                                        step={1}
+                                        className="w-full"
+                                    />
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{emiAmount} Lakhs</p>
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        Rate of Interest
+                                    </label>
+                                    <Range
+                                        value={[interestRate]}
+                                        onValueChange={(value) => setInterestRate(value[0])}
+                                        max={22.5}
+                                        min={5}
+                                        step={0.1}
+                                        className="w-full"
+                                    />
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{interestRate} %</p>
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        Loan Tenure
+                                    </label>
+                                    <Range
+                                        value={[loanTenure]}
+                                        onValueChange={(value) => setLoanTenure(value[0])}
+                                        max={35}
+                                        min={0}
+                                        step={1}
+                                        className="w-full"
+                                    />
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{loanTenure} Years</p>
                                 </div>
                             </div>
-                        ))} */}
+                            <div className="mt-6 space-y-3">
+                                <div className="flex justify-between">
+                                    <span className="text-gray-600 dark:text-gray-400">Cost of Home:</span>
+                                    <span className="font-semibold text-dark dark:text-white">₹ {emiAmount * 2} L</span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span className="text-gray-600 dark:text-gray-400">Loan Amount:</span>
+                                    <span className="font-semibold text-dark dark:text-white">₹ {emiAmount} L</span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span className="text-gray-600 dark:text-gray-400">Monthly EMI:</span>
+                                    <span className="font-semibold text-dark dark:text-white">₹ {emiData.emi.toLocaleString()}</span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span className="text-gray-600 dark:text-gray-400">Total Interest Payable:</span>
+                                    <span className="font-semibold text-dark dark:text-white">₹ {(emiData.totalInterest / 100000).toFixed(2)} L</span>
+                                </div>
+                                <div className="flex justify-between pt-3 border-t border-gray-200 dark:border-gray-700">
+                                    <span className="text-gray-600 dark:text-gray-400 font-semibold">TOTAL AMOUNT PAYABLE:</span>
+                                    <span className="font-bold text-primary">₹ {(emiData.totalAmount / 100000).toFixed(2)} L</span>
+                                </div>
+                            </div>
+                        </div>
+
+                      
                     </div>
                 </div>
 

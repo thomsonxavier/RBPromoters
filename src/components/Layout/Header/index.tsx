@@ -7,14 +7,36 @@ import NavLink from './Navigation/NavLink'
 import { useTheme } from 'next-themes'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { account } from '../../../app/appwrite'
 
 const Header: React.FC = () => {
   const [sticky, setSticky] = useState(false)
   const [navbarOpen, setNavbarOpen] = useState(false)
   const { theme, setTheme } = useTheme()
   const pathname = usePathname()
+  const router = useRouter()
+
+  // User state
+  const [user, setUser] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const sideMenuRef = useRef<HTMLDivElement>(null)
+
+  // Check if user is logged in
+  useEffect(() => {
+    const checkUser = async () => {
+      try {
+        const currentUser = await account.get();
+        setUser(currentUser);
+      } catch (error) {
+        setUser(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    checkUser();
+  }, []);
 
   const handleClickOutside = (event: MouseEvent) => {
     if (sideMenuRef.current && !sideMenuRef.current.contains(event.target as Node)) {
@@ -35,6 +57,14 @@ const Header: React.FC = () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [handleScroll])
+
+  // Auto-redirect to admin dashboard if user is logged in and on signin page
+  useEffect(() => {
+    if (user && (pathname === '/signin' || pathname === '/signup')) {
+      console.log('Redirecting to admin dashboard...', { user: user.name, pathname })
+      router.push('/admin/dashboard')
+    }
+  }, [user, pathname, router])
 
   const isHomepage = pathname === '/'
 
@@ -85,18 +115,55 @@ const Header: React.FC = () => {
                 className='dark:block hidden text-white'
               />
             </button>
-            <div className={`hidden md:block`}>
-              <Link href="tel:+918883568814"  className={`text-base text-inherit flex items-center gap-2 border-r pr-6 ${isHomepage
-                ? sticky
-                  ? 'text-dark dark:text-white hover:text-primary border-dark dark:border-white'
-                  : 'text-white hover:text-primary'
-                : 'text-dark hover:text-primary'
-                }`}
-              >
-                <Icon icon={'ph:phone-bold'} width={24} height={24} />
-                  +91 88835 68814
-              </Link>
-            </div>
+                         <div className={`hidden md:block`}>
+               <Link href="tel:+918883568814"  className={`text-base text-inherit flex items-center gap-2 border-r pr-6 ${isHomepage
+                 ? sticky
+                   ? 'text-dark dark:text-white hover:text-primary border-dark dark:border-white'
+                   : 'text-white hover:text-primary'
+                 : 'text-dark hover:text-primary'
+                 }`}
+               >
+                 <Icon icon={'ph:phone-bold'} width={24} height={24} />
+                   +91 88835 68814
+               </Link>
+             </div>
+             
+                           {/* Profile Section */}
+              <div className={`hidden md:block`}>
+                {isLoading && (
+                  <span className={`text-sm ${isHomepage
+                    ? sticky
+                      ? 'text-dark dark:text-white'
+                      : 'text-white'
+                    : 'text-dark dark:text-white'
+                    }`}>
+                    Loading...
+                  </span>
+                )}
+                {user && (
+                  <button
+                    onClick={() => router.push('/admin/dashboard')}
+                    className={`text-sm hover:text-primary transition-colors ${isHomepage
+                      ? sticky
+                        ? 'text-dark dark:text-white hover:text-primary'
+                        : 'text-white hover:text-primary'
+                      : 'text-dark dark:text-white hover:text-primary'
+                      }`}
+                  >
+                    Welcome, {user.name} (Admin)
+                  </button>
+                )}
+                {!isLoading && !user && (
+                  <span className={`text-sm ${isHomepage
+                    ? sticky
+                      ? 'text-red-500'
+                      : 'text-red-300'
+                    : 'text-red-500'
+                    }`}>
+                    Not logged in
+                  </span>
+                )}
+              </div>
             <div>
               <button
                 onClick={() => setNavbarOpen(!navbarOpen)}

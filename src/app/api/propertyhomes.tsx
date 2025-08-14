@@ -27,62 +27,66 @@ export const propertyHomes: PropertyHomes[] = [
     road: 'Gandhi Nagar Main Road',
     images: [
       {
-        src: "/images/properties/property1/property1.jpg",
+        src: "https://placehold.co/400x300?text=House+Property",
         alt: "4 BHK House DAC Silicon Valley"
       },
       {
-        src: "/images/properties/property1/image-2.jpg",
+        src: "https://placehold.co/400x300?text=House+Interior",
         alt: "House Interior"
       },
       {
-        src: "/images/properties/property1/image-3.jpg",
+        src: "https://placehold.co/400x300?text=House+Exterior",
         alt: "House Exterior"
       },
       {
-        src: "/images/properties/property1/image-4.jpg",
+        src: "https://placehold.co/400x300?text=House+Kitchen",
         alt: "House Kitchen"
       },
     ]
   },
   {
-    name: '800 - 1900 Sqft Land For Sale In Luxland Mini Town',
-    slug: 'land-luxland-mini-town',
-    location: 'Mambakkam - Medavakkam Main Road, Ponmar, Chennai - 600127, Tamil Nadu',
-    rate: '94.98 L',
+    name: '22 Acre Dry Land For Sale In Kallambedu',
+    slug: '22-acre-dry-land-kallambedu',
+    location: 'Kallambedu to Poovanur road, Tamil Nadu',
+    rate: '1.25 L per Cent',
     beds: 0,
     baths: 0,
-    area: 1900,
+    area: 22,
     propertyType: 'land',
-    config: 'Residential Land',
-    sizeRange: '800 - 1900 Sq.Ft',
-    priceRange: '40.59 L - 94.98 L',
-    ratePerSqft: '₹4,999 / sqft',
-    society: 'Luxland Mini Town',
-    builder: 'HITECH HOUSING AND PROPERTIES',
-    status: 'Ready to Move',
-    features: ['Near by Prince Venkateshwara Engineering college', 'No Brokerage', 'Clear Title', 'Approved Layout', 'Clear Title', 'Approved Layout', 'Road Access', 'Water Supply', 'Electricity', 'Drainage'],
-    description: 'Find plots for sale in Ponmar, Chennai, which provides you with a great chance to build your dream home. This prime location plot offers excellent investment potential with all necessary approvals, clear title, and basic amenities. The plot is well-connected and has all essential infrastructure in place including road access, water supply, electricity, and drainage. Located near Prince Venkateshwara Engineering College, this area is rapidly developing with excellent connectivity to major landmarks. The plot comes with approved layout and is ready for immediate construction.',
-    amenities: ['Clear Title', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Gated Community', 'Security', 'Landscaping', 'Development Plan'],
-    pincode: '600127',
+    config: 'Dry Land',
+    sizeRange: '22 Acre',
+    priceRange: '1.25 L per Cent',
+    ratePerSqft: '₹1.25 L / cent',
+    society: 'Kallambedu Land',
+    builder: 'Local Owner',
+    status: 'In Process',
+    features: ['Dry Land', 'Clear Title', 'Sketch Available', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Clear Title', 'Development Plan'],
+    description: 'Large dry land parcel of 22 acres available for sale. This prime location offers excellent investment potential with all necessary approvals, clear title, and basic amenities. The land is well-connected and has all essential infrastructure in place. Located on Kallambedu to Poovanur road, this area is rapidly developing with excellent connectivity to major landmarks. The land comes with approved layout and is ready for immediate development.',
+    amenities: ['Clear Title', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Security', 'Landscaping', 'Development Plan', 'Sketch Available'],
+    pincode: '600000',
     state: 'Tamil Nadu',
-    city: 'Chennai',
-    locality: 'Ponmar',
-    road: 'Mambakkam - Medavakkam Main Road',
+    city: 'Kallambedu',
+    locality: 'Kallambedu',
+    road: 'Kallambedu to Poovanur road',
+    landType: 'Dry',
+    buildUpArea: 'Empty land',
+    sketch: 'Available',
+    remarks: 'In process',
     images: [
       {
-        src: "/images/properties/property2/property2.jpg",
-        alt: "Luxland Mini Town Land"
+        src: "https://placehold.co/400x300?text=Land+Property",
+        alt: "22 Acre Dry Land Kallambedu"
       },
       {
-        src: "/images/properties/property2/image-2.jpg",
+        src: "https://placehold.co/400x300?text=Land+Plot",
         alt: "Land Plot View"
       },
       {
-        src: "/images/properties/property2/image-3.jpg",
+        src: "https://placehold.co/400x300?text=Land+Development",
         alt: "Land Development"
       },
       {
-        src: "/images/properties/property2/image-4.jpg",
+        src: "https://placehold.co/400x300?text=Land+Location",
         alt: "Land Location"
       },
     ]
@@ -114,19 +118,19 @@ export const propertyHomes: PropertyHomes[] = [
     totalUnits: 55,
     images: [
       {
-        src: "/images/properties/property3/property3.jpg",
+        src: "https://placehold.co/400x300?text=Project+Property",
         alt: "DAC Silicon Valley Project"
       },
       {
-        src: "/images/properties/property3/image-2.jpg",
+        src: "https://placehold.co/400x300?text=Project+Exterior",
         alt: "Project Exterior"
       },
       {
-        src: "/images/properties/property3/image-3.jpg",
+        src: "https://placehold.co/400x300?text=Project+Interior",
         alt: "Project Interior"
       },
       {
-        src: "/images/properties/property3/image-4.jpg",
+        src: "https://placehold.co/400x300?text=Project+Amenities",
         alt: "Project Amenities"
       },
     ]
@@ -168,19 +172,19 @@ export const propertyHomes: PropertyHomes[] = [
     ],
     images: [
       {
-        src: "/images/properties/property4/property4.jpg",
+        src: "https://placehold.co/400x300?text=Apartment+Property",
         alt: "2 BHK Apartment Vadapalani"
       },
       {
-        src: "/images/properties/property4/image-2.jpg",
+        src: "https://placehold.co/400x300?text=Apartment+Living+Room",
         alt: "Apartment Living Room"
       },
       {
-        src: "/images/properties/property4/image-3.jpg",
+        src: "https://placehold.co/400x300?text=Apartment+Kitchen",
         alt: "Apartment Kitchen"
       },
       {
-        src: "/images/properties/property4/image-4.jpg",
+        src: "https://placehold.co/400x300?text=Apartment+Bedroom",
         alt: "Apartment Bedroom"
       },
     ]
@@ -222,19 +226,19 @@ export const propertyHomes: PropertyHomes[] = [
     ],
     images: [
       {
-        src: "/images/properties/property5/property5.jpg",
+        src: "https://placehold.co/400x300?text=Apartment+Property",
         alt: "3 BHK Apartment TNHB"
       },
       {
-        src: "/images/properties/property5/image-2.jpg",
+        src: "https://placehold.co/400x300?text=Apartment+View",
         alt: "TNHB Apartment View"
       },
       {
-        src: "/images/properties/property5/image-3.jpg",
+        src: "https://placehold.co/400x300?text=Apartment+Interior",
         alt: "TNHB Interior"
       },
       {
-        src: "/images/properties/property5/image-4.jpg",
+        src: "https://placehold.co/400x300?text=Apartment+Exterior",
         alt: "TNHB Exterior"
       },
     ]
@@ -265,19 +269,19 @@ export const propertyHomes: PropertyHomes[] = [
     road: 'OMR Road',
     images: [
       {
-        src: "/images/properties/property6/property6.jpg",
+        src: "https://placehold.co/400x300?text=Villa+Property",
         alt: "Luxury Villa OMR"
       },
       {
-        src: "/images/properties/property6/image-2.jpg",
+        src: "https://placehold.co/400x300?text=Villa+Pool",
         alt: "Villa Pool"
       },
       {
-        src: "/images/properties/property6/image-3.jpg",
+        src: "https://placehold.co/400x300?text=Villa+Garden",
         alt: "Villa Garden"
       },
       {
-        src: "/images/properties/property6/image-4.jpg",
+        src: "https://placehold.co/400x300?text=Villa+Interior",
         alt: "Villa Interior"
       },
     ]
@@ -308,19 +312,19 @@ export const propertyHomes: PropertyHomes[] = [
     road: 'Rajiv Gandhi Salai',
     images: [
       {
-        src: "/images/properties/property7.jpg",
+        src: "https://placehold.co/400x300?text=Office+Property",
         alt: "Office Space Tidel Park"
       },
       {
-        src: "/images/properties/property9.jpg",
+        src: "https://placehold.co/400x300?text=Office+Interior",
         alt: "Office Interior"
       },
       {
-        src: "/images/properties/property2.jpg",
+        src: "https://placehold.co/400x300?text=Office+Building",
         alt: "Office Building"
       },
       {
-        src: "/images/properties/property5.jpg",
+        src: "https://placehold.co/400x300?text=Office+Reception",
         alt: "Office Reception"
       },
     ]
@@ -351,62 +355,66 @@ export const propertyHomes: PropertyHomes[] = [
     road: 'Velachery Main Road',
     images: [
       {
-        src: "/images/properties/property8.jpg",
+        src: "https://placehold.co/400x300?text=House+Property",
         alt: "2 BHK House Velachery"
       },
       {
-        src: "/images/properties/property2.jpg",
+        src: "https://placehold.co/400x300?text=House+Exterior",
         alt: "House Exterior"
       },
       {
-        src: "/images/properties/property4.jpg",
+        src: "https://placehold.co/400x300?text=House+Interior",
         alt: "House Interior"
       },
       {
-        src: "/images/properties/property7.jpg",
+        src: "https://placehold.co/400x300?text=House+Kitchen",
         alt: "House Kitchen"
       },
     ]
   },
   {
-    name: 'Commercial Land For Sale In ECR',
-    slug: 'commercial-land-ecr',
-    location: 'ECR Road, Thiruvanmiyur, Chennai - 600041, Tamil Nadu',
-    rate: '2.5 Cr',
+    name: '6 Acre Wet Land For Sale In Kallambedu',
+    slug: '6-acre-wet-land-kallambedu',
+    location: 'Kallambedu to Koovam road, Tamil Nadu',
+    rate: '60K per Cent',
     beds: 0,
     baths: 0,
-    area: 5000,
+    area: 6,
     propertyType: 'land',
-    config: 'Commercial Land',
-    sizeRange: '5000 - 6000 Sq.Ft',
-    priceRange: '2.5 Cr - 3 Cr',
-    ratePerSqft: '₹5,000 / sqft',
-    society: 'ECR Commercial Hub',
-    builder: 'Mahindra Lifespaces',
-    status: 'Available',
-    features: ['Highway Frontage', 'Commercial Zone', 'No Brokerage', 'Clear Title', 'Clear Title', 'Approved Layout', 'Road Access', 'Water Supply', 'Electricity', 'Drainage'],
-    description: 'This prime location plot offers excellent investment potential for commercial development. With all necessary approvals, clear title, and basic amenities, it\'s ready for construction of your commercial project. The plot is well-connected and has all essential infrastructure in place. Located on the prestigious East Coast Road with highway frontage, this commercial land is perfect for retail outlets, restaurants, hotels, or office complexes. The area is rapidly developing with excellent connectivity and high foot traffic.',
-    amenities: ['Clear Title', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Gated Community', 'Security', 'Landscaping', 'Development Plan'],
-    pincode: '600041',
+    config: 'Wet Land',
+    sizeRange: '6 Acre',
+    priceRange: '60K per Cent',
+    ratePerSqft: '₹60K / cent',
+    society: 'Kallambedu Wet Land',
+    builder: 'Local Owner',
+    status: 'In Process',
+    features: ['Wet Land', 'Clear Title', 'Sketch Available', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Clear Title', 'Development Plan'],
+    description: 'Wet land parcel of 6 acres available for sale. This prime location offers excellent investment potential with all necessary approvals, clear title, and basic amenities. The land is well-connected and has all essential infrastructure in place. Located on Kallambedu to Koovam road, this area is rapidly developing with excellent connectivity to major landmarks. The land comes with approved layout and is ready for immediate development.',
+    amenities: ['Clear Title', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Security', 'Landscaping', 'Development Plan', 'Sketch Available'],
+    pincode: '600000',
     state: 'Tamil Nadu',
-    city: 'Chennai',
-    locality: 'Thiruvanmiyur',
-    road: 'East Coast Road',
+    city: 'Kallambedu',
+    locality: 'Kallambedu',
+    road: 'Kallambedu to Koovam road',
+    landType: 'Wet',
+    buildUpArea: 'Empty land',
+    sketch: 'Available',
+    remarks: 'In process',
     images: [
       {
-        src: "/images/properties/property9.jpg",
-        alt: "Commercial Land ECR"
+        src: "https://placehold.co/400x300?text=Wet+Land",
+        alt: "6 Acre Wet Land Kallambedu"
       },
       {
-        src: "/images/properties/property2.jpg",
+        src: "https://placehold.co/400x300?text=Land+Plot",
         alt: "Land Plot"
       },
       {
-        src: "/images/properties/property4.jpg",
+        src: "https://placehold.co/400x300?text=Land+Development",
         alt: "Land Development"
       },
       {
-        src: "/images/properties/property7.jpg",
+        src: "https://placehold.co/400x300?text=Land+Location",
         alt: "Land Location"
       },
     ]
@@ -445,19 +453,19 @@ export const propertyHomes: PropertyHomes[] = [
     ],
     images: [
       {
-        src: "/images/properties/property3.jpg",
+        src: "https://placehold.co/400x300?text=Project+Property",
         alt: "Marina Bay Project"
       },
       {
-        src: "/images/properties/property5.jpg",
+        src: "https://placehold.co/400x300?text=Project+Exterior",
         alt: "Project Exterior"
       },
       {
-        src: "/images/properties/property9.jpg",
+        src: "https://placehold.co/400x300?text=Project+Interior",
         alt: "Project Interior"
       },
       {
-        src: "/images/properties/property3.jpg",
+        src: "https://placehold.co/400x300?text=Project+Amenities",
         alt: "Project Amenities"
       },
     ]
@@ -499,65 +507,66 @@ export const propertyHomes: PropertyHomes[] = [
     ],
     images: [
       {
-        src: "/images/properties/property1.jpg",
+        src: "https://placehold.co/400x300?text=Apartment+Property",
         alt: "1 BHK Apartment T Nagar"
       },
       {
-        src: "/images/properties/property2.jpg",
+        src: "https://placehold.co/400x300?text=Apartment+Living+Area",
         alt: "Apartment Living Area"
       },
       {
-        src: "/images/properties/property3.jpg",
+        src: "https://placehold.co/400x300?text=Apartment+Kitchen",
         alt: "Apartment Kitchen"
       },
       {
-        src: "/images/properties/property4.jpg",
+        src: "https://placehold.co/400x300?text=Apartment+Bedroom",
         alt: "Apartment Bedroom"
       },
     ]
   },
   {
-    name: '600 Sq.Ft Land For Sale In Kuthambakkam',
-    slug: 'land-kuthambakkam',
-    location: 'Kuthambakkam Main Road, Chennai - 600124, Tamil Nadu',
-    rate: '30 L',
+    name: '3.74 Acre Dry Land For Sale In Narasamangalam',
+    slug: '3-74-acre-dry-land-narasamangalam',
+    location: 'Narasamangalam, Tamil Nadu',
+    rate: '5 L per Cent',
     beds: 0,
     baths: 0,
-    area: 600,
+    area: 3.74,
     propertyType: 'land',
-    config: 'Residential Land',
-    sizeRange: '600 Sq.Ft',
-    priceRange: '30 L',
-    ratePerSqft: '₹5,000 / sqft',
-    society: 'Kuthambakkam Plots',
-    builder: 'Local Developer',
-    status: 'Available',
-    features: ['Clear Title', 'Approved Layout', 'No Brokerage', 'Ready for Construction', 'Clear Title', 'Approved Layout', 'Road Access', 'Water Supply', 'Electricity', 'Drainage'],
-    description: 'Small plot suitable for individual house construction. This prime location plot offers excellent investment potential with all necessary approvals, clear title, and basic amenities. The plot is well-connected and has all essential infrastructure in place. Located in Kuthambakkam, this area is rapidly developing with excellent connectivity to major landmarks. The plot comes with approved layout and is ready for immediate construction of your dream home.',
-    amenities: ['Clear Title', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Gated Community', 'Security', 'Landscaping', 'Development Plan'],
-    pincode: '600124',
+    config: 'Dry Land',
+    sizeRange: '3.74 Acre',
+    priceRange: '5 L per Cent',
+    ratePerSqft: '₹5 L / cent',
+    society: 'Narasamangalam Land',
+    builder: 'Local Owner',
+    status: 'In Process',
+    features: ['Dry Land', 'Clear Title', 'Sketch Available', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Clear Title', 'Development Plan'],
+    description: 'Dry land parcel of 3.74 acres available for sale. This prime location offers excellent investment potential with all necessary approvals, clear title, and basic amenities. The land is well-connected and has all essential infrastructure in place. Located in Narasamangalam, this area is rapidly developing with excellent connectivity to major landmarks. The land comes with approved layout and is ready for immediate development.',
+    amenities: ['Clear Title', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Security', 'Landscaping', 'Development Plan', 'Sketch Available'],
+    pincode: '600000',
     state: 'Tamil Nadu',
-    city: 'Chennai',
-    locality: 'Kuthambakkam',
-    road: 'Kuthambakkam Main Road',
-    facing: 'South East',
-    postDate: '2025-01-23',
-    agent: 'Prakash',
+    city: 'Narasamangalam',
+    locality: 'Narasamangalam',
+    road: 'Narasamangalam Main Road',
+    landType: 'Dry',
+    buildUpArea: 'Empty land',
+    sketch: 'Available',
+    remarks: 'In process',
     images: [
       {
-        src: "/images/properties/property5.jpg",
-        alt: "Land Plot Kuthambakkam"
+        src: "https://placehold.co/400x300?text=Dry+Land",
+        alt: "3.74 Acre Dry Land Narasamangalam"
       },
       {
-        src: "/images/properties/property6.jpg",
+        src: "https://placehold.co/400x300?text=Land+View",
         alt: "Land View"
       },
       {
-        src: "/images/properties/property7.jpg",
+        src: "https://placehold.co/400x300?text=Land+Development",
         alt: "Land Development"
       },
       {
-        src: "/images/properties/property8.jpg",
+        src: "https://placehold.co/400x300?text=Land+Location",
         alt: "Land Location"
       },
     ]
@@ -589,19 +598,19 @@ export const propertyHomes: PropertyHomes[] = [
     totalUnits: 55,
     images: [
       {
-        src: "/images/properties/property9.jpg",
+        src: "https://placehold.co/400x300?text=Project+Property",
         alt: "Premier Pothigai Garden Project"
       },
       {
-        src: "/images/properties/property1.jpg",
+        src: "https://placehold.co/400x300?text=Project+Layout",
         alt: "Project Layout"
       },
       {
-        src: "/images/properties/property2.jpg",
+        src: "https://placehold.co/400x300?text=Project+Development",
         alt: "Project Development"
       },
       {
-        src: "/images/properties/property3.jpg",
+        src: "https://placehold.co/400x300?text=Project+Location",
         alt: "Project Location"
       },
     ]
@@ -643,62 +652,442 @@ export const propertyHomes: PropertyHomes[] = [
     ],
     images: [
       {
-        src: "/images/properties/property4.jpg",
+        src: "https://placehold.co/400x300?text=Apartment+Property",
         alt: "4 BHK Apartment Adyar"
       },
       {
-        src: "/images/properties/property5.jpg",
+        src: "https://placehold.co/400x300?text=Apartment+Living+Room",
         alt: "Apartment Living Room"
       },
       {
-        src: "/images/properties/property6.jpg",
+        src: "https://placehold.co/400x300?text=Apartment+Kitchen",
         alt: "Apartment Kitchen"
       },
       {
-        src: "/images/properties/property7.jpg",
+        src: "https://placehold.co/400x300?text=Apartment+Master+Bedroom",
         alt: "Apartment Master Bedroom"
       },
     ]
   },
   {
-    name: 'GP Homes Serene Vista',
-    slug: 'gp-homes-serene-vista',
-    location: 'Medavakkam Main Road, Chennai - 600100, Tamil Nadu',
-    rate: '75 L',
+    name: '5.8 Acre Dry Land For Sale In Govindamedu',
+    slug: '5-8-acre-dry-land-govindamedu',
+    location: 'Govindamedu, Tamil Nadu',
+    rate: '2.50 L per Cent',
     beds: 0,
     baths: 0,
-    area: 1500,
+    area: 5.8,
     propertyType: 'land',
-    config: 'Residential Land',
-    sizeRange: '1200 - 1500 Sq.Ft',
-    priceRange: '60 L - 75 L',
-    ratePerSqft: '₹5,000 / sqft',
-    society: 'GP Homes Serene Vista',
-    builder: 'GP Homes',
-    status: 'Available',
-    features: ['Near by Medavakkam Lake', 'Clear Title', 'No Brokerage', 'Lake View', 'Clear Title', 'Approved Layout', 'Road Access', 'Water Supply', 'Electricity', 'Drainage'],
-    description: 'Peaceful residential plots with lake view. This prime location plot offers excellent investment potential with all necessary approvals, clear title, and basic amenities. The plot is well-connected and has all essential infrastructure in place. Located near Medavakkam Lake, this area offers a peaceful environment with beautiful lake views. The plot comes with approved layout and is ready for immediate construction of your dream home. Perfect for families seeking a serene environment with modern amenities.',
-    amenities: ['Clear Title', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Gated Community', 'Security', 'Landscaping', 'Development Plan'],
-    pincode: '600100',
+    config: 'Dry Land',
+    sizeRange: '5.8 Acre',
+    priceRange: '2.50 L per Cent',
+    ratePerSqft: '₹2.50 L / cent',
+    society: 'Govindamedu Land',
+    builder: 'Local Owner',
+    status: 'In Process',
+    features: ['Dry Land', 'Clear Title', 'Sketch Available', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Clear Title', 'Development Plan'],
+    description: 'Dry land parcel of 5.8 acres available for sale. This prime location offers excellent investment potential with all necessary approvals, clear title, and basic amenities. The land is well-connected and has all essential infrastructure in place. Located in Govindamedu, this area is rapidly developing with excellent connectivity to major landmarks. The land comes with approved layout and is ready for immediate development.',
+    amenities: ['Clear Title', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Security', 'Landscaping', 'Development Plan', 'Sketch Available'],
+    pincode: '600000',
     state: 'Tamil Nadu',
-    city: 'Chennai',
-    locality: 'Medavakkam',
-    road: 'Medavakkam Main Road',
+    city: 'Govindamedu',
+    locality: 'Govindamedu',
+    road: 'Govindamedu Main Road',
+    landType: 'Dry',
+    buildUpArea: 'Empty land',
+    sketch: 'Available',
+    remarks: 'In process',
     images: [
       {
-        src: "/images/properties/property8.jpg",
-        alt: "GP Homes Serene Vista Land"
+        src: "https://placehold.co/400x300?text=Dry+Land",
+        alt: "5.8 Acre Dry Land Govindamedu"
       },
       {
-        src: "/images/properties/property9.jpg",
+        src: "https://placehold.co/400x300?text=Land+Plot+View",
         alt: "Land Plot View"
       },
       {
-        src: "/images/properties/property1.jpg",
+        src: "https://placehold.co/400x300?text=Land+Development",
         alt: "Land Development"
       },
       {
-        src: "/images/properties/property2.jpg",
+        src: "https://placehold.co/400x300?text=Land+Location",
+        alt: "Land Location"
+      },
+    ]
+  },
+  {
+    name: '5.98 Acre Dry Land For Sale In Cheyyambakkam',
+    slug: '5-98-acre-dry-land-cheyyambakkam',
+    location: 'Cheyyambakkam, Tamil Nadu',
+    rate: '1.85 L per Cent',
+    beds: 0,
+    baths: 0,
+    area: 5.98,
+    propertyType: 'land',
+    config: 'Dry Land',
+    sizeRange: '5.98 Acre',
+    priceRange: '1.85 L per Cent',
+    ratePerSqft: '₹1.85 L / cent',
+    society: 'Cheyyambakkam Land',
+    builder: 'Local Owner',
+    status: 'In Process',
+    features: ['Dry Land', 'Clear Title', 'Sketch Available', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Clear Title', 'Development Plan'],
+    description: 'Dry land parcel of 5.98 acres available for sale. This prime location offers excellent investment potential with all necessary approvals, clear title, and basic amenities. The land is well-connected and has all essential infrastructure in place. Located in Cheyyambakkam, this area is rapidly developing with excellent connectivity to major landmarks. The land comes with approved layout and is ready for immediate development.',
+    amenities: ['Clear Title', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Security', 'Landscaping', 'Development Plan', 'Sketch Available'],
+    pincode: '600000',
+    state: 'Tamil Nadu',
+    city: 'Cheyyambakkam',
+    locality: 'Cheyyambakkam',
+    road: 'Cheyyambakkam Main Road',
+    landType: 'Dry',
+    buildUpArea: 'Empty land',
+    sketch: 'Available',
+    remarks: 'In process',
+    images: [
+      {
+        src: "https://placehold.co/400x300?text=Dry+Land",
+        alt: "5.98 Acre Dry Land Cheyyambakkam"
+      },
+      {
+        src: "https://placehold.co/400x300?text=Land+Plot",
+        alt: "Land Plot View"
+      },
+      {
+        src: "https://placehold.co/400x300?text=Land+Development",
+        alt: "Land Development"
+      },
+      {
+        src: "https://placehold.co/400x300?text=Land+Location",
+        alt: "Land Location"
+      },
+    ]
+  },
+  {
+    name: '1.66 Acre Dry Land For Sale In Katrambakkam',
+    slug: '1-66-acre-dry-land-katrambakkam',
+    location: 'Katrambakkam, Irunkatukottai, Tamil Nadu',
+    rate: '19 Cr Total',
+    beds: 0,
+    baths: 0,
+    area: 1.66,
+    propertyType: 'land',
+    config: 'Dry Land',
+    sizeRange: '1.66 Acre',
+    priceRange: '19 Cr Total',
+    ratePerSqft: '₹19 Cr Total',
+    society: 'Katrambakkam Land',
+    builder: 'Local Owner',
+    status: 'In Process',
+    features: ['Dry Land', 'Clear Title', 'Sketch Available', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Clear Title', 'Development Plan'],
+    description: 'Dry land parcel of 1.66 acres with 35000 sqft built-up area available for sale. This prime location offers excellent investment potential with all necessary approvals, clear title, and basic amenities. The land is well-connected and has all essential infrastructure in place. Located in Katrambakkam, Irunkatukottai, this area is rapidly developing with excellent connectivity to major landmarks. The land comes with approved layout and is ready for immediate development.',
+    amenities: ['Clear Title', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Security', 'Landscaping', 'Development Plan', 'Sketch Available'],
+    pincode: '600000',
+    state: 'Tamil Nadu',
+    city: 'Katrambakkam',
+    locality: 'Irunkatukottai',
+    road: 'Katrambakkam Main Road',
+    landType: 'Dry',
+    buildUpArea: '35000 Sqft',
+    sketch: 'Available',
+    remarks: 'In process',
+    images: [
+      {
+        src: "https://placehold.co/400x300?text=Dry+Land",
+        alt: "1.66 Acre Dry Land Katrambakkam"
+      },
+      {
+        src: "https://placehold.co/400x300?text=Land+Plot",
+        alt: "Land Plot View"
+      },
+      {
+        src: "https://placehold.co/400x300?text=Land+Development",
+        alt: "Land Development"
+      },
+      {
+        src: "https://placehold.co/400x300?text=Land+Location",
+        alt: "Land Location"
+      },
+    ]
+  },
+  {
+    name: '3.75 Acre Dry Land For Sale In Koppur',
+    slug: '3-75-acre-dry-land-koppur',
+    location: 'Koppur, Paparambakkam, Tamil Nadu',
+    rate: '5 Cr per Acre',
+    beds: 0,
+    baths: 0,
+    area: 3.75,
+    propertyType: 'land',
+    config: 'Dry Land',
+    sizeRange: '3.75 Acre',
+    priceRange: '5 Cr per Acre',
+    ratePerSqft: '₹5 Cr per Acre',
+    society: 'Koppur Land',
+    builder: 'Local Owner',
+    status: 'In Process',
+    features: ['Dry Land', 'Clear Title', 'Sketch Available', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Clear Title', 'Development Plan'],
+    description: 'Dry land parcel of 3.75 acres with 19000 sqft built-up area available for sale. This prime location offers excellent investment potential with all necessary approvals, clear title, and basic amenities. The land is well-connected and has all essential infrastructure in place. Located in Koppur, Paparambakkam, this area is rapidly developing with excellent connectivity to major landmarks. The land comes with approved layout and is ready for immediate development.',
+    amenities: ['Clear Title', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Security', 'Landscaping', 'Development Plan', 'Sketch Available'],
+    pincode: '600000',
+    state: 'Tamil Nadu',
+    city: 'Koppur',
+    locality: 'Paparambakkam',
+    road: 'Koppur Main Road',
+    landType: 'Dry',
+    buildUpArea: '19000 Sqft',
+    sketch: 'Available',
+    remarks: 'In process',
+    images: [
+      {
+        src: "https://placehold.co/400x300?text=Dry+Land",
+        alt: "3.75 Acre Dry Land Koppur"
+      },
+      {
+        src: "https://placehold.co/400x300?text=Land+Plot",
+        alt: "Land Plot View"
+      },
+      {
+        src: "https://placehold.co/400x300?text=Land+Development",
+        alt: "Land Development"
+      },
+      {
+        src: "https://placehold.co/400x300?text=Land+Location",
+        alt: "Land Location"
+      },
+    ]
+  },
+  {
+    name: '55 Acre Dry Land For Sale In Mampakkam',
+    slug: '55-acre-dry-land-mampakkam',
+    location: 'Mampakkam, Sriperumbudur, Tamil Nadu',
+    rate: '3 Cr per Acre',
+    beds: 0,
+    baths: 0,
+    area: 55,
+    propertyType: 'land',
+    config: 'Dry Land',
+    sizeRange: '55 Acre',
+    priceRange: '3 Cr per Acre',
+    ratePerSqft: '₹3 Cr per Acre',
+    society: 'Mampakkam Land',
+    builder: 'Local Owner',
+    status: 'In Process',
+    features: ['Dry Land', 'Clear Title', 'Sketch Available', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Clear Title', 'Development Plan'],
+    description: 'Large dry land parcel of 55 acres available for sale. This prime location offers excellent investment potential with all necessary approvals, clear title, and basic amenities. The land is well-connected and has all essential infrastructure in place. Located in Mampakkam, Sriperumbudur, this area is rapidly developing with excellent connectivity to major landmarks. The land comes with approved layout and is ready for immediate development.',
+    amenities: ['Clear Title', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Security', 'Landscaping', 'Development Plan', 'Sketch Available'],
+    pincode: '600000',
+    state: 'Tamil Nadu',
+    city: 'Mampakkam',
+    locality: 'Sriperumbudur',
+    road: 'Mampakkam Main Road',
+    landType: 'Dry',
+    buildUpArea: 'Empty land',
+    sketch: 'Available',
+    remarks: 'In process',
+    images: [
+      {
+        src: "https://placehold.co/400x300?text=Dry+Land",
+        alt: "55 Acre Dry Land Mampakkam"
+      },
+      {
+        src: "https://placehold.co/400x300?text=Land+Plot",
+        alt: "Land Plot View"
+      },
+      {
+        src: "https://placehold.co/400x300?text=Land+Development",
+        alt: "Land Development"
+      },
+      {
+        src: "https://placehold.co/400x300?text=Land+Location",
+        alt: "Land Location"
+      },
+    ]
+  },
+  {
+    name: '2 Acre Dry Land For Sale In Sunguvarchatram',
+    slug: '2-acre-dry-land-sunguvarchatram',
+    location: 'Sunguvarchatram, Tamil Nadu',
+    rate: '10 Cr Total',
+    beds: 0,
+    baths: 0,
+    area: 2,
+    propertyType: 'land',
+    config: 'Dry Land',
+    sizeRange: '2 Acre',
+    priceRange: '10 Cr Total',
+    ratePerSqft: '₹10 Cr Total',
+    society: 'Sunguvarchatram Land',
+    builder: 'Local Owner',
+    status: 'In Process',
+    features: ['Dry Land', 'Clear Title', 'Sketch Available', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Clear Title', 'Development Plan'],
+    description: 'Dry land parcel of 2 acres with 30000 sqft built-up area available for sale. This prime location offers excellent investment potential with all necessary approvals, clear title, and basic amenities. The land is well-connected and has all essential infrastructure in place. Located in Sunguvarchatram, this area is rapidly developing with excellent connectivity to major landmarks. The land comes with approved layout and is ready for immediate development.',
+    amenities: ['Clear Title', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Security', 'Landscaping', 'Development Plan', 'Sketch Available'],
+    pincode: '600000',
+    state: 'Tamil Nadu',
+    city: 'Sunguvarchatram',
+    locality: 'Sunguvarchatram',
+    road: 'Sunguvarchatram Main Road',
+    landType: 'Dry',
+    buildUpArea: '30000 Sqft',
+    sketch: 'Available',
+    remarks: 'In process',
+    images: [
+      {
+        src: "https://placehold.co/400x300?text=Dry+Land",
+        alt: "2 Acre Dry Land Sunguvarchatram"
+      },
+      {
+        src: "https://placehold.co/400x300?text=Land+Plot",
+        alt: "Land Plot View"
+      },
+      {
+        src: "https://placehold.co/400x300?text=Land+Development",
+        alt: "Land Development"
+      },
+      {
+        src: "https://placehold.co/400x300?text=Land+Location",
+        alt: "Land Location"
+      },
+    ]
+  },
+  {
+    name: '1.25 Acre Dry Land For Sale In Puzhal',
+    slug: '1-25-acre-dry-land-puzhal',
+    location: 'Puzhal, Tamil Nadu',
+    rate: '17 Cr Total',
+    beds: 0,
+    baths: 0,
+    area: 1.25,
+    propertyType: 'land',
+    config: 'Dry Land',
+    sizeRange: '1.25 Acre',
+    priceRange: '17 Cr Total',
+    ratePerSqft: '₹17 Cr Total',
+    society: 'Puzhal Land',
+    builder: 'Local Owner',
+    status: 'In Process',
+    features: ['Dry Land', 'Clear Title', 'Sketch Available', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Clear Title', 'Development Plan'],
+    description: 'Dry land parcel of 1.25 acres with Rice Mill available for sale. This prime location offers excellent investment potential with all necessary approvals, clear title, and basic amenities. The land is well-connected and has all essential infrastructure in place. Located in Puzhal, this area is rapidly developing with excellent connectivity to major landmarks. The land comes with approved layout and is ready for immediate development.',
+    amenities: ['Clear Title', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Security', 'Landscaping', 'Development Plan', 'Sketch Available'],
+    pincode: '600000',
+    state: 'Tamil Nadu',
+    city: 'Puzhal',
+    locality: 'Puzhal',
+    road: 'Puzhal Main Road',
+    landType: 'Dry',
+    buildUpArea: 'Rice Mill',
+    sketch: 'Available',
+    remarks: 'In process',
+    images: [
+      {
+        src: "https://placehold.co/400x300?text=Dry+Land",
+        alt: "1.25 Acre Dry Land Puzhal"
+      },
+      {
+        src: "https://placehold.co/400x300?text=Land+Plot",
+        alt: "Land Plot View"
+      },
+      {
+        src: "https://placehold.co/400x300?text=Land+Development",
+        alt: "Land Development"
+      },
+      {
+        src: "https://placehold.co/400x300?text=Land+Location",
+        alt: "Land Location"
+      },
+    ]
+  },
+  {
+    name: '2 Acre Dry Land For Sale In Pappanguzhi',
+    slug: '2-acre-dry-land-pappanguzhi',
+    location: 'Pappanguzhi (Sunguvarchatram blr by pass), Tamil Nadu',
+    rate: '2.5 L per Cent',
+    beds: 0,
+    baths: 0,
+    area: 2,
+    propertyType: 'land',
+    config: 'Dry Land',
+    sizeRange: '2 Acre',
+    priceRange: '2.5 L per Cent',
+    ratePerSqft: '₹2.5 L / cent',
+    society: 'Pappanguzhi Land',
+    builder: 'Local Owner',
+    status: 'In Process',
+    features: ['Dry Land', 'Clear Title', 'Sketch Available', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Clear Title', 'Development Plan'],
+    description: 'Dry land parcel of 2 acres available for sale. This prime location offers excellent investment potential with all necessary approvals, clear title, and basic amenities. The land is well-connected and has all essential infrastructure in place. Located in Pappanguzhi (Sunguvarchatram blr by pass), this area is rapidly developing with excellent connectivity to major landmarks. The land comes with approved layout and is ready for immediate development.',
+    amenities: ['Clear Title', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Security', 'Landscaping', 'Development Plan', 'Sketch Available'],
+    pincode: '600000',
+    state: 'Tamil Nadu',
+    city: 'Pappanguzhi',
+    locality: 'Sunguvarchatram',
+    road: 'Sunguvarchatram blr by pass',
+    landType: 'Dry',
+    buildUpArea: 'Empty land',
+    sketch: 'Available',
+    remarks: 'In process',
+    images: [
+      {
+        src: "https://placehold.co/400x300?text=Dry+Land",
+        alt: "2 Acre Dry Land Pappanguzhi"
+      },
+      {
+        src: "https://placehold.co/400x300?text=Land+Plot",
+        alt: "Land Plot View"
+      },
+      {
+        src: "https://placehold.co/400x300?text=Land+Development",
+        alt: "Land Development"
+      },
+      {
+        src: "https://placehold.co/400x300?text=Land+Location",
+        alt: "Land Location"
+      },
+    ]
+  },
+  {
+    name: '170 Acre Dry Land For Sale In Panappakkam',
+    slug: '170-acre-dry-land-panappakkam',
+    location: 'Panappakkam, Tamil Nadu',
+    rate: '1 L per Cent',
+    beds: 0,
+    baths: 0,
+    area: 170,
+    propertyType: 'land',
+    config: 'Dry Land',
+    sizeRange: '170 Acre',
+    priceRange: '1 L per Cent',
+    ratePerSqft: '₹1 L / cent',
+    society: 'Panappakkam Land',
+    builder: 'Local Owner',
+    status: 'In Process',
+    features: ['Dry Land', 'Clear Title', 'Sketch Available', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Clear Title', 'Development Plan'],
+    description: 'Large dry land parcel of 170 acres available for sale. This prime location offers excellent investment potential with all necessary approvals, clear title, and basic amenities. The land is well-connected and has all essential infrastructure in place. Located in Panappakkam, this area is rapidly developing with excellent connectivity to major landmarks. The land comes with approved layout and is ready for immediate development.',
+    amenities: ['Clear Title', 'Road Access', 'Water Supply', 'Electricity', 'Drainage', 'Approved Layout', 'Security', 'Landscaping', 'Development Plan', 'Sketch Available'],
+    pincode: '600000',
+    state: 'Tamil Nadu',
+    city: 'Panappakkam',
+    locality: 'Panappakkam',
+    road: 'Panappakkam Main Road',
+    landType: 'Dry',
+    buildUpArea: 'Empty land',
+    sketch: 'Available',
+    remarks: 'In process',
+    images: [
+      {
+        src: "https://placehold.co/400x300?text=Dry+Land",
+        alt: "170 Acre Dry Land Panappakkam"
+      },
+      {
+        src: "https://placehold.co/400x300?text=Land+Plot",
+        alt: "Land Plot View"
+      },
+      {
+        src: "https://placehold.co/400x300?text=Land+Development",
+        alt: "Land Development"
+      },
+      {
+        src: "https://placehold.co/400x300?text=Land+Location",
         alt: "Land Location"
       },
     ]

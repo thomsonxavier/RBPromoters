@@ -10,6 +10,7 @@ export type ApartmentConfig = {
 }
 
 export type PropertyHomes = {
+  $id?: string // Appwrite document ID
   name: string
   slug: string
   location: string
@@ -45,4 +46,9 @@ export type PropertyHomes = {
   totalUnits?: number // e.g., 55
   // Apartment configurations for details page
   apartmentConfigs?: ApartmentConfig[] // Multiple apartment configurations
+  // Land specific fields
+  landType?: string // e.g., "Dry", "Wet"
+  buildUpArea?: string // e.g., "Empty land", "35000 Sqft"
+  sketch?: string // e.g., "Available", "Not Available"
+  remarks?: string // e.g., "In process", "Ready"
 }

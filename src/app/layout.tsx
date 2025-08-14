@@ -6,6 +6,7 @@ import Footer from '@/components/Layout/Footer'
 import { ThemeProvider } from 'next-themes'
 import NextTopLoader from 'nextjs-toploader';
 import SessionProviderComp from '@/components/nextauth/SessionProvider'
+import QueryProvider from '@/providers/QueryProvider'
 
 const font = Bricolage_Grotesque({ subsets: ["latin"] });
 
@@ -25,16 +26,18 @@ export default function RootLayout({
     <html lang='en'>
       <body className={`${font.className} bg-white dark:bg-black antialiased`}>
         <NextTopLoader color={`var(--color-primary)`} />
-        <SessionProviderComp session={session}>
-          <ThemeProvider
-            attribute='class'
-            enableSystem={true}
-            defaultTheme='light'>
-            <Header />
-            {children}
-            <Footer />
-          </ThemeProvider>
-        </SessionProviderComp>
+        <QueryProvider>
+          <SessionProviderComp session={session}>
+            <ThemeProvider
+              attribute='class'
+              enableSystem={true}
+              defaultTheme='light'>
+              <Header />
+              {children}
+              <Footer />
+            </ThemeProvider>
+          </SessionProviderComp>
+        </QueryProvider>
       </body>
     </html>
   )
