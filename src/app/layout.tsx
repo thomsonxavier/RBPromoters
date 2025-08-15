@@ -5,7 +5,6 @@ import Header from '@/components/Layout/Header'
 import Footer from '@/components/Layout/Footer'
 import { ThemeProvider } from 'next-themes'
 import NextTopLoader from 'nextjs-toploader';
-import SessionProviderComp from '@/components/nextauth/SessionProvider'
 import QueryProvider from '@/providers/QueryProvider'
 
 const font = Bricolage_Grotesque({ subsets: ["latin"] });
@@ -17,26 +16,22 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  session,
 }: Readonly<{
   children: React.ReactNode
-  session: any
 }>) {
   return (
     <html lang='en'>
       <body className={`${font.className} bg-white dark:bg-black antialiased`}>
         <NextTopLoader color={`var(--color-primary)`} />
         <QueryProvider>
-          <SessionProviderComp session={session}>
-            <ThemeProvider
-              attribute='class'
-              enableSystem={true}
-              defaultTheme='light'>
-              <Header />
-              {children}
-              <Footer />
-            </ThemeProvider>
-          </SessionProviderComp>
+          <ThemeProvider
+            attribute='class'
+            enableSystem={true}
+            defaultTheme='light'>
+            <Header />
+            {children}
+            <Footer />
+          </ThemeProvider>
         </QueryProvider>
       </body>
     </html>
