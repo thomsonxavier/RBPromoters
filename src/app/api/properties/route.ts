@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { databases, appwriteConfig } from '@/app/appwrite'
 import { Query } from 'appwrite'
+import { convertApartmentConfigsToObjectArray } from '@/lib/utils'
 
 export async function GET() {
   try {
@@ -48,7 +49,7 @@ export async function GET() {
       postDate: doc.postDate || null,
       owner: doc.owner || null,
       agent: doc.agent || null,
-      apartmentConfigs: doc.apartmentConfigs || [],
+      apartmentConfigs: convertApartmentConfigsToObjectArray(doc.apartmentConfigs || []),
       images: doc.images || []
     }))
 

@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { databases, ID, appwriteConfig } from '@/app/appwrite'
 import { PropertyHomes } from '@/types/properyHomes'
+import { convertApartmentConfigsToStringArray, convertApartmentConfigsToObjectArray } from '@/lib/utils'
 import toast from 'react-hot-toast'
 
 const BUCKET_ID = appwriteConfig.collectionId
@@ -32,7 +33,12 @@ export function useProperty(id: string) {
     queryFn: async () => {
       try {
         const response = await databases.getDocument(DATABASE_ID, BUCKET_ID, id)
-        return response as unknown as PropertyHomes
+        
+        // Convert apartmentConfigs from string array to object array
+        const property = response as any
+        property.apartmentConfigs = convertApartmentConfigsToObjectArray(property.apartmentConfigs || [])
+        
+        return property as PropertyHomes
       } catch (error) {
         console.error('Error fetching property:', error)
         throw error
@@ -51,6 +57,9 @@ export function useCreateProperty() {
       try {
         // Filter out Appwrite internal fields
         const { $id, $createdAt, $updatedAt, $permissions, $databaseId, $collectionId, ...cleanData } = propertyData as any
+        
+        // Convert apartmentConfigs from object array to string array
+        cleanData.apartmentConfigs = convertApartmentConfigsToStringArray(cleanData.apartmentConfigs || [])
         
         const response = await databases.createDocument(
           DATABASE_ID,
@@ -83,6 +92,9 @@ export function useUpdateProperty() {
       try {
         // Filter out Appwrite internal fields
         const { $id, $createdAt, $updatedAt, $permissions, $databaseId, $collectionId, ...cleanData } = data as any
+        
+        // Convert apartmentConfigs from object array to string array
+        cleanData.apartmentConfigs = convertApartmentConfigsToStringArray(cleanData.apartmentConfigs || [])
         
         const response = await databases.updateDocument(
           DATABASE_ID,

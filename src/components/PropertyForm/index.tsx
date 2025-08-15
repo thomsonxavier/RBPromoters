@@ -185,16 +185,24 @@ export default function PropertyForm({ onSuccess, initialData, isEdit = false }:
       ...prev,
       features: prev.features?.filter((_, i) => i !== index) || []
     }))
+    toast.success('Feature removed successfully!')
   }
 
   const addAmenity = () => {
-    if (newAmenity.trim()) {
-      setFormData(prev => ({
-        ...prev,
-        amenities: [...(prev.amenities || []), newAmenity.trim()]
-      }))
-      setNewAmenity('')
+    if (!newAmenity.trim()) {
+      toast.error('Amenity cannot be empty')
+      return
     }
+    if (formData.amenities && formData.amenities.length >= 15) {
+      toast.error('Maximum 15 amenities allowed')
+      return
+    }
+    setFormData(prev => ({
+      ...prev,
+      amenities: [...(prev.amenities || []), newAmenity.trim()]
+    }))
+    setNewAmenity('')
+    toast.success('Amenity added successfully!')
   }
 
   const removeAmenity = (index: number) => {
@@ -202,9 +210,37 @@ export default function PropertyForm({ onSuccess, initialData, isEdit = false }:
       ...prev,
       amenities: prev.amenities?.filter((_, i) => i !== index) || []
     }))
+    toast.success('Amenity removed successfully!')
   }
 
   const handleFileUpload = async (files: File[]) => {
+    // Validation for file upload
+    if (files.length === 0) {
+      toast.error('Please select at least one image')
+      return
+    }
+
+    if (files.length > 5) {
+      toast.error('Maximum 5 images allowed')
+      return
+    }
+
+    // Check file types
+    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp']
+    const invalidFiles = files.filter(file => !validTypes.includes(file.type))
+    if (invalidFiles.length > 0) {
+      toast.error('Only JPEG, PNG, and WebP images are allowed')
+      return
+    }
+
+    // Check file sizes
+    const maxSize = 5 * 1024 * 1024 // 5MB
+    const oversizedFiles = files.filter(file => file.size > maxSize)
+    if (oversizedFiles.length > 0) {
+      toast.error('Each image must be less than 5MB')
+      return
+    }
+
     setIsUploading(true)
     setUploadedFiles(files)
     
@@ -291,6 +327,7 @@ export default function PropertyForm({ onSuccess, initialData, isEdit = false }:
       ...prev,
       apartmentConfigs: prev.apartmentConfigs?.filter((_, i) => i !== index) || []
     }))
+    toast.success('Apartment configuration removed successfully!')
   }
 
   const generateSlug = (name: string) => {
@@ -320,12 +357,36 @@ export default function PropertyForm({ onSuccess, initialData, isEdit = false }:
     if (isEdit && initialData?.$id) {
       // Update existing property
       updateProperty.mutate({ id: initialData.$id, data: propertyData }, {
-        onSuccess: () => onSuccess?.()
+        onSuccess: () => {
+          toast.success('Property updated successfully!')
+          onSuccess?.()
+        },
+        onError: (error) => {
+          console.error('Error updating property:', error)
+          // Show the specific error message from the API
+          if (error?.message) {
+            toast.error(error.message)
+          } else {
+            toast.error('Failed to update property. Please try again.')
+          }
+        }
       })
     } else {
       // Create new property
       createProperty.mutate(propertyData, {
-        onSuccess: () => onSuccess?.()
+        onSuccess: () => {
+          toast.success('Property created successfully!')
+          onSuccess?.()
+        },
+        onError: (error) => {
+          console.error('Error creating property:', error)
+          // Show the specific error message from the API
+          if (error?.message) {
+            toast.error(error.message)
+          } else {
+            toast.error('Failed to create property. Please try again.')
+          }
+        }
       })
     }
   }

@@ -6,6 +6,7 @@ import Footer from '@/components/Layout/Footer'
 import { ThemeProvider } from 'next-themes'
 import NextTopLoader from 'nextjs-toploader';
 import QueryProvider from '@/providers/QueryProvider'
+import { Toaster } from 'sonner'
 
 const font = Bricolage_Grotesque({ subsets: ["latin"] });
 
@@ -31,6 +32,7 @@ export default function RootLayout({
             <Header />
             {children}
             <Footer />
+            <Toaster position="top-right" richColors />
           </ThemeProvider>
         </QueryProvider>
       </body>
