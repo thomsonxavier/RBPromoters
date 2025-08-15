@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useProperties, useDeleteProperty } from "@/lib/property-hooks";
 import { useContactSubmissions } from "@/lib/contact-hooks";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { PropertyHomes } from "@/types/properyHomes";
 import { Icon } from "@iconify/react";
+import { account } from "@/app/appwrite";
 
 export default function AdminDashboard() {
   const { data: properties, isLoading, error } = useProperties();
@@ -17,6 +18,28 @@ export default function AdminDashboard() {
     useState<PropertyHomes | null>(null);
   const [selectedContact, setSelectedContact] = useState<any>(null);
   const [showContactModal, setShowContactModal] = useState(false);
+
+  // Check authentication on component mount
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        // Check if user is logged in
+        const user = await account.get();
+        
+        // Check if user has admin role
+        if (!user || !user.labels || !user.labels.includes('admin')) {
+          // User is not admin, redirect to home
+          router.push('/');
+          return;
+        }
+      } catch (error) {
+        // User is not logged in, redirect to signin
+        router.push('/signin?redirect=' + encodeURIComponent(window.location.href));
+      }
+    };
+
+    checkAuth();
+  }, [router]);
 
   const handleEdit = (property: PropertyHomes) => {
     router.push(`/admin/edit-property/${property.$id}`);

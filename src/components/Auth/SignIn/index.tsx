@@ -2,7 +2,6 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
-import SocialSignIn from "../SocialSignIn";
 import toast, { Toaster } from 'react-hot-toast';
 import AuthDialogContext from "@/app/context/AuthDialogContext";
 import Logo from "@/components/Layout/Header/BrandLogo/Logo";
@@ -131,12 +130,18 @@ const Signin = ({ signInOpen }: { signInOpen?: any }) => {
       await account.deleteSession("current");
       setLoggedInUser(null);
       
-      // Clear session from localStorage
+      // Clear all localStorage
       if (typeof window !== 'undefined') {
-        localStorage.removeItem('appwrite_session');
+        localStorage.clear();
         
-        // Clear the sessionId cookie for middleware
-        document.cookie = 'sessionId=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax';
+        // Clear all cookies
+        const cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i];
+          const eqPos = cookie.indexOf("=");
+          const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+          document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+        }
       }
       
       toast.success('Logged out successfully');
