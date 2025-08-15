@@ -58,6 +58,9 @@ const Signin = ({ signInOpen }: { signInOpen?: any }) => {
       // Store session in localStorage for the profile API
       if (typeof window !== 'undefined') {
         localStorage.setItem('appwrite_session', session.$id);
+        
+        // Set a cookie for middleware to check authentication
+        document.cookie = `sessionId=${session.$id}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=Lax`;
       }
 
       // Handle remember me functionality
@@ -87,11 +90,27 @@ const Signin = ({ signInOpen }: { signInOpen?: any }) => {
           authDialog?.setIsSuccessDialogOpen(false);
         }, 1100);
       } else {
-        // Redirect to admin dashboard if user has admin role
-        if (user.labels && user.labels.includes('admin')) {
-          router.push('/admin/dashboard');
+        // Check for redirect parameter in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirectTo = urlParams.get('redirect');
+        
+        console.log('Redirect parameter:', redirectTo);
+        console.log('Current URL:', window.location.href);
+        
+        if (redirectTo) {
+          // Decode the redirect URL and navigate to it
+          const decodedRedirect = decodeURIComponent(redirectTo);
+          console.log('Decoded redirect:', decodedRedirect);
+          router.push(decodedRedirect);
         } else {
-          router.push('/');
+          // Redirect to admin dashboard if user has admin role
+          if (user.labels && user.labels.includes('admin')) {
+            console.log('User has admin role, redirecting to dashboard');
+            router.push('/admin/dashboard');
+          } else {
+            console.log('User does not have admin role, redirecting to home');
+            router.push('/');
+          }
         }
       }
     } catch (error: any) {
@@ -115,6 +134,9 @@ const Signin = ({ signInOpen }: { signInOpen?: any }) => {
       // Clear session from localStorage
       if (typeof window !== 'undefined') {
         localStorage.removeItem('appwrite_session');
+        
+        // Clear the sessionId cookie for middleware
+        document.cookie = 'sessionId=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax';
       }
       
       toast.success('Logged out successfully');

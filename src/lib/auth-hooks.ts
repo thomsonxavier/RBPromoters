@@ -16,6 +16,9 @@ export function useLogin() {
       // Store session in localStorage
       if (typeof window !== 'undefined') {
         localStorage.setItem('appwrite_session', session.$id);
+        
+        // Set a cookie for middleware to check authentication
+        document.cookie = `sessionId=${session.$id}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=Lax`;
       }
       
       // Then fetch profile data
@@ -42,6 +45,9 @@ export function useLogout() {
       // Clear session from localStorage
       if (typeof window !== 'undefined') {
         localStorage.removeItem('appwrite_session');
+        
+        // Clear the sessionId cookie for middleware
+        document.cookie = 'sessionId=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax';
       }
       
       // Delete session from Appwrite

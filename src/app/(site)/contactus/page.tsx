@@ -131,11 +131,11 @@ export default function ContactUs() {
               </p>
             </div>
             <div className='absolute bottom-6 left-6 lg:bottom-12 lg:left-12 flex flex-col gap-4 text-white'>
-              <Link href={'tel:+918883568814'} className='w-fit'>
+              <Link href={'tel:+918883578814'} className='w-fit'>
                 <div className='flex items-center gap-4 group w-fit'>
                   <Icon icon={'ph:phone'} width={32} height={32} />
                   <p className='text-sm xs:text-base mobile:text-xm font-normal group-hover:text-primary'>
-                    +91 88835 68814
+                    +91 88835 78814
                   </p>
                 </div>
               </Link>

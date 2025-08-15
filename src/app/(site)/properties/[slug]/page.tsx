@@ -438,11 +438,14 @@ export default function Details() {
                                     <Icon icon="ph:user" width={24} height={24} className="text-[var(--color-primary)]" />
                                     <span className="text-gray-700 dark:text-gray-300 font-medium">{item?.builder || 'Developer'}</span>
                                 </div>
-                                <p className="text-gray-600 dark:text-gray-400 text-sm">+91-XXXXXXXXXX</p>
+                                <p className="text-gray-600 dark:text-gray-400 text-sm">+91 88835 78814</p>
                             </div>
-                            <button  className='py-4 px-8 bg-primary text-white rounded-full w-full block text-center hover:bg-dark duration-300 text-base mt-8 hover:cursor-pointer'>
+                            <Link 
+                                href="tel:+918883578814" 
+                                className='py-4 px-8 bg-primary text-white rounded-full w-full block text-center hover:bg-dark duration-300 text-base mt-8 hover:cursor-pointer'
+                            >
                                 CONTACT BUILDER NOW
-                            </button>
+                            </Link>
                             <div className="absolute right-0 top-4 -z-[1]">
                                 <Image src="/images/properties/vector.svg" width={400} height={500} alt="vector" unoptimized={true} />
                             </div>

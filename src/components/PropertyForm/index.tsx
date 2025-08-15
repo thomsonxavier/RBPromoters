@@ -89,13 +89,69 @@ export default function PropertyForm({ onSuccess, initialData, isEdit = false }:
   const [isUploading, setIsUploading] = useState(false)
   const [existingImages, setExistingImages] = useState<string[]>(initialData?.images || [])
 
-  // Form schema for file upload validation
+  // Image compression function for free plan optimization
+  const compressImage = (file: File, maxWidth: number = 800, quality: number = 0.6): Promise<File> => {
+    return new Promise((resolve) => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      
+      img.onload = () => {
+        // Calculate new dimensions
+        let { width, height } = img;
+        if (width > maxWidth) {
+          height = (height * maxWidth) / width;
+          width = maxWidth;
+        }
+        
+        canvas.width = width;
+        canvas.height = height;
+        
+        // Draw and compress
+        ctx?.drawImage(img, 0, 0, width, height);
+        
+        canvas.toBlob(
+          (blob) => {
+            if (blob) {
+              const compressedFile = new File([blob], file.name, {
+                type: 'image/jpeg',
+                lastModified: Date.now(),
+              });
+              resolve(compressedFile);
+            } else {
+              resolve(file);
+            }
+          },
+          'image/jpeg',
+          quality
+        );
+      };
+      
+      img.src = URL.createObjectURL(file);
+    });
+  };
+
+  // Form schema for file upload validation - Optimized for free plan
   const formSchema = z.object({
     files: z
       .array(z.custom<File>())
       .max(5, "Please select up to 5 files")
-      .refine((files) => files.every((file) => file.size <= 5 * 1024 * 1024), {
-        message: "File size must be less than 5MB",
+      .refine((files) => files.every((file) => file.size <= 500 * 1024), {
+        message: "Each file must be less than 500KB. Please compress your images.",
+        path: ["files"],
+      })
+      .refine((files) => {
+        const totalSize = files.reduce((acc, file) => acc + file.size, 0);
+        return totalSize <= 3 * 1024 * 1024; // 3MB total limit
+      }, {
+        message: "Total file size must be less than 3MB. Please reduce image count or size.",
+        path: ["files"],
+      })
+      .refine((files) => files.every((file) => {
+        const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+        return validTypes.includes(file.type);
+      }), {
+        message: "Only JPEG, PNG, and WebP images are allowed",
         path: ["files"],
       }),
   })
@@ -153,8 +209,22 @@ export default function PropertyForm({ onSuccess, initialData, isEdit = false }:
     setUploadedFiles(files)
     
     try {
+      // Show compression message
+      toast.info('Compressing images for optimal storage...')
+      
+      // Compress files
+      const compressedFiles = await Promise.all(files.map(async (file) => {
+        return compressImage(file);
+      }));
+
+      // Check total size after compression
+      const totalSize = compressedFiles.reduce((acc, file) => acc + file.size, 0);
+      const totalSizeMB = (totalSize / (1024 * 1024)).toFixed(2);
+      
+      console.log(`Total compressed size: ${totalSizeMB}MB`);
+
       // Upload files to Appwrite Storage
-      const uploadPromises = files.map(async (file) => {
+      const uploadPromises = compressedFiles.map(async (file) => {
         const uploadedFile = await storage.createFile(
           appwriteConfig.bucketId,
           ID.unique(),
@@ -185,7 +255,7 @@ export default function PropertyForm({ onSuccess, initialData, isEdit = false }:
         images: allImages
       }))
       
-      toast.success(`Successfully uploaded ${files.length} image(s)`)
+      toast.success(`Successfully uploaded ${files.length} image(s) (${totalSizeMB}MB total)`)
     } catch (error) {
       console.error('Error uploading files:', error)
       toast.error('Failed to upload images. Please try again.')

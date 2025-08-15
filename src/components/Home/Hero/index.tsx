@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { ChevronDown, Search, Home, Building2, Users, Clock, TrendingUp, Award, MapPin } from 'lucide-react'
 import {
   Select,
@@ -11,12 +12,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useLocations } from '@/lib/property-hooks'
 
 const Hero: React.FC = () => {
-  const [activeTab, setActiveTab] = useState('projects')
+  const router = useRouter()
+  const [activeTab, setActiveTab] = useState('buy')
   const [propertyType, setPropertyType] = useState('apartment')
   const [bedroom, setBedroom] = useState('')
-  const [searchQuery, setSearchQuery] = useState('')
+  const [location, setLocation] = useState('')
+  
+  // Fetch locations from database
+  const { data: locations, isLoading: locationsLoading } = useLocations()
 
   // Statistics state
   const [stats, setStats] = useState({
@@ -28,7 +34,6 @@ const Hero: React.FC = () => {
 
   const tabs = [
     { id: 'buy', label: 'Buy' },
-    { id: 'rent', label: 'Rent' },
     { id: 'projects', label: 'Projects' },
     { id: 'sell', label: 'Sell' }
   ]
@@ -38,7 +43,42 @@ const Hero: React.FC = () => {
   }
 
   const showMultipleInputs = activeTab === 'buy' || activeTab === 'sell'
-  const showSingleInput = activeTab === 'rent' || activeTab === 'projects'
+  const showSingleInput = activeTab === 'projects'
+
+  // Handle search form submission
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    if (showMultipleInputs) {
+      // For buy and sell - navigate to properties page with filters
+      const params = new URLSearchParams()
+      
+      if (propertyType) {
+        params.append('type', propertyType)
+      }
+      
+      if (location) {
+        params.append('location', location)
+      }
+      
+      if (bedroom) {
+        params.append('beds', bedroom)
+      }
+      
+      const queryString = params.toString()
+      router.push(`/properties${queryString ? `?${queryString}` : ''}`)
+    } else {
+      // For projects - navigate to projects page with location filter
+      const params = new URLSearchParams()
+      
+      if (location) {
+        params.append('location', location)
+      }
+      
+      const queryString = params.toString()
+      router.push(`/projects${queryString ? `?${queryString}` : ''}`)
+    }
+  }
 
   // Animate statistics
   useEffect(() => {
@@ -106,7 +146,7 @@ const Hero: React.FC = () => {
             <div className='max-w-6xl mb-3'>
               {/* Search Bar */}
               <div className='bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-xl dark:shadow-white/10 backdrop-blur-sm'>
-                <form onSubmit={(e) => e.preventDefault()}>
+                <form onSubmit={handleSearch}>
                   {showMultipleInputs ? (
                     // Multiple inputs for Buy and Sell
                     <div className='flex flex-col lg:flex-row gap-3 items-center'>
@@ -129,20 +169,30 @@ const Hero: React.FC = () => {
                             <SelectItem value='office' className='text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600'>
                               Office
                             </SelectItem>
+                            <SelectItem value='land' className='text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600'>
+                              Land
+                            </SelectItem>
+                            <SelectItem value='project' className='text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600'>
+                              Project
+                            </SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
 
-                      {/* Search Input */}
+                      {/* Location Select */}
                       <div className='flex-1 w-full lg:w-auto'>
-                                                  <input
-                            type='text'
-                            placeholder='Search by locality*'
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            required
-                            className='w-full px-3 py-2.5 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-700 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300'
-                          />
+                        <Select value={location} onValueChange={setLocation}>
+                          <SelectTrigger className='w-full px-3 py-2.5 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-700 dark:text-white focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300'>
+                            <SelectValue placeholder={locationsLoading ? 'Loading locations...' : 'Select Location*'} />
+                          </SelectTrigger>
+                          <SelectContent className='bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 min-w-[200px] max-h-[300px]'>
+                            {locations?.map((loc: string) => (
+                              <SelectItem key={loc} value={loc} className='text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600'>
+                                {loc}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                       </div>
 
                       {/* Bedroom */}
@@ -178,18 +228,22 @@ const Hero: React.FC = () => {
                       </button>
                     </div>
                   ) : (
-                    // Single input for Rent and Projects
+                    // Single input for Projects
                     <div className='flex flex-col lg:flex-row gap-3 items-center'>
                       <div className='flex-1 w-full'>
                         <div className='relative'>
-                          <input
-                            type='text'
-                            placeholder={`Search ${activeTab === 'rent' ? 'for rent' : 'projects'} by location*`}
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            required
-                            className='w-full px-3 py-2.5 pr-10 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-700 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300'
-                          />
+                          <Select value={location} onValueChange={setLocation}>
+                            <SelectTrigger className='w-full px-3 py-2.5 pr-10 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-700 dark:text-white focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300'>
+                              <SelectValue placeholder={locationsLoading ? 'Loading locations...' : 'Search projects by location*'} />
+                            </SelectTrigger>
+                            <SelectContent className='bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 min-w-[200px] max-h-[300px]'>
+                              {locations?.map((loc: string) => (
+                                <SelectItem key={loc} value={loc} className='text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600'>
+                                  {loc}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
                           <button 
                             type='submit'
                             className='absolute right-2 top-1/2 transform -translate-y-1/2 p-1.5 bg-[var(--color-primary)] hover:bg-[var(--color-primary)]/90 text-white rounded-lg transition-all duration-300'

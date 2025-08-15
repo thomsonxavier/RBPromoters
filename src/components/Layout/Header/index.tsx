@@ -144,7 +144,7 @@ const Header: React.FC = () => {
               />
             </button>
                          <div className={`hidden md:block`}>
-               <Link href="tel:+918883568814"  className={`text-base text-inherit flex items-center gap-2 border-r pr-6 ${isHomepage
+               <Link href="tel:+918883578814"  className={`text-base text-inherit flex items-center gap-2 border-r pr-6 ${isHomepage
                  ? sticky
                    ? 'text-dark dark:text-white hover:text-primary border-dark dark:border-white'
                    : 'text-white hover:text-primary'
@@ -152,7 +152,7 @@ const Header: React.FC = () => {
                  }`}
                >
                  <Icon icon={'ph:phone-bold'} width={24} height={24} />
-                   +91 88835 68814
+                   +91 88835 78814
                </Link>
              </div>
              
@@ -172,13 +172,14 @@ const Header: React.FC = () => {
                   <div className="flex items-center gap-4">
                     <button
                       onClick={() => router.push('/admin/dashboard')}
-                      className={`text-sm hover:text-primary transition-colors ${isHomepage
+                      className={`text-sm hover:text-primary transition-colors cursor-pointer flex items-center gap-2 ${isHomepage
                         ? sticky
                           ? 'text-dark dark:text-white hover:text-primary'
                           : 'text-white hover:text-primary'
                         : 'text-dark dark:text-white hover:text-primary'
                         }`}
                     >
+                      <Icon icon="ph:user-circle" width={16} height={16} />
                       Welcome, {user.name} (Admin)
                     </button>
                     <button
@@ -193,13 +194,14 @@ const Header: React.FC = () => {
                           toast.error('Failed to logout');
                         }
                       }}
-                      className={`text-sm hover:text-red-500 transition-colors ${isHomepage
+                      className={`text-sm hover:text-red-500 transition-colors cursor-pointer flex items-center gap-2 ${isHomepage
                         ? sticky
                           ? 'text-dark dark:text-white hover:text-red-500'
                           : 'text-white hover:text-red-500'
                         : 'text-dark dark:text-white hover:text-red-500'
                         }`}
                     >
+                      <Icon icon="ph:sign-out" width={16} height={16} />
                       Logout
                     </button>
                   </div>
@@ -207,13 +209,14 @@ const Header: React.FC = () => {
                                  {!isLoading && !user && !pathname.startsWith('/signin') && !pathname.startsWith('/signup') && (
                    <Link
                      href="/signin"
-                     className={`text-sm hover:text-primary transition-colors ${isHomepage
+                     className={`text-sm hover:text-primary transition-colors cursor-pointer flex items-center gap-2 ${isHomepage
                        ? sticky
                          ? 'text-dark dark:text-white hover:text-primary'
                          : 'text-white hover:text-primary'
                        : 'text-dark dark:text-white hover:text-primary'
                        }`}
                    >
+                     <Icon icon="ph:sign-in" width={16} height={16} />
                      Sign In
                    </Link>
                  )}
@@ -283,16 +286,18 @@ const Header: React.FC = () => {
                          setNavbarOpen(false);
                          router.push('/admin/dashboard');
                        }}
-                       className='py-4 px-8 bg-primary text-base leading-4 block w-fit text-white rounded-full border border-primary font-semibold mt-3 hover:bg-transparent hover:text-primary duration-300'
+                       className='py-4 px-8 bg-primary text-base leading-4 block w-fit text-white rounded-full border border-primary font-semibold mt-3 hover:bg-transparent hover:text-primary duration-300 cursor-pointer flex items-center gap-2'
                      >
+                       <Icon icon="ph:gauge" width={16} height={16} />
                        Dashboard
                      </button>
                                        ) : !pathname.startsWith('/signin') && !pathname.startsWith('/signup') ? (
                       <Link 
                         href="/signin" 
-                        className='py-4 px-8 bg-primary text-base leading-4 block w-fit text-white rounded-full border border-primary font-semibold mt-3 hover:bg-transparent hover:text-primary duration-300'
+                        className='py-4 px-8 bg-primary text-base leading-4 block w-fit text-white rounded-full border border-primary font-semibold mt-3 hover:bg-transparent hover:text-primary duration-300 cursor-pointer flex items-center gap-2'
                         onClick={() => setNavbarOpen(false)}
                       >
+                        <Icon icon="ph:sign-in" width={16} height={16} />
                         Sign In
                       </Link>
                     ) : null}
@@ -308,8 +313,8 @@ const Header: React.FC = () => {
              <Link href="mailto:rbpromoters@gmail.com" className='text-base sm:text-xm font-medium text-inherit hover:text-primary'>
                rbpromoters@gmail.com
              </Link>
-             <Link href="tel:+918883568814" className='text-base sm:text-xm font-medium text-inherit hover:text-primary'>
-             +91 88835 68814{' '}
+             <Link href="tel:+918883578814" className='text-base sm:text-xm font-medium text-inherit hover:text-primary'>
+             +91 88835 78814{' '}
              </Link>
              
                            {/* Logout button at bottom for logged in users */}
@@ -328,8 +333,9 @@ const Header: React.FC = () => {
                         toast.error('Failed to logout');
                       }
                     }}
-                    className='py-3 px-6 bg-transparent border border-red-500 text-base leading-4 block w-fit text-red-500 rounded-full font-semibold hover:bg-red-500 hover:text-white duration-300'
+                    className='py-3 px-6 bg-transparent border border-red-500 text-base leading-4 block w-fit text-red-500 rounded-full font-semibold hover:bg-red-500 hover:text-white duration-300 cursor-pointer flex items-center gap-2'
                   >
+                    <Icon icon="ph:sign-out" width={16} height={16} />
                     Logout
                   </button>
                 </div>

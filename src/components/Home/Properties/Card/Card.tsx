@@ -2,7 +2,8 @@ import { PropertyHomes } from '@/types/properyHomes'
 import { Icon } from '@iconify/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Share2, Phone, MessageCircle, MapPin, Home, LandPlot, Building } from 'lucide-react'
+import { Share2, Phone, MessageCircle, MapPin, Home, LandPlot, Building, X } from 'lucide-react'
+import { useState } from 'react'
 
 // Interface for apartment configuration
 interface ApartmentConfig {
@@ -148,9 +149,12 @@ const PropertyCard: React.FC<{ item: PropertyHomes }> = ({ item }) => {
           </div>
           {/* Share Button */}
           <div className='absolute top-3 right-3'>
-            <div className='bg-white rounded-full p-2 shadow-lg hover:bg-gray-50 transition-colors'>
+            <button 
+              onClick={handleShare}
+              className='bg-white rounded-full p-2 shadow-lg hover:bg-gray-50 transition-colors cursor-pointer'
+            >
               <Share2 className='w-4 h-4 text-gray-600' />
-            </div>
+            </button>
           </div>
         </div>
 
@@ -292,14 +296,23 @@ const PropertyCard: React.FC<{ item: PropertyHomes }> = ({ item }) => {
 
           {/* Action Buttons */}
           <div className='flex gap-3 mt-auto'>
-            <button className='flex-1 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2'>
+            <button 
+              onClick={handleShare}
+              className='flex-1 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 cursor-pointer'
+            >
               <Share2 className='w-4 h-4' />
               Share
             </button>
-            <button className='flex-1 border border-primary text-primary px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary hover:text-white transition-colors'>
+            <button 
+              onClick={() => setShowContactModal(true)}
+              className='flex-1 border border-primary text-primary px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary hover:text-white transition-colors cursor-pointer'
+            >
               View Number
             </button>
-            <button className='flex-1 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors'>
+            <button 
+              onClick={() => setShowContactModal(true)}
+              className='flex-1 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer'
+            >
               Contact Now
             </button>
           </div>
@@ -307,6 +320,203 @@ const PropertyCard: React.FC<{ item: PropertyHomes }> = ({ item }) => {
       </div>
     )
   }
+
+  const [showShareModal, setShowShareModal] = useState(false)
+  const [showContactModal, setShowContactModal] = useState(false)
+
+  // Define share text and property URL
+  const shareText = `Check out this amazing property: ${name} in ${location}`
+  const propertyUrl = typeof window !== 'undefined' ? `${window.location.origin}/properties/${slug}` : `/properties/${slug}`
+
+  // Contact information from company data
+  const contactInfo = {
+            phone: '+91 88835 78814',
+        whatsapp: '+91 88835 78814',
+    email: 'rbpromoters@gmail.com',
+    company: 'RB Promoters'
+  }
+
+  // Handle share functionality with native sharing
+  const handleShare = async () => {
+    const shareData = {
+      title: `Property: ${name}`,
+      text: shareText,
+      url: propertyUrl
+    }
+
+    // Try native sharing first
+    if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+      try {
+        await navigator.share(shareData)
+        return // Exit early if native sharing succeeds
+      } catch (error) {
+        // User cancelled or error occurred, fall back to modal
+        console.log('Native sharing failed, showing modal')
+        setShowShareModal(true)
+        return // Exit early after showing modal
+      }
+    }
+    
+    // If native sharing is not available, show custom modal directly
+    setShowShareModal(true)
+  }
+
+  const shareOptions = [
+    {
+      name: 'WhatsApp',
+      icon: 'logos:whatsapp-icon',
+      color: 'bg-green-500',
+      action: () => {
+        const url = `https://wa.me/?text=${encodeURIComponent(`${shareText}\n\n${propertyUrl}`)}`
+        window.open(url, '_blank')
+      }
+    },
+    {
+      name: 'Facebook',
+      icon: 'logos:facebook',
+      color: 'bg-blue-600',
+      action: () => {
+        const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(propertyUrl)}&quote=${encodeURIComponent(shareText)}`
+        window.open(url, '_blank')
+      }
+    },
+    {
+      name: 'Twitter',
+      icon: 'logos:twitter',
+      color: 'bg-blue-400',
+      action: () => {
+        const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(propertyUrl)}`
+        window.open(url, '_blank')
+      }
+    },
+    {
+      name: 'Telegram',
+      icon: 'logos:telegram',
+      color: 'bg-blue-500',
+      action: () => {
+        const url = `https://t.me/share/url?url=${encodeURIComponent(propertyUrl)}&text=${encodeURIComponent(shareText)}`
+        window.open(url, '_blank')
+      }
+    },
+    {
+      name: 'Email',
+      icon: 'mdi:email',
+      color: 'bg-gray-600',
+      action: () => {
+        const url = `mailto:?subject=${encodeURIComponent(`Property: ${name}`)}&body=${encodeURIComponent(`${shareText}\n\n${propertyUrl}`)}`
+        window.open(url)
+      }
+    },
+    {
+      name: 'Copy Link',
+      icon: 'mdi:content-copy',
+      color: 'bg-gray-500',
+      action: async () => {
+        try {
+          await navigator.clipboard.writeText(propertyUrl)
+          // You can add a toast notification here
+          alert('Link copied to clipboard!')
+        } catch (err) {
+          console.error('Failed to copy link:', err)
+        }
+      }
+    }
+  ]
+
+  // Render modals
+  const renderModals = () => (
+    <>
+      {showShareModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-md w-full mx-4">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-lg font-semibold text-dark dark:text-white">Share Property</h3>
+              <button 
+                onClick={() => setShowShareModal(false)}
+                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            
+            <div className="grid grid-cols-3 gap-4">
+              {shareOptions.map((option) => (
+                <button
+                  key={option.name}
+                  onClick={() => {
+                    option.action()
+                    setShowShareModal(false)
+                  }}
+                  className="flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                >
+                  <div className={`w-12 h-12 ${option.color} rounded-full flex items-center justify-center`}>
+                    <Icon icon={option.icon} className="w-6 h-6 text-white" />
+                  </div>
+                  <span className="text-xs font-medium text-dark dark:text-white">{option.name}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showContactModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-md w-full mx-4">
+            <div className="flex justify-between items-center mb-6">
+              <div>
+                <h3 className="text-lg font-semibold text-dark dark:text-white">Contact Information</h3>
+                <p className="text-sm text-dark/50 dark:text-white/50">{contactInfo.company}</p>
+              </div>
+              <button 
+                onClick={() => setShowContactModal(false)}
+                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                <Phone className="w-5 h-5 text-primary" />
+                <div>
+                  <p className="text-sm text-dark/50 dark:text-white/50">Phone</p>
+                  <a href={`tel:${contactInfo.phone}`} className="text-dark dark:text-white font-medium hover:text-primary">
+                    {contactInfo.phone}
+                  </a>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                <Icon icon="logos:whatsapp-icon" className="w-5 h-5 text-green-500" />
+                <div>
+                  <p className="text-sm text-dark/50 dark:text-white/50">WhatsApp</p>
+                  <a 
+                    href={`https://wa.me/${contactInfo.whatsapp.replace(/\s/g, '')}?text=${encodeURIComponent(`Hi, I'm interested in ${name} located in ${location}. Can you provide more details?`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-dark dark:text-white font-medium hover:text-green-500"
+                  >
+                    {contactInfo.whatsapp}
+                  </a>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                <Icon icon="mdi:email" className="w-5 h-5 text-blue-500" />
+                <div>
+                  <p className="text-sm text-dark/50 dark:text-white/50">Email</p>
+                  <a href={`mailto:${contactInfo.email}?subject=Property Inquiry: ${name}&body=Hi, I'm interested in the property "${name}" located in ${location}. Please provide more details about pricing, availability, and viewing options.`} className="text-dark dark:text-white font-medium hover:text-blue-500">
+                    {contactInfo.email}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  )
 
   // Land card layout with specific details
   const renderLandCard = () => (
@@ -335,9 +545,12 @@ const PropertyCard: React.FC<{ item: PropertyHomes }> = ({ item }) => {
         </div>
         {/* Share Button */}
         <div className='absolute top-3 right-3'>
-          <div className='bg-white rounded-full p-2 shadow-lg hover:bg-gray-50 transition-colors'>
+          <button 
+            onClick={() => setShowShareModal(true)}
+            className='bg-white rounded-full p-2 shadow-lg hover:bg-gray-50 transition-colors'
+          >
             <Share2 className='w-4 h-4 text-gray-600' />
-          </div>
+          </button>
         </div>
       </div>
 
@@ -423,14 +636,23 @@ const PropertyCard: React.FC<{ item: PropertyHomes }> = ({ item }) => {
 
         {/* Action Buttons */}
         <div className='flex gap-3 mt-auto'>
-          <button className='flex-1 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2'>
+          <button 
+            onClick={handleShare}
+            className='flex-1 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 cursor-pointer'
+          >
             <Share2 className='w-4 h-4' />
             Share
           </button>
-          <button className='flex-1 border border-primary text-primary px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary hover:text-white transition-colors'>
+          <button 
+            onClick={() => setShowContactModal(true)}
+            className='flex-1 border border-primary text-primary px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary hover:text-white transition-colors cursor-pointer'
+          >
             View Number
           </button>
-          <button className='flex-1 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors'>
+          <button 
+            onClick={() => setShowContactModal(true)}
+            className='flex-1 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer'
+          >
             Contact Now
           </button>
         </div>
@@ -465,9 +687,12 @@ const PropertyCard: React.FC<{ item: PropertyHomes }> = ({ item }) => {
         </div>
         {/* Share Button */}
         <div className='absolute top-3 right-3'>
-          <div className='bg-white rounded-full p-2 shadow-lg hover:bg-gray-50 transition-colors'>
+          <button 
+            onClick={handleShare}
+            className='bg-white rounded-full p-2 shadow-lg hover:bg-gray-50 transition-colors cursor-pointer'
+          >
             <Share2 className='w-4 h-4 text-gray-600' />
-          </div>
+          </button>
         </div>
       </div>
 
@@ -530,11 +755,17 @@ const PropertyCard: React.FC<{ item: PropertyHomes }> = ({ item }) => {
 
         {/* Action Buttons */}
         <div className='flex gap-3 mt-auto'>
-          <button className='flex-1 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2'>
+          <button 
+            onClick={handleShare}
+            className='flex-1 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 cursor-pointer'
+          >
             <Share2 className='w-4 h-4' />
             Share
           </button>
-          <button className='flex-1 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors'>
+          <button 
+            onClick={() => setShowContactModal(true)}
+            className='flex-1 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer'
+          >
             Contact Builder
           </button>
         </div>
@@ -569,9 +800,12 @@ const PropertyCard: React.FC<{ item: PropertyHomes }> = ({ item }) => {
         </div>
         {/* Share Button */}
         <div className='absolute top-3 right-3'>
-          <div className='bg-white rounded-full p-2 shadow-lg hover:bg-gray-50 transition-colors'>
+          <button 
+            onClick={handleShare}
+            className='bg-white rounded-full p-2 shadow-lg hover:bg-gray-50 transition-colors cursor-pointer'
+          >
             <Share2 className='w-4 h-4 text-gray-600' />
-          </div>
+          </button>
         </div>
       </div>
 
@@ -661,14 +895,23 @@ const PropertyCard: React.FC<{ item: PropertyHomes }> = ({ item }) => {
 
         {/* Action Buttons */}
         <div className='flex gap-3 mt-auto'>
-          <button className='flex-1 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2'>
+          <button 
+            onClick={handleShare}
+            className='flex-1 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 cursor-pointer'
+          >
             <Share2 className='w-4 h-4' />
             Share
           </button>
-          <button className='flex-1 border border-primary text-primary px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary hover:text-white transition-colors'>
+          <button 
+            onClick={() => setShowContactModal(true)}
+            className='flex-1 border border-primary text-primary px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary hover:text-white transition-colors cursor-pointer'
+          >
             View Number
           </button>
-          <button className='flex-1 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors'>
+          <button 
+            onClick={() => setShowContactModal(true)}
+            className='flex-1 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer'
+          >
             Contact Now
           </button>
         </div>
@@ -677,16 +920,25 @@ const PropertyCard: React.FC<{ item: PropertyHomes }> = ({ item }) => {
   )
 
   // Render different card layouts based on property type
-  switch (propertyType) {
-    case 'apartment':
-      return renderApartmentCard()
-    case 'land':
-      return renderLandCard()
-    case 'project':
-      return renderProjectCard()
-    default:
-      return renderHouseCard()
+  const renderCard = () => {
+    switch (propertyType) {
+      case 'apartment':
+        return renderApartmentCard()
+      case 'land':
+        return renderLandCard()
+      case 'project':
+        return renderProjectCard()
+      default:
+        return renderHouseCard()
+    }
   }
+
+  return (
+    <>
+      {renderCard()}
+      {renderModals()}
+    </>
+  )
 }
 
 export default PropertyCard

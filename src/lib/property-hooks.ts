@@ -12,21 +12,13 @@ export function useProperties() {
     queryKey: ['properties'],
     queryFn: async () => {
       try {
-        console.log('Fetching properties with:', { DATABASE_ID, BUCKET_ID, appwriteConfig })
-        
-        if (!DATABASE_ID || !BUCKET_ID) {
-          throw new Error('Database ID or Collection ID not configured. Please check your environment variables.')
+        const response = await fetch('/api/properties')
+        if (!response.ok) {
+          throw new Error('Failed to fetch properties')
         }
-        
-        const response = await databases.listDocuments(DATABASE_ID, BUCKET_ID)
-        return response.documents as unknown as PropertyHomes[]
+        return await response.json()
       } catch (error: any) {
         console.error('Error fetching properties:', error)
-        
-        if (error.code === 404) {
-          throw new Error('Collection not found. Please run "npm run setup-appwrite" to create the collection.')
-        }
-        
         throw error
       }
     },
@@ -145,30 +137,35 @@ export function usePropertiesByType(type: string) {
     queryKey: ['properties', 'type', type],
     queryFn: async () => {
       try {
-        // For land properties, use the dedicated API route
-        if (type === 'land') {
-          const response = await fetch('/api/land-properties')
-          if (!response.ok) {
-            throw new Error('Failed to fetch land properties')
-          }
-          return await response.json()
+        const response = await fetch(`/api/properties-by-type?type=${type}`)
+        if (!response.ok) {
+          throw new Error('Failed to fetch properties')
         }
-        
-        // For other property types, use direct Appwrite call
-        const response = await databases.listDocuments(
-          DATABASE_ID,
-          BUCKET_ID,
-          [
-            `propertyType.equal("${type}")`
-          ]
-        )
-        const properties = response.documents as unknown as PropertyHomes[]
-        return properties
+        return await response.json()
       } catch (error) {
         console.error('Error fetching properties by type:', error)
         throw error
       }
     },
     enabled: !!type,
+  })
+}
+
+// Fetch unique locations
+export function useLocations() {
+  return useQuery({
+    queryKey: ['locations'],
+    queryFn: async () => {
+      try {
+        const response = await fetch('/api/locations')
+        if (!response.ok) {
+          throw new Error('Failed to fetch locations')
+        }
+        return await response.json()
+      } catch (error) {
+        console.error('Error fetching locations:', error)
+        throw error
+      }
+    },
   })
 }

@@ -2,19 +2,26 @@ import { NextResponse } from 'next/server'
 import { databases, appwriteConfig } from '@/app/appwrite'
 import { Query } from 'appwrite'
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    const { searchParams } = new URL(request.url)
+    const type = searchParams.get('type')
+
+    if (!type) {
+      return NextResponse.json({ error: 'Property type is required' }, { status: 400 })
+    }
+
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.collectionId,
       [
-        Query.equal('propertyType', 'land'),
+        Query.equal('propertyType', type),
         Query.orderDesc('$createdAt')
       ]
     )
 
     // Transform Appwrite documents to match PropertyHomes type
-    const landProperties = response.documents.map(doc => ({
+    const properties = response.documents.map(doc => ({
       $id: doc.$id,
       name: doc.name,
       slug: doc.slug,
@@ -24,27 +31,25 @@ export async function GET() {
       baths: doc.baths || 0,
       area: doc.area,
       propertyType: doc.propertyType,
-      status: doc.status || 'In Process',
-      // Add default values for missing fields
-      config: doc.config || 'Land',
-      sizeRange: doc.sizeRange || `${doc.area} Acre`,
+      status: doc.status || 'Available',
+      config: doc.config || `${doc.beds || 0} BHK ${doc.propertyType}`,
+      sizeRange: doc.sizeRange || `${doc.area} sq ft`,
       priceRange: doc.priceRange || doc.rate,
       ratePerSqft: doc.ratePerSqft || doc.rate,
-      society: doc.society || 'Land Property',
-      builder: doc.builder || 'Local Owner',
-      features: doc.features || ['Clear Title', 'Road Access', 'Water Supply'],
+      society: doc.society || doc.name,
+      builder: doc.builder || 'Local Builder',
+      features: doc.features || ['Modern Design', 'Quality Construction'],
       description: doc.description || `${doc.name} - ${doc.location}`,
-      amenities: doc.amenities || ['Clear Title', 'Road Access', 'Water Supply'],
+      amenities: doc.amenities || ['Parking', 'Security', 'Water Supply'],
       pincode: doc.pincode || '600000',
       state: doc.state || 'Tamil Nadu',
       city: doc.city || 'Chennai',
       locality: doc.locality || 'Chennai',
       road: doc.road || 'Main Road',
-      landType: doc.landType || 'Dry',
-      buildUpArea: doc.buildUpArea || 'Empty land',
-      sketch: doc.sketch || 'Available',
-      remarks: doc.remarks || 'In process',
-      // Add missing fields that PropertyCard expects
+      landType: doc.landType || null,
+      buildUpArea: doc.buildUpArea || null,
+      sketch: doc.sketch || null,
+      remarks: doc.remarks || null,
       totalUnits: doc.totalUnits || null,
       saleType: doc.saleType || null,
       facing: doc.facing || null,
@@ -55,11 +60,11 @@ export async function GET() {
       images: doc.images || []
     }))
 
-    return NextResponse.json(landProperties)
+    return NextResponse.json(properties)
   } catch (error: any) {
-    console.error('Error fetching land properties:', error)
+    console.error('Error fetching properties by type:', error)
     return NextResponse.json(
-      { error: error.message || 'Failed to fetch land properties' },
+      { error: error.message || 'Failed to fetch properties' },
       { status: 500 }
     )
   }

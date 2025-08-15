@@ -13,7 +13,7 @@ const Footer = () => {
               <p>Main Branch: RB Promoters</p>
               <p>123 Anna Salai, T Nagar</p>
               <p>Chennai, Tamil Nadu 600017</p>
-              <p>Phone: +91 88835 68814</p>
+              <p>Phone: +91 88835 78814</p>
               <p>Email: info@rbpromoters.com</p>
             </div>
           </div>
