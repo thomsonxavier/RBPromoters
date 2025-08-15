@@ -31,6 +31,7 @@ const Signin = ({ signInOpen }: { signInOpen?: any }) => {
     checkUser();
   }, []);
 
+  
   // Load saved credentials on component mount
   useEffect(() => {
     const savedEmail = localStorage.getItem('remembered_email');
