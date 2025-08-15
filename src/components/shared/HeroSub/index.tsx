@@ -1,17 +1,20 @@
 import React, { FC } from "react";
 import { Icon } from "@iconify/react/dist/iconify.js"
+import { cn } from "@/lib/utils";
+
 
 interface HeroSubProps {
     title: string;
     description: string;
     badge: string;
+    className?: string;
 }
 
-const HeroSub: FC<HeroSubProps> = ({ title, description, badge }) => {
+const HeroSub: FC<HeroSubProps> = ({ title, description, badge, className }) => {
 
     return (
         <>
-            <section className="text-center bg-cover !pt-40 pb-20 relative overflow-x-hidden" >
+            <section className={cn("text-center bg-cover !pt-40 pb-20 relative overflow-x-hidden", className)} >
                 <div className='flex gap-2.5 items-center justify-center'>
                     <span>
                         <Icon

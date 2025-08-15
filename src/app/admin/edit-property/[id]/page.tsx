@@ -36,8 +36,8 @@ export default function EditPropertyPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="container mx-auto">
+    <div className="">
+   <div className="container max-w-8xl mx-auto px-5 2xl:px-0 pt-32  pb-14 md:pb-28">
         <PropertyForm 
           initialData={property} 
           isEdit={true} 

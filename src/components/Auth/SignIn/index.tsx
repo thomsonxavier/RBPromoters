@@ -12,8 +12,7 @@ const Signin = ({ signInOpen }: { signInOpen?: any }) => {
   const [loggedInUser, setLoggedInUser] = useState<any>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [isRegistering, setIsRegistering] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const authDialog = useContext(AuthDialogContext);
@@ -33,6 +32,19 @@ const Signin = ({ signInOpen }: { signInOpen?: any }) => {
     checkUser();
   }, []);
 
+  // Load saved credentials on component mount
+  useEffect(() => {
+    const savedEmail = localStorage.getItem('remembered_email');
+    const savedPassword = localStorage.getItem('remembered_password');
+    const savedRememberMe = localStorage.getItem('remember_me');
+    
+    if (savedRememberMe === 'true' && savedEmail && savedPassword) {
+      setEmail(savedEmail);
+      setPassword(savedPassword);
+      setRememberMe(true);
+    }
+  }, []);
+
   const login = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -47,8 +59,24 @@ const Signin = ({ signInOpen }: { signInOpen?: any }) => {
       if (typeof window !== 'undefined') {
         localStorage.setItem('appwrite_session', session.$id);
       }
+
+      // Handle remember me functionality
+      if (rememberMe) {
+        localStorage.setItem('remembered_email', email);
+        localStorage.setItem('remembered_password', password);
+        localStorage.setItem('remember_me', 'true');
+      } else {
+        localStorage.removeItem('remembered_email');
+        localStorage.removeItem('remembered_password');
+        localStorage.removeItem('remember_me');
+      }
       
       toast.success('Successfully logged in!');
+      
+      // Dispatch custom event to notify header about login state change
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new Event('userLoginStateChange'));
+      }
       
       if (signInOpen) {
         setTimeout(() => {
@@ -70,28 +98,6 @@ const Signin = ({ signInOpen }: { signInOpen?: any }) => {
       console.error('Login error:', error);
       setError(error.message || 'Login failed');
       toast.error(error.message || 'Login failed');
-      authDialog?.setIsFailedDialogOpen(true);
-      setTimeout(() => {
-        authDialog?.setIsFailedDialogOpen(false);
-      }, 1100);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const register = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError("");
-    
-    try {
-      await account.create(ID.unique(), email, password, name);
-      await login(e);
-      toast.success('Account created successfully!');
-    } catch (error: any) {
-      console.error('Registration error:', error);
-      setError(error.message || 'Registration failed');
-      toast.error(error.message || 'Registration failed');
       authDialog?.setIsFailedDialogOpen(true);
       setTimeout(() => {
         authDialog?.setIsFailedDialogOpen(false);
@@ -148,30 +154,7 @@ const Signin = ({ signInOpen }: { signInOpen?: any }) => {
         <Logo />
       </div>
 
-      <SocialSignIn />
-
-      <span className="z-1 relative my-8 block text-center">
-        <span className="-z-1 absolute left-0 top-1/2 block h-px w-full bg-black/10 dark:bg-white/20"></span>
-        <span className="text-body-secondary relative z-10 inline-block bg-white px-3 text-base dark:bg-black">
-          OR
-        </span>
-        <Toaster />
-      </span>
-
-      <form onSubmit={isRegistering ? register : login}>
-        {isRegistering && (
-          <div className="mb-[22px]">
-            <input
-              type="text"
-              placeholder="Full Name"
-              required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full rounded-2xl border placeholder:text-gray-400 border-black/10 dark:border-white/20 border-solid bg-transparent px-5 py-3 text-base text-dark outline-none transition  focus:border-primary focus-visible:shadow-none dark:border-border_color dark:text-white dark:focus:border-primary"
-            />
-          </div>
-        )}
-        
+      <form onSubmit={login}>
         <div className="mb-[22px]">
           <input
             type="email"
@@ -179,7 +162,7 @@ const Signin = ({ signInOpen }: { signInOpen?: any }) => {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-2xl border placeholder:text-gray-400 border-black/10 dark:border-white/20 border-solid bg-transparent px-5 py-3 text-base text-dark outline-none transition  focus:border-primary focus-visible:shadow-none dark:border-border_color dark:text-white dark:focus:border-primary"
+            className="w-full rounded-2xl border placeholder:text-gray-400 border-black/10 dark:border-white/20 border-solid bg-transparent px-5 py-3 text-base text-dark outline-none transition focus:border-primary focus-visible:shadow-none dark:border-border_color dark:text-white dark:focus:border-primary"
           />
         </div>
         
@@ -190,8 +173,22 @@ const Signin = ({ signInOpen }: { signInOpen?: any }) => {
             value={password}
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-2xl border border-black/10 dark:border-white/20 border-solid bg-transparent px-5 py-3 text-base text-dark outline-none transition  focus:border-primary focus-visible:shadow-none dark:border-border_color dark:text-white dark:focus:border-primary"
+            className="w-full rounded-2xl border border-black/10 dark:border-white/20 border-solid bg-transparent px-5 py-3 text-base text-dark outline-none transition focus:border-primary focus-visible:shadow-none dark:border-border_color dark:text-white dark:focus:border-primary"
           />
+        </div>
+
+        {/* Remember Me Checkbox */}
+        <div className="mb-[22px] flex items-center">
+          <input
+            type="checkbox"
+            id="rememberMe"
+            checked={rememberMe}
+            onChange={(e) => setRememberMe(e.target.checked)}
+            className="w-4 h-4 text-primary bg-transparent border border-black/10 dark:border-white/20 rounded focus:ring-primary focus:ring-2 dark:focus:ring-primary"
+          />
+          <label htmlFor="rememberMe" className="ml-2 text-sm text-dark dark:text-white">
+            Remember Me
+          </label>
         </div>
         
         {error && (
@@ -206,17 +203,7 @@ const Signin = ({ signInOpen }: { signInOpen?: any }) => {
             disabled={isLoading}
             className="flex w-full cursor-pointer items-center justify-center rounded-2xl border border-primary bg-primary hover:bg-transparent hover:text-primary px-5 py-3 text-base text-white transition duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isLoading ? 'Loading...' : (isRegistering ? 'Sign Up' : 'Sign In')}
-          </button>
-        </div>
-        
-        <div className="mb-4">
-          <button
-            type="button"
-            onClick={() => setIsRegistering(!isRegistering)}
-            className="flex w-full cursor-pointer items-center justify-center rounded-2xl border border-gray-300 bg-transparent hover:bg-gray-50 px-5 py-3 text-base text-gray-700 transition duration-300 ease-in-out dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
-          >
-            {isRegistering ? 'Already have an account? Sign In' : 'Need an account? Sign Up'}
+            {isLoading ? 'Loading...' : 'Sign In'}
           </button>
         </div>
       </form>
@@ -230,15 +217,7 @@ const Signin = ({ signInOpen }: { signInOpen?: any }) => {
         </Link>
       </div>
       
-      <p className="text-body-secondary text-base text-center">
-        {isRegistering ? 'Already a member?' : 'Not a member yet?'}{" "}
-        <button 
-          onClick={() => setIsRegistering(!isRegistering)}
-          className="text-primary hover:underline"
-        >
-          {isRegistering ? 'Sign In' : 'Sign Up'}
-        </button>
-      </p>
+      <Toaster />
     </>
   );
 };

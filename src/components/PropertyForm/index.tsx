@@ -87,6 +87,7 @@ export default function PropertyForm({ onSuccess, initialData, isEdit = false }:
   const [newApartmentConfig, setNewApartmentConfig] = useState({ type: '', size: '', price: '' })
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([])
   const [isUploading, setIsUploading] = useState(false)
+  const [existingImages, setExistingImages] = useState<string[]>(initialData?.images || [])
 
   // Form schema for file upload validation
   const formSchema = z.object({
@@ -176,9 +177,12 @@ export default function PropertyForm({ onSuccess, initialData, isEdit = false }:
       const uploadedFiles = await Promise.all(uploadPromises)
       const imageUrls = uploadedFiles.map(file => file.url)
       
+      // Combine existing images with new uploaded images
+      const allImages = [...existingImages, ...imageUrls]
+      
       setFormData(prev => ({
         ...prev,
-        images: imageUrls
+        images: allImages
       }))
       
       toast.success(`Successfully uploaded ${files.length} image(s)`)
@@ -188,6 +192,18 @@ export default function PropertyForm({ onSuccess, initialData, isEdit = false }:
     } finally {
       setIsUploading(false)
     }
+  }
+
+  const removeExistingImage = (index: number) => {
+    const updatedImages = existingImages.filter((_, i) => i !== index)
+    setExistingImages(updatedImages)
+    
+    // Update formData with remaining existing images plus any new uploaded images
+    const newUploadedImages = formData.images?.filter(img => !existingImages.includes(img)) || []
+    setFormData(prev => ({
+      ...prev,
+      images: [...updatedImages, ...newUploadedImages]
+    }))
   }
 
   const addApartmentConfig = () => {
@@ -245,16 +261,15 @@ export default function PropertyForm({ onSuccess, initialData, isEdit = false }:
   }
 
   return (
-    <div className='container max-w-8xl mx-auto px-5 2xl:px-0 pt-32 md:pt-44 pb-14 md:pb-28'>
-      <div className="max-w-4xl mx-auto">
-        <div className='border border-black/10 dark:border-white/10 rounded-2xl p-8 shadow-xl dark:shadow-white/10'>
-          <h2 className="text-2xl font-bold mb-6 text-dark dark:text-white">
-            {isEdit ? 'Edit Property' : 'Add New Property'}
-          </h2>
+    <div className="w-full mt-8">
+      <div className='border border-black/10 dark:border-white/10 rounded-2xl p-8 shadow-xl dark:shadow-white/10'>
+        <h2 className="text-2xl font-bold mb-6 text-dark dark:text-white">
+          {isEdit ? 'Edit Property' : 'Add New Property'}
+        </h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Basic Information */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div>
             <label className="block text-sm font-medium mb-2">Property Name *</label>
             <Input
@@ -334,7 +349,7 @@ export default function PropertyForm({ onSuccess, initialData, isEdit = false }:
           <div>
             <label className="block text-sm font-medium mb-2">Property Type *</label>
             <Select value={formData.propertyType} onValueChange={(value) => handleInputChange('propertyType', value)}>
-              <SelectTrigger className="border border-black/10 dark:border-white/10 rounded-full px-6 py-3.5 outline-primary focus:outline">
+              <SelectTrigger className="border border-black/10 dark:border-white/10 rounded-full px-6 py-3.5 outline-primary focus:outline h-10">
                 <SelectValue placeholder="Select property type" />
               </SelectTrigger>
               <SelectContent className="bg-white dark:bg-gray-800 border border-black/10 dark:border-white/10 rounded-lg shadow-lg z-50">
@@ -350,7 +365,7 @@ export default function PropertyForm({ onSuccess, initialData, isEdit = false }:
         </div>
 
         {/* Configuration */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div>
             <label className="block text-sm font-medium mb-2">Configuration</label>
             <Input
@@ -393,7 +408,7 @@ export default function PropertyForm({ onSuccess, initialData, isEdit = false }:
         </div>
 
         {/* Society and Builder */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div>
             <label className="block text-sm font-medium mb-2">Society</label>
             <Input
@@ -417,7 +432,7 @@ export default function PropertyForm({ onSuccess, initialData, isEdit = false }:
           <div>
             <label className="block text-sm font-medium mb-2">Status</label>
             <Select value={formData.status} onValueChange={(value) => handleInputChange('status', value)}>
-              <SelectTrigger className="border border-black/10 dark:border-white/10 rounded-full px-6 py-3.5 outline-primary focus:outline">
+              <SelectTrigger className="border border-black/10 dark:border-white/10 rounded-full px-6 py-3.5 outline-primary focus:outline h-10">
                 <SelectValue placeholder="Select status" />
               </SelectTrigger>
               <SelectContent className="bg-white dark:bg-gray-800 border border-black/10 dark:border-white/10 rounded-lg shadow-lg z-50">
@@ -441,7 +456,7 @@ export default function PropertyForm({ onSuccess, initialData, isEdit = false }:
         </div>
 
         {/* Location Details */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div>
             <label className="block text-sm font-medium mb-2">Pincode</label>
             <Input
@@ -495,11 +510,11 @@ export default function PropertyForm({ onSuccess, initialData, isEdit = false }:
 
         {/* Apartment Specific Fields */}
         {formData.propertyType === 'apartment' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
               <label className="block text-sm font-medium mb-2">Sale Type</label>
               <Select value={formData.saleType} onValueChange={(value) => handleInputChange('saleType', value)}>
-                <SelectTrigger className="border border-black/10 dark:border-white/10 rounded-full px-6 py-3.5 outline-primary focus:outline">
+                <SelectTrigger className="border border-black/10 dark:border-white/10 rounded-full px-6 py-3.5 outline-primary focus:outline h-10">
                   <SelectValue placeholder="Select sale type" />
                 </SelectTrigger>
                 <SelectContent className="bg-white dark:bg-gray-800 border border-black/10 dark:border-white/10 rounded-lg shadow-lg z-50">
@@ -553,11 +568,11 @@ export default function PropertyForm({ onSuccess, initialData, isEdit = false }:
 
         {/* Land Specific Fields */}
         {formData.propertyType === 'land' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
               <label className="block text-sm font-medium mb-2">Land Type</label>
               <Select value={formData.landType} onValueChange={(value) => handleInputChange('landType', value)}>
-                <SelectTrigger className="border border-black/10 dark:border-white/10 rounded-full px-6 py-3.5 outline-primary focus:outline">
+                <SelectTrigger className="border border-black/10 dark:border-white/10 rounded-full px-6 py-3.5 outline-primary focus:outline h-10">
                   <SelectValue placeholder="Select land type" />
                 </SelectTrigger>
                 <SelectContent className="bg-white dark:bg-gray-800 border border-black/10 dark:border-white/10 rounded-lg shadow-lg z-50">
@@ -580,7 +595,7 @@ export default function PropertyForm({ onSuccess, initialData, isEdit = false }:
             <div>
               <label className="block text-sm font-medium mb-2">Sketch</label>
               <Select value={formData.sketch} onValueChange={(value) => handleInputChange('sketch', value)}>
-                <SelectTrigger className="border border-black/10 dark:border-white/10 rounded-full px-6 py-3.5 outline-primary focus:outline">
+                <SelectTrigger className="border border-black/10 dark:border-white/10 rounded-full px-6 py-3.5 outline-primary focus:outline h-10">
                   <SelectValue placeholder="Select sketch status" />
                 </SelectTrigger>
                 <SelectContent className="bg-white dark:bg-gray-800 border border-black/10 dark:border-white/10 rounded-lg shadow-lg z-50">
@@ -679,6 +694,33 @@ export default function PropertyForm({ onSuccess, initialData, isEdit = false }:
         {/* Images */}
         <div>
           <label className="block text-sm font-medium mb-2 text-dark dark:text-white">Property Images</label>
+          
+          {/* Display existing images */}
+          {isEdit && existingImages.length > 0 && (
+            <div className="mb-4">
+              <h4 className="text-sm font-medium mb-2 text-dark dark:text-white">Existing Images</h4>
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                {existingImages.map((imageUrl, index) => (
+                  <div key={index} className="relative group">
+                    <img 
+                      src={imageUrl} 
+                      alt={`Property image ${index + 1}`} 
+                      className="w-full h-24 object-cover rounded-lg border border-black/10 dark:border-white/10"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeExistingImage(index)}
+                      className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* File upload for new images */}
           <Form {...fileForm}>
             <FormField
               control={fileForm.control}
@@ -806,15 +848,14 @@ export default function PropertyForm({ onSuccess, initialData, isEdit = false }:
 
         {/* Submit Button */}
         <div className="flex justify-end gap-4">
-          <Button type="button" variant="outline" onClick={() => onSuccess?.()}>
+          <Button type="button" variant="outline" className='border-primary text-primary hover:border-primary hover:bg-white hover:text-dark duration-300' onClick={() => onSuccess?.()}>
             Cancel
           </Button>
-          <Button type="submit" disabled={isLoading}>
+          <Button type="submit" disabled={isLoading} className='bg-primary text-white hover:bg-dark duration-300'>
             {isLoading ? 'Saving...' : (isEdit ? 'Update Property' : 'Create Property')}
           </Button>
         </div>
       </form>
-        </div>
       </div>
     </div>
   )

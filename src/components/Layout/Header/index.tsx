@@ -9,6 +9,7 @@ import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { account } from '../../../app/appwrite'
+import { toast } from 'sonner'
 
 const Header: React.FC = () => {
   const [sticky, setSticky] = useState(false)
@@ -36,7 +37,7 @@ const Header: React.FC = () => {
       }
     };
     checkUser();
-  }, []);
+  }, [pathname]); // Re-check when pathname changes (after login redirect)
 
   const handleClickOutside = (event: MouseEvent) => {
     if (sideMenuRef.current && !sideMenuRef.current.contains(event.target as Node)) {
@@ -65,6 +66,33 @@ const Header: React.FC = () => {
       router.push('/admin/dashboard')
     }
   }, [user, pathname, router])
+
+  // Listen for login state changes
+  useEffect(() => {
+    const handleStorageChange = () => {
+      // Re-check user authentication when localStorage changes
+      const checkUser = async () => {
+        try {
+          const currentUser = await account.get();
+          setUser(currentUser);
+        } catch (error) {
+          setUser(null);
+        }
+      };
+      checkUser();
+    };
+
+    // Listen for storage events (when login/logout happens in other tabs)
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Listen for custom login event
+    window.addEventListener('userLoginStateChange', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('userLoginStateChange', handleStorageChange);
+    };
+  }, []);
 
   const isHomepage = pathname === '/'
 
@@ -141,28 +169,54 @@ const Header: React.FC = () => {
                   </span>
                 )}
                 {user && (
-                  <button
-                    onClick={() => router.push('/admin/dashboard')}
-                    className={`text-sm hover:text-primary transition-colors ${isHomepage
-                      ? sticky
-                        ? 'text-dark dark:text-white hover:text-primary'
-                        : 'text-white hover:text-primary'
-                      : 'text-dark dark:text-white hover:text-primary'
-                      }`}
-                  >
-                    Welcome, {user.name} (Admin)
-                  </button>
+                  <div className="flex items-center gap-4">
+                    <button
+                      onClick={() => router.push('/admin/dashboard')}
+                      className={`text-sm hover:text-primary transition-colors ${isHomepage
+                        ? sticky
+                          ? 'text-dark dark:text-white hover:text-primary'
+                          : 'text-white hover:text-primary'
+                        : 'text-dark dark:text-white hover:text-primary'
+                        }`}
+                    >
+                      Welcome, {user.name} (Admin)
+                    </button>
+                    <button
+                      onClick={async () => {
+                        try {
+                          await account.deleteSession('current');
+                          setUser(null);
+                          router.push('/');
+                          toast.success('Logged out successfully');
+                        } catch (error) {
+                          console.error('Logout error:', error);
+                          toast.error('Failed to logout');
+                        }
+                      }}
+                      className={`text-sm hover:text-red-500 transition-colors ${isHomepage
+                        ? sticky
+                          ? 'text-dark dark:text-white hover:text-red-500'
+                          : 'text-white hover:text-red-500'
+                        : 'text-dark dark:text-white hover:text-red-500'
+                        }`}
+                    >
+                      Logout
+                    </button>
+                  </div>
                 )}
-                {!isLoading && !user && (
-                  <span className={`text-sm ${isHomepage
-                    ? sticky
-                      ? 'text-red-500'
-                      : 'text-red-300'
-                    : 'text-red-500'
-                    }`}>
-                    Not logged in
-                  </span>
-                )}
+                                 {!isLoading && !user && !pathname.startsWith('/signin') && !pathname.startsWith('/signup') && (
+                   <Link
+                     href="/signin"
+                     className={`text-sm hover:text-primary transition-colors ${isHomepage
+                       ? sticky
+                         ? 'text-dark dark:text-white hover:text-primary'
+                         : 'text-white hover:text-primary'
+                       : 'text-dark dark:text-white hover:text-primary'
+                       }`}
+                   >
+                     Sign In
+                   </Link>
+                 )}
               </div>
             <div>
               <button
@@ -222,29 +276,65 @@ const Header: React.FC = () => {
                 {navLinks.map((item, index) => (
                   <NavLink key={index} item={item} onClick={() => setNavbarOpen(false)} />
                 ))}
-                {/* <li className='flex items-center gap-4'>
-                  <Link href="/signin" className='py-4 px-8 bg-primary text-base leading-4 block w-fit text-white rounded-full border border-primary font-semibold mt-3 hover:bg-transparent hover:text-primary duration-300'>
-                    Sign In
-                  </Link>
-                  <Link href="/" className='py-4 px-8 bg-transparent border border-primary text-base leading-4 block w-fit text-primary rounded-full font-semibold mt-3 hover:bg-primary hover:text-white duration-300'>
-                    Sign up
-                  </Link>
-                </li> */}
+                                 <li className='flex items-center gap-4'>
+                   {user ? (
+                     <button
+                       onClick={() => {
+                         setNavbarOpen(false);
+                         router.push('/admin/dashboard');
+                       }}
+                       className='py-4 px-8 bg-primary text-base leading-4 block w-fit text-white rounded-full border border-primary font-semibold mt-3 hover:bg-transparent hover:text-primary duration-300'
+                     >
+                       Dashboard
+                     </button>
+                                       ) : !pathname.startsWith('/signin') && !pathname.startsWith('/signup') ? (
+                      <Link 
+                        href="/signin" 
+                        className='py-4 px-8 bg-primary text-base leading-4 block w-fit text-white rounded-full border border-primary font-semibold mt-3 hover:bg-transparent hover:text-primary duration-300'
+                        onClick={() => setNavbarOpen(false)}
+                      >
+                        Sign In
+                      </Link>
+                    ) : null}
+                 </li>
               </ul>
             </nav>
           </div>
 
-          <div className='flex flex-col gap-1 my-16 text-white'>
-            <p className='text-base sm:text-xm font-normal text-white/40'>
-              Contact
-            </p>
-            <Link href="mailto:rbpromoters@gmail.com" className='text-base sm:text-xm font-medium text-inherit hover:text-primary'>
-              rbpromoters@gmail.com
-            </Link>
-            <Link href="tel:+918883568814" className='text-base sm:text-xm font-medium text-inherit hover:text-primary'>
-            +91 88835 68814{' '}
-            </Link>
-          </div>
+                     <div className='flex flex-col gap-1 my-16 text-white'>
+             <p className='text-base sm:text-xm font-normal text-white/40'>
+               Contact
+             </p>
+             <Link href="mailto:rbpromoters@gmail.com" className='text-base sm:text-xm font-medium text-inherit hover:text-primary'>
+               rbpromoters@gmail.com
+             </Link>
+             <Link href="tel:+918883568814" className='text-base sm:text-xm font-medium text-inherit hover:text-primary'>
+             +91 88835 68814{' '}
+             </Link>
+             
+                           {/* Logout button at bottom for logged in users */}
+              {user && (
+                <div className='mt-6 pt-6 border-t border-white/20'>
+                  <button
+                    onClick={async () => {
+                      try {
+                        await account.deleteSession('current');
+                        setUser(null);
+                        setNavbarOpen(false);
+                        router.push('/');
+                        toast.success('Logged out successfully');
+                      } catch (error) {
+                        console.error('Logout error:', error);
+                        toast.error('Failed to logout');
+                      }
+                    }}
+                    className='py-3 px-6 bg-transparent border border-red-500 text-base leading-4 block w-fit text-red-500 rounded-full font-semibold hover:bg-red-500 hover:text-white duration-300'
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+           </div>
         </div>
       </div>
     </header >

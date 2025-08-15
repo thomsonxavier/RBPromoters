@@ -13,13 +13,16 @@ export default function AddPropertyPage() {
   }
 
   return (
-    <>
-      <HeroSub
-        title="Add New Property."
-        description="Create and manage property listings with our comprehensive property management system."
-        badge="Admin"
-      />
-      <PropertyForm onSuccess={handleSuccess} />
-    </>
+    <section className="!pt-32 pb-20 relative">
+      <div className="container mx-auto max-w-8xl px-5 2xl:px-0">
+        <HeroSub
+          title="Add New Property."
+          description="Create and manage property listings with our comprehensive property management system."
+          badge="Admin"
+          className='!pt-7 pb-2'
+        />
+        <PropertyForm onSuccess={handleSuccess} />
+      </div>
+    </section>
   )
 }
