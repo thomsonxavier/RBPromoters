@@ -39,7 +39,8 @@ const PropertyCard: React.FC<{ item: PropertyHomes }> = ({ item }) => {
     agent
   } = item
 
-  const mainImage = images[0]?.src;
+  // Handle both string URLs and old format objects
+  const mainImage = images[0] ? (typeof images[0] === 'string' ? images[0] : (images[0] as any).src) : null;
 
   // Helper to get property type display name and icon
   const getPropertyTypeInfo = (type: string) => {
@@ -126,7 +127,7 @@ const PropertyCard: React.FC<{ item: PropertyHomes }> = ({ item }) => {
         {/* Image Section */}
         <div className='relative w-full h-48 overflow-hidden'>
           <Link href={`/properties/${slug}`}>
-            {mainImage && (
+            {mainImage ? (
               <Image
                 src={mainImage}
                 alt={name}
@@ -135,6 +136,10 @@ const PropertyCard: React.FC<{ item: PropertyHomes }> = ({ item }) => {
                 className='w-full h-full object-cover transition-transform duration-300 hover:scale-110'
                 unoptimized={true}
               />
+            ) : (
+              <div className='w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center'>
+                <span className='text-gray-500 dark:text-gray-400 text-sm'>No Image</span>
+              </div>
             )}
           </Link>
           {/* Category Badge */}
@@ -309,7 +314,7 @@ const PropertyCard: React.FC<{ item: PropertyHomes }> = ({ item }) => {
       {/* Image Section */}
       <div className='relative w-full h-48 overflow-hidden'>
         <Link href={`/properties/${slug}`}>
-          {mainImage && (
+          {mainImage ? (
             <Image
               src={mainImage}
               alt={name}
@@ -318,6 +323,10 @@ const PropertyCard: React.FC<{ item: PropertyHomes }> = ({ item }) => {
               className='w-full h-full object-cover transition-transform duration-300 hover:scale-110'
               unoptimized={true}
             />
+          ) : (
+            <div className='w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center'>
+              <span className='text-gray-500 dark:text-gray-400 text-sm'>No Image</span>
+            </div>
           )}
         </Link>
         {/* Category Badge */}
@@ -435,7 +444,7 @@ const PropertyCard: React.FC<{ item: PropertyHomes }> = ({ item }) => {
       {/* Image Section */}
       <div className='relative w-full h-48 overflow-hidden'>
         <Link href={`/properties/${slug}`}>
-          {mainImage && (
+          {mainImage ? (
             <Image
               src={mainImage}
               alt={name}
@@ -444,6 +453,10 @@ const PropertyCard: React.FC<{ item: PropertyHomes }> = ({ item }) => {
               className='w-full h-full object-cover transition-transform duration-300 hover:scale-110'
               unoptimized={true}
             />
+          ) : (
+            <div className='w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center'>
+              <span className='text-gray-500 dark:text-gray-400 text-sm'>No Image</span>
+            </div>
           )}
         </Link>
         {/* Category Badge */}
@@ -535,7 +548,7 @@ const PropertyCard: React.FC<{ item: PropertyHomes }> = ({ item }) => {
       {/* Image Section */}
       <div className='relative w-full h-48 overflow-hidden'>
         <Link href={`/properties/${slug}`}>
-          {mainImage && (
+          {mainImage ? (
             <Image
               src={mainImage}
               alt={name}
@@ -544,6 +557,10 @@ const PropertyCard: React.FC<{ item: PropertyHomes }> = ({ item }) => {
               className='w-full h-full object-cover transition-transform duration-300 hover:scale-110'
               unoptimized={true}
             />
+          ) : (
+            <div className='w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center'>
+              <span className='text-gray-500 dark:text-gray-400 text-sm'>No Image</span>
+            </div>
           )}
         </Link>
         {/* Category Badge */}

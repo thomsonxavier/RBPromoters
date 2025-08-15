@@ -86,8 +86,8 @@ export default function AdminDashboard() {
                           {property.images && property.images.length > 0 ? (
                             <img
                               className="h-10 w-10 rounded-full object-cover"
-                              src={property.images[0].src}
-                              alt={property.images[0].alt}
+                              src={property.images[0]}
+                              alt={`Property image`}
                             />
                           ) : (
                             <div className="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center">

@@ -28,5 +28,6 @@ export const appwriteConfig = {
   endpoint,
   projectId,
   databaseId: process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID || '',
-  collectionId: '689e1bf300078583b2ba'
+  collectionId: '689e1bf300078583b2ba',
+  bucketId: '689e16ec0007728e6ad7' // Rbproperties bucket
 };

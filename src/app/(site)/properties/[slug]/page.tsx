@@ -1,6 +1,5 @@
 "use client"
 import React, { useState } from 'react';
-import { propertyHomes } from '@/app/api/propertyhomes';
 import { useParams } from "next/navigation";
 import { Icon } from '@iconify/react';
 import { testimonials } from '@/app/api/testimonial';
@@ -15,6 +14,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Modal } from "@/components/ui/modal";
+import { useProperties } from '@/lib/property-hooks';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function Details() {
     const { slug } = useParams();
@@ -24,7 +25,8 @@ export default function Details() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
-    const item = propertyHomes.find((item) => item.slug === slug);
+    const { data: properties, isLoading, error } = useProperties();
+    const item = properties?.find((property) => property.slug === slug);
 
     // EMI Calculator
     const calculateEMI = () => {
@@ -54,8 +56,51 @@ export default function Details() {
         setIsModalOpen(false);
     };
 
+    if (isLoading) {
+        return (
+            <section className="!pt-44 pb-20 relative">
+                <div className="container mx-auto max-w-8xl px-5 2xl:px-0">
+                    <div className="space-y-8">
+                        <Skeleton className="h-12 w-3/4" />
+                        <Skeleton className="h-8 w-1/2" />
+                        <div className="grid grid-cols-12 gap-8">
+                            <div className="lg:col-span-8 col-span-12">
+                                <Skeleton className="h-96 w-full rounded-2xl" />
+                            </div>
+                            <div className="lg:col-span-4 col-span-12">
+                                <Skeleton className="h-32 w-full rounded-2xl" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        );
+    }
+
+    if (error) {
+        return (
+            <section className="!pt-44 pb-20 relative">
+                <div className="container mx-auto max-w-8xl px-5 2xl:px-0">
+                    <div className="text-center">
+                        <h1 className="text-2xl font-semibold text-dark dark:text-white mb-4">Error loading property</h1>
+                        <p className="text-dark/50 dark:text-white/50">{error.message}</p>
+                    </div>
+                </div>
+            </section>
+        );
+    }
+
     if (!item) {
-        return <div>Property not found</div>;
+        return (
+            <section className="!pt-44 pb-20 relative">
+                <div className="container mx-auto max-w-8xl px-5 2xl:px-0">
+                    <div className="text-center">
+                        <h1 className="text-2xl font-semibold text-dark dark:text-white mb-4">Property not found</h1>
+                        <p className="text-dark/50 dark:text-white/50">The property you're looking for doesn't exist.</p>
+                    </div>
+                </div>
+            </section>
+        );
     }
 
     return (
@@ -101,7 +146,7 @@ export default function Details() {
                         {item?.images && item?.images[0] && (
                             <div className="">
                                 <Image
-                                    src={item.images[0]?.src}
+                                    src={item.images[0]}
                                     alt="Main Property Image"
                                     width={400}
                                     height={500}
@@ -113,17 +158,17 @@ export default function Details() {
                     </div>
                     <div className="lg:col-span-4 lg:block hidden">
                         {item?.images && item?.images[1] && (
-                            <Image src={item.images[1]?.src} alt="Property Image 2" width={400} height={500} className="rounded-2xl w-full h-full" unoptimized={true} />
+                            <Image src={item.images[1]} alt="Property Image 2" width={400} height={500} className="rounded-2xl w-full h-full" unoptimized={true} />
                         )}
                     </div>
                     <div className="lg:col-span-2 col-span-6">
                         {item?.images && item?.images[2] && (
-                            <Image src={item.images[2]?.src} alt="Property Image 3" width={400} height={500} className="rounded-2xl w-full h-full" unoptimized={true} />
+                            <Image src={item.images[2]} alt="Property Image 3" width={400} height={500} className="rounded-2xl w-full h-full" unoptimized={true} />
                         )}
                     </div>
                     <div className="lg:col-span-2 col-span-6">
                         {item?.images && item?.images[3] && (
-                            <Image src={item.images[3]?.src} alt="Property Image 4" width={400} height={500} className="rounded-2xl w-full h-full" unoptimized={true} />
+                            <Image src={item.images[3]} alt="Property Image 4" width={400} height={500} className="rounded-2xl w-full h-full" unoptimized={true} />
                         )}
                     </div>
                 </div>
@@ -502,12 +547,12 @@ export default function Details() {
                         
                         <Carousel className="w-full">
                             <CarouselContent>
-                                {item?.images && item.images.map((image, index) => (
+                                {item?.images && item.images.map((imageUrl, index) => (
                                     <CarouselItem key={index}>
                                         <div className="relative group cursor-pointer" onClick={() => openModal(index)}>
                                             <Image
-                                                src={image.src}
-                                                alt={image.alt}
+                                                src={imageUrl}
+                                                alt={`Property image ${index + 1}`}
                                                 width={800}
                                                 height={600}
                                                 className="w-full h-[400px] object-cover rounded-xl transition-transform duration-300 group-hover:scale-105"
@@ -532,15 +577,15 @@ export default function Details() {
                         {/* Thumbnail Navigation */}
                         {item?.images && item.images.length > 1 && (
                             <div className="mt-6 flex gap-3 overflow-x-auto pb-2 thumbnail-scrollbar">
-                                {item.images.map((image, index) => (
+                                {item.images.map((imageUrl, index) => (
                                     <div
                                         key={index}
                                         className="flex-shrink-0 cursor-pointer group"
                                         onClick={() => openModal(index)}
                                     >
                                         <Image
-                                            src={image.src}
-                                            alt={image.alt}
+                                            src={imageUrl}
+                                            alt={`Property image ${index + 1}`}
                                             width={120}
                                             height={90}
                                             className="w-24 h-18 object-cover rounded-lg border-2 border-transparent group-hover:border-[var(--color-primary)] transition-all duration-300"
@@ -570,12 +615,12 @@ export default function Details() {
                 <Modal isOpen={isModalOpen} onClose={closeModal}>
                     <Carousel className="w-full" defaultSlide={selectedImageIndex}>
                         <CarouselContent>
-                            {item?.images && item.images.map((image, index) => (
+                            {item?.images && item.images.map((imageUrl, index) => (
                                 <CarouselItem key={index}>
                                     <div className="relative">
                                         <Image
-                                            src={image.src}
-                                            alt={image.alt}
+                                            src={imageUrl}
+                                            alt={`Property image ${index + 1}`}
                                             width={1200}
                                             height={800}
                                             className="w-full h-auto max-h-[80vh] object-contain rounded-lg"

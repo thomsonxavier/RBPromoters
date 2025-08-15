@@ -57,11 +57,14 @@ export function useCreateProperty() {
   return useMutation({
     mutationFn: async (propertyData: Partial<PropertyHomes>) => {
       try {
+        // Filter out Appwrite internal fields
+        const { $id, $createdAt, $updatedAt, $permissions, $databaseId, $collectionId, ...cleanData } = propertyData as any
+        
         const response = await databases.createDocument(
           DATABASE_ID,
           BUCKET_ID,
           ID.unique(),
-          propertyData
+          cleanData
         )
         return response as unknown as PropertyHomes
       } catch (error) {
@@ -86,11 +89,14 @@ export function useUpdateProperty() {
   return useMutation({
     mutationFn: async ({ id, data }: { id: string; data: Partial<PropertyHomes> }) => {
       try {
+        // Filter out Appwrite internal fields
+        const { $id, $createdAt, $updatedAt, $permissions, $databaseId, $collectionId, ...cleanData } = data as any
+        
         const response = await databases.updateDocument(
           DATABASE_ID,
           BUCKET_ID,
           id,
-          data
+          cleanData
         )
         return response as unknown as PropertyHomes
       } catch (error) {

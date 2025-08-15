@@ -26,22 +26,10 @@ export const propertyHomes: PropertyHomes[] = [
     locality: 'Navalur',
     road: 'Gandhi Nagar Main Road',
     images: [
-      {
-        src: "https://placehold.co/400x300?text=House+Property",
-        alt: "4 BHK House DAC Silicon Valley"
-      },
-      {
-        src: "https://placehold.co/400x300?text=House+Interior",
-        alt: "House Interior"
-      },
-      {
-        src: "https://placehold.co/400x300?text=House+Exterior",
-        alt: "House Exterior"
-      },
-      {
-        src: "https://placehold.co/400x300?text=House+Kitchen",
-        alt: "House Kitchen"
-      },
+      "https://placehold.co/400x300?text=Property+Image",
+      "https://placehold.co/400x300?text=Property+Interior",
+      "https://placehold.co/400x300?text=Property+Exterior",
+      "https://placehold.co/400x300?text=Property+View",
     ]
   },
   {
@@ -73,22 +61,10 @@ export const propertyHomes: PropertyHomes[] = [
     sketch: 'Available',
     remarks: 'In process',
     images: [
-      {
-        src: "https://placehold.co/400x300?text=Land+Property",
-        alt: "22 Acre Dry Land Kallambedu"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Plot",
-        alt: "Land Plot View"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Development",
-        alt: "Land Development"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Location",
-        alt: "Land Location"
-      },
+      "https://placehold.co/400x300?text=Property+Image",
+      "https://placehold.co/400x300?text=Property+Interior",
+      "https://placehold.co/400x300?text=Property+Exterior",
+      "https://placehold.co/400x300?text=Property+View",
     ]
   },
   {
@@ -117,22 +93,10 @@ export const propertyHomes: PropertyHomes[] = [
     road: 'Gandhi Nagar Main Road',
     totalUnits: 55,
     images: [
-      {
-        src: "https://placehold.co/400x300?text=Project+Property",
-        alt: "DAC Silicon Valley Project"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Project+Exterior",
-        alt: "Project Exterior"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Project+Interior",
-        alt: "Project Interior"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Project+Amenities",
-        alt: "Project Amenities"
-      },
+      "https://placehold.co/400x300?text=Property+Image",
+      "https://placehold.co/400x300?text=Property+Interior",
+      "https://placehold.co/400x300?text=Property+Exterior",
+      "https://placehold.co/400x300?text=Property+View",
     ]
   },
   {
@@ -171,22 +135,10 @@ export const propertyHomes: PropertyHomes[] = [
       { type: '4 BHK Flats', size: '2699 - 2750', price: '3 Cr - 3.25 Cr' }
     ],
     images: [
-      {
-        src: "https://placehold.co/400x300?text=Apartment+Property",
-        alt: "2 BHK Apartment Vadapalani"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Apartment+Living+Room",
-        alt: "Apartment Living Room"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Apartment+Kitchen",
-        alt: "Apartment Kitchen"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Apartment+Bedroom",
-        alt: "Apartment Bedroom"
-      },
+      "https://placehold.co/400x300?text=Property+Image",
+      "https://placehold.co/400x300?text=Property+Interior",
+      "https://placehold.co/400x300?text=Property+Exterior",
+      "https://placehold.co/400x300?text=Property+View",
     ]
   },
   {
@@ -225,22 +177,10 @@ export const propertyHomes: PropertyHomes[] = [
       { type: '4 BHK Flats', size: '1800 - 2000', price: '1.2 Cr - 1.4 Cr' }
     ],
     images: [
-      {
-        src: "https://placehold.co/400x300?text=Apartment+Property",
-        alt: "3 BHK Apartment TNHB"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Apartment+View",
-        alt: "TNHB Apartment View"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Apartment+Interior",
-        alt: "TNHB Interior"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Apartment+Exterior",
-        alt: "TNHB Exterior"
-      },
+      "https://placehold.co/400x300?text=Property+Image",
+      "https://placehold.co/400x300?text=Property+Interior",
+      "https://placehold.co/400x300?text=Property+Exterior",
+      "https://placehold.co/400x300?text=Property+View",
     ]
   },
   {
@@ -268,22 +208,10 @@ export const propertyHomes: PropertyHomes[] = [
     locality: 'Sholinganallur',
     road: 'OMR Road',
     images: [
-      {
-        src: "https://placehold.co/400x300?text=Villa+Property",
-        alt: "Luxury Villa OMR"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Villa+Pool",
-        alt: "Villa Pool"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Villa+Garden",
-        alt: "Villa Garden"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Villa+Interior",
-        alt: "Villa Interior"
-      },
+      "https://placehold.co/400x300?text=Property+Image",
+      "https://placehold.co/400x300?text=Property+Interior",
+      "https://placehold.co/400x300?text=Property+Exterior",
+      "https://placehold.co/400x300?text=Property+View",
     ]
   },
   {
@@ -311,22 +239,10 @@ export const propertyHomes: PropertyHomes[] = [
     locality: 'Taramani',
     road: 'Rajiv Gandhi Salai',
     images: [
-      {
-        src: "https://placehold.co/400x300?text=Office+Property",
-        alt: "Office Space Tidel Park"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Office+Interior",
-        alt: "Office Interior"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Office+Building",
-        alt: "Office Building"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Office+Reception",
-        alt: "Office Reception"
-      },
+      "https://placehold.co/400x300?text=Property+Image",
+      "https://placehold.co/400x300?text=Property+Interior",
+      "https://placehold.co/400x300?text=Property+Exterior",
+      "https://placehold.co/400x300?text=Property+View",
     ]
   },
   {
@@ -354,22 +270,10 @@ export const propertyHomes: PropertyHomes[] = [
     locality: 'Velachery',
     road: 'Velachery Main Road',
     images: [
-      {
-        src: "https://placehold.co/400x300?text=House+Property",
-        alt: "2 BHK House Velachery"
-      },
-      {
-        src: "https://placehold.co/400x300?text=House+Exterior",
-        alt: "House Exterior"
-      },
-      {
-        src: "https://placehold.co/400x300?text=House+Interior",
-        alt: "House Interior"
-      },
-      {
-        src: "https://placehold.co/400x300?text=House+Kitchen",
-        alt: "House Kitchen"
-      },
+      "https://placehold.co/400x300?text=Property+Image",
+      "https://placehold.co/400x300?text=Property+Interior",
+      "https://placehold.co/400x300?text=Property+Exterior",
+      "https://placehold.co/400x300?text=Property+View",
     ]
   },
   {
@@ -401,22 +305,10 @@ export const propertyHomes: PropertyHomes[] = [
     sketch: 'Available',
     remarks: 'In process',
     images: [
-      {
-        src: "https://placehold.co/400x300?text=Wet+Land",
-        alt: "6 Acre Wet Land Kallambedu"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Plot",
-        alt: "Land Plot"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Development",
-        alt: "Land Development"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Location",
-        alt: "Land Location"
-      },
+      "https://placehold.co/400x300?text=Property+Image",
+      "https://placehold.co/400x300?text=Property+Interior",
+      "https://placehold.co/400x300?text=Property+Exterior",
+      "https://placehold.co/400x300?text=Property+View",
     ]
   },
   {
@@ -452,22 +344,10 @@ export const propertyHomes: PropertyHomes[] = [
       { type: '4 BHK Flats', size: '2200 - 2500', price: '3.5 Cr - 4.2 Cr' }
     ],
     images: [
-      {
-        src: "https://placehold.co/400x300?text=Project+Property",
-        alt: "Marina Bay Project"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Project+Exterior",
-        alt: "Project Exterior"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Project+Interior",
-        alt: "Project Interior"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Project+Amenities",
-        alt: "Project Amenities"
-      },
+      "https://placehold.co/400x300?text=Property+Image",
+      "https://placehold.co/400x300?text=Property+Interior",
+      "https://placehold.co/400x300?text=Property+Exterior",
+      "https://placehold.co/400x300?text=Property+View",
     ]
   },
   {
@@ -506,22 +386,10 @@ export const propertyHomes: PropertyHomes[] = [
       { type: '4 BHK Flats', size: '2000 - 2200', price: '2 Cr - 2.3 Cr' }
     ],
     images: [
-      {
-        src: "https://placehold.co/400x300?text=Apartment+Property",
-        alt: "1 BHK Apartment T Nagar"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Apartment+Living+Area",
-        alt: "Apartment Living Area"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Apartment+Kitchen",
-        alt: "Apartment Kitchen"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Apartment+Bedroom",
-        alt: "Apartment Bedroom"
-      },
+      "https://placehold.co/400x300?text=Property+Image",
+      "https://placehold.co/400x300?text=Property+Interior",
+      "https://placehold.co/400x300?text=Property+Exterior",
+      "https://placehold.co/400x300?text=Property+View",
     ]
   },
   {
@@ -553,22 +421,10 @@ export const propertyHomes: PropertyHomes[] = [
     sketch: 'Available',
     remarks: 'In process',
     images: [
-      {
-        src: "https://placehold.co/400x300?text=Dry+Land",
-        alt: "3.74 Acre Dry Land Narasamangalam"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+View",
-        alt: "Land View"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Development",
-        alt: "Land Development"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Location",
-        alt: "Land Location"
-      },
+      "https://placehold.co/400x300?text=Property+Image",
+      "https://placehold.co/400x300?text=Property+Interior",
+      "https://placehold.co/400x300?text=Property+Exterior",
+      "https://placehold.co/400x300?text=Property+View",
     ]
   },
   {
@@ -597,22 +453,10 @@ export const propertyHomes: PropertyHomes[] = [
     road: 'Urapakkam Main Road',
     totalUnits: 55,
     images: [
-      {
-        src: "https://placehold.co/400x300?text=Project+Property",
-        alt: "Premier Pothigai Garden Project"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Project+Layout",
-        alt: "Project Layout"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Project+Development",
-        alt: "Project Development"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Project+Location",
-        alt: "Project Location"
-      },
+      "https://placehold.co/400x300?text=Property+Image",
+      "https://placehold.co/400x300?text=Property+Interior",
+      "https://placehold.co/400x300?text=Property+Exterior",
+      "https://placehold.co/400x300?text=Property+View",
     ]
   },
   {
@@ -651,22 +495,10 @@ export const propertyHomes: PropertyHomes[] = [
       { type: '4 BHK Flats', size: '1800 - 2000', price: '2.5 Cr - 2.8 Cr' }
     ],
     images: [
-      {
-        src: "https://placehold.co/400x300?text=Apartment+Property",
-        alt: "4 BHK Apartment Adyar"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Apartment+Living+Room",
-        alt: "Apartment Living Room"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Apartment+Kitchen",
-        alt: "Apartment Kitchen"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Apartment+Master+Bedroom",
-        alt: "Apartment Master Bedroom"
-      },
+      "https://placehold.co/400x300?text=Property+Image",
+      "https://placehold.co/400x300?text=Property+Interior",
+      "https://placehold.co/400x300?text=Property+Exterior",
+      "https://placehold.co/400x300?text=Property+View",
     ]
   },
   {
@@ -698,22 +530,10 @@ export const propertyHomes: PropertyHomes[] = [
     sketch: 'Available',
     remarks: 'In process',
     images: [
-      {
-        src: "https://placehold.co/400x300?text=Dry+Land",
-        alt: "5.8 Acre Dry Land Govindamedu"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Plot+View",
-        alt: "Land Plot View"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Development",
-        alt: "Land Development"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Location",
-        alt: "Land Location"
-      },
+      "https://placehold.co/400x300?text=Property+Image",
+      "https://placehold.co/400x300?text=Property+Interior",
+      "https://placehold.co/400x300?text=Property+Exterior",
+      "https://placehold.co/400x300?text=Property+View",
     ]
   },
   {
@@ -745,22 +565,10 @@ export const propertyHomes: PropertyHomes[] = [
     sketch: 'Available',
     remarks: 'In process',
     images: [
-      {
-        src: "https://placehold.co/400x300?text=Dry+Land",
-        alt: "5.98 Acre Dry Land Cheyyambakkam"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Plot",
-        alt: "Land Plot View"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Development",
-        alt: "Land Development"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Location",
-        alt: "Land Location"
-      },
+      "https://placehold.co/400x300?text=Property+Image",
+      "https://placehold.co/400x300?text=Property+Interior",
+      "https://placehold.co/400x300?text=Property+Exterior",
+      "https://placehold.co/400x300?text=Property+View",
     ]
   },
   {
@@ -792,22 +600,10 @@ export const propertyHomes: PropertyHomes[] = [
     sketch: 'Available',
     remarks: 'In process',
     images: [
-      {
-        src: "https://placehold.co/400x300?text=Dry+Land",
-        alt: "1.66 Acre Dry Land Katrambakkam"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Plot",
-        alt: "Land Plot View"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Development",
-        alt: "Land Development"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Location",
-        alt: "Land Location"
-      },
+      "https://placehold.co/400x300?text=Property+Image",
+      "https://placehold.co/400x300?text=Property+Interior",
+      "https://placehold.co/400x300?text=Property+Exterior",
+      "https://placehold.co/400x300?text=Property+View",
     ]
   },
   {
@@ -839,22 +635,10 @@ export const propertyHomes: PropertyHomes[] = [
     sketch: 'Available',
     remarks: 'In process',
     images: [
-      {
-        src: "https://placehold.co/400x300?text=Dry+Land",
-        alt: "3.75 Acre Dry Land Koppur"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Plot",
-        alt: "Land Plot View"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Development",
-        alt: "Land Development"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Location",
-        alt: "Land Location"
-      },
+      "https://placehold.co/400x300?text=Property+Image",
+      "https://placehold.co/400x300?text=Property+Interior",
+      "https://placehold.co/400x300?text=Property+Exterior",
+      "https://placehold.co/400x300?text=Property+View",
     ]
   },
   {
@@ -886,22 +670,10 @@ export const propertyHomes: PropertyHomes[] = [
     sketch: 'Available',
     remarks: 'In process',
     images: [
-      {
-        src: "https://placehold.co/400x300?text=Dry+Land",
-        alt: "55 Acre Dry Land Mampakkam"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Plot",
-        alt: "Land Plot View"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Development",
-        alt: "Land Development"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Location",
-        alt: "Land Location"
-      },
+      "https://placehold.co/400x300?text=Property+Image",
+      "https://placehold.co/400x300?text=Property+Interior",
+      "https://placehold.co/400x300?text=Property+Exterior",
+      "https://placehold.co/400x300?text=Property+View",
     ]
   },
   {
@@ -933,22 +705,10 @@ export const propertyHomes: PropertyHomes[] = [
     sketch: 'Available',
     remarks: 'In process',
     images: [
-      {
-        src: "https://placehold.co/400x300?text=Dry+Land",
-        alt: "2 Acre Dry Land Sunguvarchatram"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Plot",
-        alt: "Land Plot View"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Development",
-        alt: "Land Development"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Location",
-        alt: "Land Location"
-      },
+      "https://placehold.co/400x300?text=Property+Image",
+      "https://placehold.co/400x300?text=Property+Interior",
+      "https://placehold.co/400x300?text=Property+Exterior",
+      "https://placehold.co/400x300?text=Property+View",
     ]
   },
   {
@@ -980,22 +740,10 @@ export const propertyHomes: PropertyHomes[] = [
     sketch: 'Available',
     remarks: 'In process',
     images: [
-      {
-        src: "https://placehold.co/400x300?text=Dry+Land",
-        alt: "1.25 Acre Dry Land Puzhal"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Plot",
-        alt: "Land Plot View"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Development",
-        alt: "Land Development"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Location",
-        alt: "Land Location"
-      },
+      "https://placehold.co/400x300?text=Property+Image",
+      "https://placehold.co/400x300?text=Property+Interior",
+      "https://placehold.co/400x300?text=Property+Exterior",
+      "https://placehold.co/400x300?text=Property+View",
     ]
   },
   {
@@ -1027,22 +775,10 @@ export const propertyHomes: PropertyHomes[] = [
     sketch: 'Available',
     remarks: 'In process',
     images: [
-      {
-        src: "https://placehold.co/400x300?text=Dry+Land",
-        alt: "2 Acre Dry Land Pappanguzhi"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Plot",
-        alt: "Land Plot View"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Development",
-        alt: "Land Development"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Location",
-        alt: "Land Location"
-      },
+      "https://placehold.co/400x300?text=Property+Image",
+      "https://placehold.co/400x300?text=Property+Interior",
+      "https://placehold.co/400x300?text=Property+Exterior",
+      "https://placehold.co/400x300?text=Property+View",
     ]
   },
   {
@@ -1074,22 +810,10 @@ export const propertyHomes: PropertyHomes[] = [
     sketch: 'Available',
     remarks: 'In process',
     images: [
-      {
-        src: "https://placehold.co/400x300?text=Dry+Land",
-        alt: "170 Acre Dry Land Panappakkam"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Plot",
-        alt: "Land Plot View"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Development",
-        alt: "Land Development"
-      },
-      {
-        src: "https://placehold.co/400x300?text=Land+Location",
-        alt: "Land Location"
-      },
+      "https://placehold.co/400x300?text=Property+Image",
+      "https://placehold.co/400x300?text=Property+Interior",
+      "https://placehold.co/400x300?text=Property+Exterior",
+      "https://placehold.co/400x300?text=Property+View",
     ]
   },
 ]

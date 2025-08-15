@@ -2,6 +2,7 @@
 
 import React from 'react'
 import PropertyForm from '@/components/PropertyForm'
+import HeroSub from "@/components/shared/HeroSub"
 import { useRouter } from 'next/navigation'
 
 export default function AddPropertyPage() {
@@ -12,10 +13,13 @@ export default function AddPropertyPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="container mx-auto">
-        <PropertyForm onSuccess={handleSuccess} />
-      </div>
-    </div>
+    <>
+      <HeroSub
+        title="Add New Property."
+        description="Create and manage property listings with our comprehensive property management system."
+        badge="Admin"
+      />
+      <PropertyForm onSuccess={handleSuccess} />
+    </>
   )
 }

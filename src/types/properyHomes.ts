@@ -18,7 +18,7 @@ export type PropertyHomes = {
   beds: number
   baths: number
   area: number
-  images: PropertyImage[]
+  images: string[]
   propertyType: 'house' | 'land' | 'project' | 'apartment' | 'villa' | 'office'
   // Additional fields for different property types
   config?: string // e.g., "4 BHK House", "Residential Land"
@@ -43,7 +43,7 @@ export type PropertyHomes = {
   owner?: string // e.g., "KUMAR"
   agent?: string // e.g., "Prakash"
   // Project specific fields
-  totalUnits?: number // e.g., 55
+  totalUnits?: number | string // e.g., 55
   // Apartment configurations for details page
   apartmentConfigs?: ApartmentConfig[] // Multiple apartment configurations
   // Land specific fields
