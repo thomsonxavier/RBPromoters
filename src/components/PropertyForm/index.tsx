@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useCreateProperty, useUpdateProperty } from '@/lib/property-hooks'
 import { PropertyHomes } from '@/types/properyHomes'
-import { storage, ID, appwriteConfig } from '@/app/appwrite'
+import { uploadToCloudinary, deleteFromCloudinary } from '@/lib/cloudinary'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
@@ -30,7 +30,7 @@ import {
   FileUploadList,
   FileUploadTrigger,
 } from "@/components/ui/file-upload"
-import { CloudUpload, X } from "lucide-react"
+import { CloudUpload, X, AlertTriangle } from "lucide-react"
 import { toast } from "sonner"
 
 interface PropertyFormProps {
@@ -39,7 +39,7 @@ interface PropertyFormProps {
   isEdit?: boolean
 }
 
-export default function PropertyForm({ onSuccess, initialData, isEdit = false }: PropertyFormProps) {
+export default function dPropertyForm({ onSuccess, initialData, isEdit = false }: PropertyFormProps) {
   const createProperty = useCreateProperty()
   const updateProperty = useUpdateProperty()
   const isLoading = createProperty.isPending || updateProperty.isPending
@@ -88,6 +88,9 @@ export default function PropertyForm({ onSuccess, initialData, isEdit = false }:
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([])
   const [isUploading, setIsUploading] = useState(false)
   const [existingImages, setExistingImages] = useState<string[]>(initialData?.images || [])
+  const [deletingImageIndex, setDeletingImageIndex] = useState<number | null>(null)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [imageToDelete, setImageToDelete] = useState<{ index: number; url: string } | null>(null)
 
   // Image compression function for free plan optimization
   const compressImage = (file: File, maxWidth: number = 800, quality: number = 0.6): Promise<File> => {
@@ -259,23 +262,13 @@ export default function PropertyForm({ onSuccess, initialData, isEdit = false }:
       
       console.log(`Total compressed size: ${totalSizeMB}MB`);
 
-      // Upload files to Appwrite Storage
+      // Upload files to Cloudinary
       const uploadPromises = compressedFiles.map(async (file) => {
-        const uploadedFile = await storage.createFile(
-          appwriteConfig.bucketId,
-          ID.unique(),
-          file
-        )
-        
-        // Get the file URL for display
-        const fileUrl = storage.getFileView(
-          appwriteConfig.bucketId,
-          uploadedFile.$id
-        )
+        const result = await uploadToCloudinary(file)
         
         return {
-          fileId: uploadedFile.$id,
-          url: fileUrl,
+          fileId: result.public_id,
+          url: result.secure_url,
           name: file.name
         }
       })
@@ -300,16 +293,53 @@ export default function PropertyForm({ onSuccess, initialData, isEdit = false }:
     }
   }
 
-  const removeExistingImage = (index: number) => {
-    const updatedImages = existingImages.filter((_, i) => i !== index)
-    setExistingImages(updatedImages)
+  const handleDeleteImageClick = (index: number) => {
+    const imageUrl = existingImages[index]
+    setImageToDelete({ index, url: imageUrl })
+    setShowDeleteModal(true)
+  }
+
+  const removeExistingImage = async () => {
+    if (!imageToDelete) return
     
-    // Update formData with remaining existing images plus any new uploaded images
-    const newUploadedImages = formData.images?.filter(img => !existingImages.includes(img)) || []
-    setFormData(prev => ({
-      ...prev,
-      images: [...updatedImages, ...newUploadedImages]
-    }))
+    const { index, url: imageUrl } = imageToDelete
+    
+    try {
+      setDeletingImageIndex(index)
+      setShowDeleteModal(false)
+      toast.info('Deleting image...')
+      
+      // Extract public_id from Cloudinary URL
+      const urlParts = imageUrl.split('/')
+      const publicId = urlParts[urlParts.length - 1].split('.')[0] // Remove file extension
+      
+      // Delete from Cloudinary
+      await deleteFromCloudinary(publicId)
+      
+      // Update local state
+      const updatedImages = existingImages.filter((_, i) => i !== index)
+      setExistingImages(updatedImages)
+      
+      // Update formData with remaining existing images plus any new uploaded images
+      const newUploadedImages = formData.images?.filter(img => !existingImages.includes(img)) || []
+      setFormData(prev => ({
+        ...prev,
+        images: [...updatedImages, ...newUploadedImages]
+      }))
+      
+      toast.success('Image deleted successfully!')
+    } catch (error) {
+      console.error('Error deleting image:', error)
+      toast.error('Failed to delete image. Please try again.')
+    } finally {
+      setDeletingImageIndex(null)
+      setImageToDelete(null)
+    }
+  }
+
+  const cancelDelete = () => {
+    setShowDeleteModal(false)
+    setImageToDelete(null)
   }
 
   const addApartmentConfig = () => {
@@ -836,14 +866,30 @@ export default function PropertyForm({ onSuccess, initialData, isEdit = false }:
                     <img 
                       src={imageUrl} 
                       alt={`Property image ${index + 1}`} 
-                      className="w-full h-24 object-cover rounded-lg border border-black/10 dark:border-white/10"
+                      className={`w-full h-24 object-cover rounded-lg border border-black/10 dark:border-white/10 ${
+                        deletingImageIndex === index ? 'opacity-50' : ''
+                      }`}
                     />
+                    {deletingImageIndex === index && (
+                      <div className="absolute inset-0 bg-black/20 rounded-lg flex items-center justify-center">
+                        <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      </div>
+                    )}
                     <button
                       type="button"
-                      onClick={() => removeExistingImage(index)}
-                      className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
+                      onClick={() => handleDeleteImageClick(index)}
+                      disabled={deletingImageIndex === index}
+                      className={`absolute top-1 right-1 rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity ${
+                        deletingImageIndex === index 
+                          ? 'bg-gray-400 text-white cursor-not-allowed' 
+                          : 'bg-red-500 text-white hover:bg-red-600'
+                      }`}
                     >
-                      ×
+                      {deletingImageIndex === index ? (
+                        <div className="w-3 h-3 border border-white border-t-transparent rounded-full animate-spin"></div>
+                      ) : (
+                        '×'
+                      )}
                     </button>
                   </div>
                 ))}
@@ -987,6 +1033,62 @@ export default function PropertyForm({ onSuccess, initialData, isEdit = false }:
           </Button>
         </div>
       </form>
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && imageToDelete && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md w-full mx-4 shadow-xl">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center">
+                <AlertTriangle className="w-5 h-5 text-red-600 dark:text-red-400" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-dark dark:text-white">Delete Image</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">This action cannot be undone</p>
+              </div>
+            </div>
+            
+            <div className="mb-6">
+              <p className="text-gray-700 dark:text-gray-300 mb-3">
+                Are you sure you want to delete this image? This will permanently remove it from both the property and cloud storage.
+              </p>
+              <div className="flex justify-center">
+                <img 
+                  src={imageToDelete.url} 
+                  alt="Image to delete" 
+                  className="w-32 h-24 object-cover rounded-lg border border-gray-200 dark:border-gray-600"
+                />
+              </div>
+            </div>
+            
+            <div className="flex gap-3 justify-end">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={cancelDelete}
+                className="border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+              >
+                Cancel
+              </Button>
+              <Button
+                type="button"
+                onClick={removeExistingImage}
+                disabled={deletingImageIndex === imageToDelete.index}
+                className="bg-red-600 hover:bg-red-700 text-white"
+              >
+                {deletingImageIndex === imageToDelete.index ? (
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    Deleting...
+                  </div>
+                ) : (
+                  'Delete Image'
+                )}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
       </div>
     </div>
   )
