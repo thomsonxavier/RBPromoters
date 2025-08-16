@@ -78,7 +78,7 @@ const Footer = () => {
         </div>
         <div className="flex justify-between md:flex-nowrap flex-wrap items-center py-6 gap-6">
                      <p className="text-white/40 text-sm ">
-             ©2025 RB Properties - Design & Developed by <Link href="tel:+918098375380" className="hover:text-primary">🎧 Thomson</Link>
+             ©2025 RB Properties - Design & Developed by <a href="tel:+918098375380" className="hover:text-primary">🎧Thomson</a>
            </p>
           <div className="flex gap-8 items-center">
             <Link href="#" className="text-white/40 hover:text-primary text-sm">
