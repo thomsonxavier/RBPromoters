@@ -236,7 +236,7 @@ const Signin = ({ signInOpen }: { signInOpen?: any }) => {
         </div>
       </form>
 
-      <div className="text-center">
+      <div className="text-center invisible">
         <Link
           href="/"
           className="mb-2 text-base text-dark hover:text-primary dark:text-white dark:hover:text-primary"
