@@ -262,7 +262,7 @@ const Hero: React.FC = () => {
               <Link href="/contactus" className='px-6 py-3 border border-white dark:border-dark bg-white dark:bg-dark text-dark dark:text-white duration-300 dark:hover:text-dark hover:bg-transparent hover:text-white text-base font-semibold rounded-full hover:cursor-pointer'>
                 Get in touch
               </Link>
-              <button className='px-6 py-3 border border-white dark:border-dark bg-transparent text-white dark:text-dark hover:bg-white dark:hover:bg-dark dark:hover:text-white hover:text-dark duration-300 text-base font-semibold rounded-full hover:cursor-pointer'>
+              <button onClick={() => router.push('/properties')} className='px-6 py-3 border border-white dark:border-dark bg-transparent text-white dark:text-dark hover:bg-white dark:hover:bg-dark dark:hover:text-white hover:text-dark duration-300 text-base font-semibold rounded-full hover:cursor-pointer'>
                 View Details
               </button>
             </div>

@@ -143,7 +143,7 @@ export default function ContactUs() {
                 <div className='flex items-center gap-4 group w-fit'>
                   <Icon icon={'ph:envelope-simple'} width={32} height={32} />
                   <p className='text-sm xs:text-base mobile:text-xm font-normal group-hover:text-primary'>
-                    rbpromoters@gmail.com
+                    rbproperties@gmail.com
                   </p>
                 </div>
               </Link>

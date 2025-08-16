@@ -223,3 +223,17 @@ section {
 .dark .thumbnail-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #9ca3af;
 }
+
+
+/* Remove padding from Toaster component */
+[data-sonner-toaster] {
+  padding: 0 !important;
+}
+
+[data-sonner-toaster] > div {
+  padding: 0 !important;
+}
+/* Remove padding from the specific notifications section */
+section[aria-label="Notifications alt+T"] {
+  padding: 0 !important;
+}
