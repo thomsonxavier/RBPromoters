@@ -10,11 +10,13 @@ const Footer = () => {
           <div className="text-white text-sm lg:max-w-1/3">
             <h3 className="font-semibold text-lg mb-3">Get in Touch</h3>
             <div className="space-y-2">
-              <p>Main Branch: RB Promoters</p>
-              <p>123 Anna Salai, T Nagar</p>
-              <p>Chennai, Tamil Nadu 600017</p>
+              <p>Main Branch: RB Properties</p>
+              <p>No- 3/208, Thiruvallur Main Road</p>
+              <p>Karanai, Thiruvallur District</p>
+              <p>Pin 631502</p>
+              <p>Landmark: Near Safe Express Company</p>
               <p>Phone: +91 88835 78814</p>
-              <p>Email: info@rbpromoters.com</p>
+              <p>Email: rbproperties@gmail.com</p>
             </div>
           </div>
           <div className="flex lg:flex-row flex-col items-center lg:gap-10 gap-3">
@@ -76,7 +78,7 @@ const Footer = () => {
         </div>
         <div className="flex justify-between md:flex-nowrap flex-wrap items-center py-6 gap-6">
           <p className="text-white/40 text-sm ">
-            ©2025 RB Promoters - Design & Developed by <Link href="#" className="hover:text-primary">Thomson</Link>
+            ©2025 RB Properties - Design & Developed by <Link href="#" className="hover:text-primary">Thomson</Link>
           </p>
           <div className="flex gap-8 items-center">
             <Link href="#" className="text-white/40 hover:text-primary text-sm">
