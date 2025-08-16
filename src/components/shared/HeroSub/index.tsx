@@ -1,3 +1,5 @@
+"use client"
+
 import React, { FC } from "react";
 import { Icon } from "@iconify/react/dist/iconify.js"
 import { cn } from "@/lib/utils";

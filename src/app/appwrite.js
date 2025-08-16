@@ -41,5 +41,6 @@ export const appwriteConfig = {
   databaseId: process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID || '',
   collectionId: '689e1bf300078583b2ba',
   contactCollectionId: '689ea1c50028608d23a8', // Contact form collection
+  categoryCollectionId: process.env.NEXT_PUBLIC_CATEGORY_COLLECTION_ID || '', // Category collection
   bucketId: '689e16ec0007728e6ad7' // Rbproperties bucket
 };

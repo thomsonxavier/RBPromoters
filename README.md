@@ -13,9 +13,27 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 # Appwrite Configuration
 NEXT_PUBLIC_APPWRITE_ENDPOINT=https://cloud.appwrite.io/v1
 NEXT_PUBLIC_APPWRITE_PROJECT_ID=your_project_id_here
+NEXT_PUBLIC_APPWRITE_DATABASE_ID=your_database_id_here
+NEXT_PUBLIC_CATEGORY_COLLECTION_ID=your_category_collection_id_here
+APPWRITE_API_KEY=your_api_key_here
+
+# Cloudinary Configuration (for image uploads)
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=your_upload_preset
+
+# Appwrite Bucket Configuration (for category images)
+NEXT_PUBLIC_APPWRITE_BUCKET_ID=689e16ec0007728e6ad7
 ```
 
-2. **Install Dependencies**:
+2. **Setup Appwrite Database and Collections**:
+   - Run the setup script to create the category collection:
+   ```bash
+   node scripts/setup-category-collection.js
+   ```
+   - Add the generated collection ID to your `.env.local` file
+   - Set up appropriate permissions in your Appwrite console
+
+3. **Install Dependencies**:
 ```bash
 npm install
 # or

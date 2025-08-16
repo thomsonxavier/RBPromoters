@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useProperties, useDeleteProperty } from "@/lib/property-hooks";
 import { useContactSubmissions } from "@/lib/contact-hooks";
+import { useCategories } from "@/lib/category-hooks";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { PropertyHomes } from "@/types/properyHomes";
@@ -13,6 +14,7 @@ import { toast } from "sonner";
 export default function AdminDashboard() {
   const { data: properties, isLoading, error } = useProperties();
   const { data: contactSubmissions, isLoading: contactsLoading, error: contactsError } = useContactSubmissions();
+  const { data: categories, isLoading: categoriesLoading } = useCategories();
   const deleteProperty = useDeleteProperty();
   const router = useRouter();
   const [selectedProperty, setSelectedProperty] =
@@ -152,12 +154,18 @@ export default function AdminDashboard() {
               </p>
             </div>
 
-            <div className="flex justify-center mt-10">
+            <div className="flex justify-center gap-4 mt-10">
               <button
                 onClick={handleAddNew}
                 className="px-8 py-4 rounded-full bg-primary text-white text-base font-semibold w-full mobile:w-fit hover:cursor-pointer hover:bg-dark duration-300"
               >
                 Add New Property
+              </button>
+              <button
+                onClick={() => router.push('/admin/categories')}
+                className="px-8 py-4 rounded-full bg-gray-600 text-white text-base font-semibold w-full mobile:w-fit hover:cursor-pointer hover:bg-gray-700 duration-300"
+              >
+                Manage Categories
               </button>
             </div>
           </div>
@@ -362,6 +370,25 @@ export default function AdminDashboard() {
                   <p className="text-xs font-medium text-gray-600">Contact Forms</p>
                   <p className="text-lg font-semibold text-gray-900">
                     {contactSubmissions?.length || 0}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg shadow p-4">
+              <div className="flex items-center">
+                <div className="p-2 rounded-full bg-teal-100">
+                  <Icon
+                    icon="ph:folders"
+                    width={20}
+                    height={20}
+                    className="text-teal-600"
+                  />
+                </div>
+                <div className="ml-3">
+                  <p className="text-xs font-medium text-gray-600">Categories</p>
+                  <p className="text-lg font-semibold text-gray-900">
+                    {categories?.length || 0}
                   </p>
                 </div>
               </div>
