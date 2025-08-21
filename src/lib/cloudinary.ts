@@ -64,6 +64,8 @@ export const uploadToCloudinary = async (file: File): Promise<CloudinaryUploadRe
 
 export const deleteFromCloudinary = async (publicId: string): Promise<void> => {
   try {
+    console.log('Attempting to delete from Cloudinary with publicId:', publicId)
+    
     const response = await fetch(`/api/cloudinary/delete`, {
       method: 'DELETE',
       headers: {
@@ -72,9 +74,15 @@ export const deleteFromCloudinary = async (publicId: string): Promise<void> => {
       body: JSON.stringify({ publicId }),
     });
 
+    console.log('Delete response status:', response.status)
+    
     if (!response.ok) {
-      throw new Error('Failed to delete image from Cloudinary');
+      const errorData = await response.json().catch(() => ({}))
+      console.error('Delete response error:', errorData)
+      throw new Error(`Failed to delete image from Cloudinary: ${response.status} ${response.statusText}`);
     }
+    
+    const result = await response.json()
   } catch (error) {
     console.error('Error deleting from Cloudinary:', error);
     throw error;

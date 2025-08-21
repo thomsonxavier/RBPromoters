@@ -26,18 +26,31 @@ const Header: React.FC = () => {
 
   // Check if user is logged in
   useEffect(() => {
+    let isMounted = true;
+    
     const checkUser = async () => {
       try {
         const currentUser = await account.get();
-        setUser(currentUser);
+        if (isMounted) {
+          setUser(currentUser);
+        }
       } catch (error) {
-        setUser(null);
+        if (isMounted) {
+          setUser(null);
+        }
       } finally {
-        setIsLoading(false);
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     };
+    
     checkUser();
-  }, [pathname]); // Re-check when pathname changes (after login redirect)
+    
+    return () => {
+      isMounted = false;
+    };
+  }, []); // Only run once on mount
 
   const handleClickOutside = (event: MouseEvent) => {
     if (sideMenuRef.current && !sideMenuRef.current.contains(event.target as Node)) {
@@ -61,22 +74,28 @@ const Header: React.FC = () => {
 
   // Auto-redirect to admin dashboard if user is logged in and on signin page
   useEffect(() => {
-    if (user && (pathname === '/signin' || pathname === '/signup')) {
+    if (user && !isLoading && (pathname === '/signin' || pathname === '/signup')) {
       console.log('Redirecting to admin dashboard...', { user: user.name, pathname })
       router.push('/admin/dashboard')
     }
-  }, [user, pathname, router])
+  }, [user, pathname, router, isLoading])
 
   // Listen for login state changes
   useEffect(() => {
+    let isMounted = true;
+    
     const handleStorageChange = () => {
       // Re-check user authentication when localStorage changes
       const checkUser = async () => {
         try {
           const currentUser = await account.get();
-          setUser(currentUser);
+          if (isMounted) {
+            setUser(currentUser);
+          }
         } catch (error) {
-          setUser(null);
+          if (isMounted) {
+            setUser(null);
+          }
         }
       };
       checkUser();
@@ -89,6 +108,7 @@ const Header: React.FC = () => {
     window.addEventListener('userLoginStateChange', handleStorageChange);
 
     return () => {
+      isMounted = false;
       window.removeEventListener('storage', handleStorageChange);
       window.removeEventListener('userLoginStateChange', handleStorageChange);
     };
@@ -185,13 +205,20 @@ const Header: React.FC = () => {
                     <button
                       onClick={async () => {
                         try {
+                          setUser(null); // Set user to null immediately to prevent multiple calls
                           await account.deleteSession('current');
-                          setUser(null);
                           router.push('/');
                           toast.success('Logged out successfully');
                         } catch (error) {
                           console.error('Logout error:', error);
                           toast.error('Failed to logout');
+                          // Re-check user state if logout failed
+                          try {
+                            const currentUser = await account.get();
+                            setUser(currentUser);
+                          } catch {
+                            setUser(null);
+                          }
                         }
                       }}
                       className={`text-sm hover:text-red-500 transition-colors cursor-pointer flex items-center gap-2 ${isHomepage
@@ -323,14 +350,21 @@ const Header: React.FC = () => {
                   <button
                     onClick={async () => {
                       try {
-                        await account.deleteSession('current');
-                        setUser(null);
+                        setUser(null); // Set user to null immediately to prevent multiple calls
                         setNavbarOpen(false);
+                        await account.deleteSession('current');
                         router.push('/');
                         toast.success('Logged out successfully');
                       } catch (error) {
                         console.error('Logout error:', error);
                         toast.error('Failed to logout');
+                        // Re-check user state if logout failed
+                        try {
+                          const currentUser = await account.get();
+                          setUser(currentUser);
+                        } catch {
+                          setUser(null);
+                        }
                       }
                     }}
                     className='py-3 px-6 bg-transparent border border-red-500 text-base leading-4 block w-fit text-red-500 rounded-full font-semibold hover:bg-red-500 hover:text-white duration-300 cursor-pointer flex items-center gap-2'

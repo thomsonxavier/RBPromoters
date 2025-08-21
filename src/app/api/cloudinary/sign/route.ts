@@ -12,15 +12,24 @@ export async function POST(request: NextRequest) {
   try {
     const { params } = await request.json();
 
-    // Generate signature
+    // Generate timestamp
     const timestamp = Math.round(new Date().getTime() / 1000);
+    
+    // Create the parameters object with ONLY the parameters that need to be signed
+    // Based on the error message, Cloudinary only expects folder and timestamp
+    const signatureParams = {
+      folder: params.folder,
+      timestamp: timestamp,
+    };
+
+    // Generate signature
     const signature = cloudinary.utils.api_sign_request(
-      {
-        ...params,
-        timestamp,
-      },
+      signatureParams,
       process.env.CLOUDINARY_API_SECRET!
     );
+
+    console.log('Signature params:', signatureParams);
+    console.log('Generated signature:', signature);
 
     return NextResponse.json({
       timestamp,

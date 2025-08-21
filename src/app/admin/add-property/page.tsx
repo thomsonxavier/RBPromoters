@@ -9,27 +9,27 @@ import { account } from '@/app/appwrite'
 export default function AddPropertyPage() {
   const router = useRouter()
 
-  // Check authentication on component mount
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        // Check if user is logged in
-        const user = await account.get();
+  // // Check authentication on component mount
+  // useEffect(() => {
+  //   const checkAuth = async () => {
+  //     try {
+  //       // Check if user is logged in
+  //       const user = await account.get();
         
-        // Check if user has admin role
-        if (!user || !user.labels || !user.labels.includes('admin')) {
-          // User is not admin, redirect to home
-          router.push('/');
-          return;
-        }
-      } catch (error) {
-        // User is not logged in, redirect to signin
-        router.push('/signin?redirect=' + encodeURIComponent(window.location.href));
-      }
-    };
+  //       // Check if user has admin role
+  //       if (!user || !user.labels || !user.labels.includes('admin')) {
+  //         // User is not admin, redirect to home
+  //         router.push('/');
+  //         return;
+  //       }
+  //     } catch (error) {
+  //       // User is not logged in, redirect to signin
+  //       router.push('/signin?redirect=' + encodeURIComponent(window.location.href));
+  //     }
+  //   };
 
-    checkAuth();
-  }, [router]);
+  //   checkAuth();
+  // }, [router]);
 
   const handleSuccess = () => {
     router.push('/admin/dashboard')
