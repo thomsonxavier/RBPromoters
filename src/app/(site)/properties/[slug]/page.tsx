@@ -116,28 +116,34 @@ export default function Details() {
                     </div>
                     <div className="lg:col-span-4 col-span-12">
                         <div className='flex'>
-                            <div className='flex flex-col gap-2 border-e border-black/10 dark:border-white/20 pr-2 xs:pr-4 mobile:pr-8'>
-                                <Icon icon={'solar:bed-linear'} width={20} height={20} />
-                                <p className='text-sm mobile:text-base font-normal text-black dark:text-white'>
-                                    {item?.beds} Bedrooms
-                                </p>
-                            </div>
-                            <div className='flex flex-col gap-2 border-e border-black/10 dark:border-white/20 px-2 xs:px-4 mobile:px-8'>
-                                <Icon icon={'solar:bath-linear'} width={20} height={20} />
-                                <p className='text-sm mobile:text-base font-normal text-black dark:text-white'>
-                                    {item?.baths} Bathrooms
-                                </p>
-                            </div>
-                            <div className='flex flex-col gap-2 pl-2 xs:pl-4 mobile:pl-8'>
-                                <Icon
-                                    icon={'lineicons:arrow-all-direction'}
-                                    width={20}
-                                    height={20}
-                                />
-                                <p className='text-sm mobile:text-base font-normal text-black dark:text-white'>
-                                    {item?.area}m<sup>2</sup>
-                                </p>
-                            </div>
+                            {item?.beds !== undefined && item?.beds !== null && item?.beds > 0 && (
+                                <div className='flex flex-col gap-2 border-e border-black/10 dark:border-white/20 pr-2 xs:pr-4 mobile:pr-8'>
+                                    <Icon icon={'solar:bed-linear'} width={20} height={20} />
+                                    <p className='text-sm mobile:text-base font-normal text-black dark:text-white'>
+                                        {item?.beds} Bedrooms
+                                    </p>
+                                </div>
+                            )}
+                            {item?.baths !== undefined && item?.baths !== null && item?.baths > 0 && (
+                                <div className='flex flex-col gap-2 border-e border-black/10 dark:border-white/20 px-2 xs:px-4 mobile:px-8'>
+                                    <Icon icon={'solar:bath-linear'} width={20} height={20} />
+                                    <p className='text-sm mobile:text-base font-normal text-black dark:text-white'>
+                                        {item?.baths} Bathrooms
+                                    </p>
+                                </div>
+                            )}
+                            {item?.area !== undefined && item?.area !== null && item?.area > 0 && (
+                                <div className='flex flex-col gap-2 pl-2 xs:pl-4 mobile:pl-8'>
+                                    <Icon
+                                        icon={'lineicons:arrow-all-direction'}
+                                        width={20}
+                                        height={20}
+                                    />
+                                    <p className='text-sm mobile:text-base font-normal text-black dark:text-white'>
+                                        {item?.area}m<sup>2</sup>
+                                    </p>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -173,102 +179,118 @@ export default function Details() {
                     </div>
                 </div>
 
-                {/* Price Table Section */}
                 <div className="grid grid-cols-12 gap-8 mt-10">
                     <div className="lg:col-span-8 col-span-12">
-                        <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg">
-                            <h3 className='text-2xl font-semibold mb-6 text-dark dark:text-white'>Price Of {item?.society || item?.name}</h3>
-                            <div className="overflow-x-auto">
-                                <table className="w-full">
-                                    <thead>
-                                        <tr className="border-b border-gray-200 dark:border-gray-700">
-                                            <th className="text-left py-3 px-4 font-semibold text-dark dark:text-white">Config</th>
-                                            <th className="text-left py-3 px-4 font-semibold text-dark dark:text-white">Size (Sq.ft)</th>
-                                            <th className="text-left py-3 px-4 font-semibold text-dark dark:text-white">Price</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {item?.apartmentConfigs && item.apartmentConfigs.length > 0 ? (
-                                            // Show multiple apartment configurations
-                                            item.apartmentConfigs.map((config, index) => (
-                                                <tr key={index} className="border-b border-gray-100 dark:border-gray-800">
-                                                    <td className="py-3 px-4 text-dark dark:text-white">{config.type}</td>
-                                                    <td className="py-3 px-4 text-dark dark:text-white">{config.size}</td>
-                                                    <td className="py-3 px-4 text-dark dark:text-white font-semibold">{config.price} *</td>
-                                                </tr>
-                                            ))
-                                        ) : (
-                                            // Show single property configuration
-                                            <tr className="border-b border-gray-100 dark:border-gray-800">
-                                                <td className="py-3 px-4 text-dark dark:text-white">{item?.config || `${item?.beds} BHK ${item?.propertyType}`}</td>
-                                                <td className="py-3 px-4 text-dark dark:text-white">{item?.sizeRange || `${item?.area} sq ft`}</td>
-                                                <td className="py-3 px-4 text-dark dark:text-white font-semibold">{item?.priceRange || item?.rate} *</td>
+                        {/* Price Table Section */}
+                        {((item?.apartmentConfigs && item.apartmentConfigs.length > 0) || item?.config || item?.rate || item?.priceRange) && (
+                            <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg mb-8">
+                                <h3 className='text-2xl font-semibold mb-6 text-dark dark:text-white'>Price Of {item?.society || item?.name}</h3>
+                                <div className="overflow-x-auto">
+                                    <table className="w-full">
+                                        <thead>
+                                            <tr className="border-b border-gray-200 dark:border-gray-700">
+                                                <th className="text-left py-3 px-4 font-semibold text-dark dark:text-white">Config</th>
+                                                <th className="text-left py-3 px-4 font-semibold text-dark dark:text-white">Size (Sq.ft)</th>
+                                                <th className="text-left py-3 px-4 font-semibold text-dark dark:text-white">Price</th>
                                             </tr>
-                                        )}
-                                    </tbody>
-                                </table>
-                            </div>
-                            {item?.ratePerSqft && (
-                                <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                                    <p className="text-sm text-gray-600 dark:text-gray-400">Rate per sq ft: <span className="font-semibold text-dark dark:text-white">{item.ratePerSqft}</span></p>
+                                        </thead>
+                                        <tbody>
+                                            {item?.apartmentConfigs && item.apartmentConfigs.length > 0 ? (
+                                                // Show multiple apartment configurations
+                                                item.apartmentConfigs.map((config, index) => (
+                                                    <tr key={index} className="border-b border-gray-100 dark:border-gray-800">
+                                                        <td className="py-3 px-4 text-dark dark:text-white">{config.type}</td>
+                                                        <td className="py-3 px-4 text-dark dark:text-white">{config.size}</td>
+                                                        <td className="py-3 px-4 text-dark dark:text-white font-semibold">{config.price} *</td>
+                                                    </tr>
+                                                ))
+                                            ) : (
+                                                // Show single property configuration
+                                                <tr className="border-b border-gray-100 dark:border-gray-800">
+                                                    <td className="py-3 px-4 text-dark dark:text-white">{item?.config || `${item?.beds} BHK ${item?.propertyType}`}</td>
+                                                    <td className="py-3 px-4 text-dark dark:text-white">{item?.sizeRange || `${item?.area} sq ft`}</td>
+                                                    <td className="py-3 px-4 text-dark dark:text-white font-semibold">{item?.priceRange || item?.rate} *</td>
+                                                </tr>
+                                            )}
+                                        </tbody>
+                                    </table>
                                 </div>
-                            )}
-                        </div>
+                                {item?.ratePerSqft && (
+                                    <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                                        <p className="text-sm text-gray-600 dark:text-gray-400">Rate per sq ft: <span className="font-semibold text-dark dark:text-white">{item.ratePerSqft}</span></p>
+                                    </div>
+                                )}
+                            </div>
+                        )}
 
                         {/* Address Section */}
-                        <div className="mt-8 bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg">
-                            <h3 className='text-2xl font-semibold mb-6 text-dark dark:text-white'>Address</h3>
-                            <p className='text-dark dark:text-white text-lg'>
-                                Address: {item?.road || item?.locality}, {item?.locality}, {item?.city}, {item?.state} {item?.pincode}, India.
-                            </p>
-                        </div>
+                        {(item?.road || item?.locality || item?.city || item?.state || item?.pincode) && (
+                            <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg mb-8">
+                                <h3 className='text-2xl font-semibold mb-6 text-dark dark:text-white'>Address</h3>
+                                <p className='text-dark dark:text-white text-lg'>
+                                    Address: {item?.road || item?.locality}, {item?.locality}, {item?.city}, {item?.state} {item?.pincode}, India.
+                                </p>
+                            </div>
+                        )}
 
                         {/* Property Overview Section */}
-                        <div className="mt-8 bg-gray-50 dark:bg-gray-800 p-8 rounded-2xl">
+                        <div className="bg-gray-50 dark:bg-gray-800 p-8 rounded-2xl mb-8">
                             <h3 className='text-2xl font-semibold mb-6 text-dark dark:text-white'>{item?.society || item?.name} Overview</h3>
                             <div className="grid grid-cols-2 gap-6">
-                                <div className="flex items-center gap-3">
-                                    <Icon icon="ph:house-simple" width={24} height={24} className="text-[var(--color-primary)]" />
-                                    <div>
-                                        <p className="text-sm text-gray-600 dark:text-gray-400">Property Type</p>
-                                        <p className="font-medium text-dark dark:text-white capitalize">{item?.propertyType}</p>
+                                {item?.propertyType && (
+                                    <div className="flex items-center gap-3">
+                                        <Icon icon="ph:house-simple" width={24} height={24} className="text-[var(--color-primary)]" />
+                                        <div>
+                                            <p className="text-sm text-gray-600 dark:text-gray-400">Property Type</p>
+                                            <p className="font-medium text-dark dark:text-white capitalize">{item?.propertyType}</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <Icon icon="ph:map-pin" width={24} height={24} className="text-[var(--color-primary)]" />
-                                    <div>
-                                        <p className="text-sm text-gray-600 dark:text-gray-400">Location</p>
-                                        <p className="font-medium text-dark dark:text-white">{item?.locality}, {item?.city}</p>
+                                )}
+                                {(item?.locality || item?.city) && (
+                                    <div className="flex items-center gap-3">
+                                        <Icon icon="ph:map-pin" width={24} height={24} className="text-[var(--color-primary)]" />
+                                        <div>
+                                            <p className="text-sm text-gray-600 dark:text-gray-400">Location</p>
+                                            <p className="font-medium text-dark dark:text-white">{item?.locality}, {item?.city}</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <Icon icon="ph:bed" width={24} height={24} className="text-[var(--color-primary)]" />
-                                    <div>
-                                        <p className="text-sm text-gray-600 dark:text-gray-400">Configuration</p>
-                                        <p className="font-medium text-dark dark:text-white">{item?.config || `${item?.beds} BHK ${item?.propertyType}`}</p>
+                                )}
+                                {(item?.config || item?.beds || item?.propertyType) && (
+                                    <div className="flex items-center gap-3">
+                                        <Icon icon="ph:bed" width={24} height={24} className="text-[var(--color-primary)]" />
+                                        <div>
+                                            <p className="text-sm text-gray-600 dark:text-gray-400">Configuration</p>
+                                            <p className="font-medium text-dark dark:text-white">{item?.config || `${item?.beds} BHK ${item?.propertyType}`}</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <Icon icon="ph:buildings" width={24} height={24} className="text-[var(--color-primary)]" />
-                                    <div>
-                                        <p className="text-sm text-gray-600 dark:text-gray-400">Size Range</p>
-                                        <p className="font-medium text-dark dark:text-white">{item?.sizeRange || `${item?.area} sq ft`}</p>
+                                )}
+                                {(item?.sizeRange || item?.area) && (
+                                    <div className="flex items-center gap-3">
+                                        <Icon icon="ph:buildings" width={24} height={24} className="text-[var(--color-primary)]" />
+                                        <div>
+                                            <p className="text-sm text-gray-600 dark:text-gray-400">Size Range</p>
+                                            <p className="font-medium text-dark dark:text-white">{item?.sizeRange || `${item?.area} sq ft`}</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <Icon icon="ph:currency-inr" width={24} height={24} className="text-[var(--color-primary)]" />
-                                    <div>
-                                        <p className="text-sm text-gray-600 dark:text-gray-400">Price Range</p>
-                                        <p className="font-medium text-dark dark:text-white">{item?.priceRange || item?.rate}</p>
+                                )}
+                                {(item?.priceRange || item?.rate) && (
+                                    <div className="flex items-center gap-3">
+                                        <Icon icon="ph:currency-inr" width={24} height={24} className="text-[var(--color-primary)]" />
+                                        <div>
+                                            <p className="text-sm text-gray-600 dark:text-gray-400">Price Range</p>
+                                            <p className="font-medium text-dark dark:text-white">{item?.priceRange || item?.rate}</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <Icon icon="ph:key" width={24} height={24} className="text-[var(--color-primary)]" />
-                                    <div>
-                                        <p className="text-sm text-gray-600 dark:text-gray-400">Status</p>
-                                        <p className="font-medium text-dark dark:text-white">{item?.status || 'Available'}</p>
+                                )}
+                                {item?.status && (
+                                    <div className="flex items-center gap-3">
+                                        <Icon icon="ph:key" width={24} height={24} className="text-[var(--color-primary)]" />
+                                        <div>
+                                            <p className="text-sm text-gray-600 dark:text-gray-400">Status</p>
+                                            <p className="font-medium text-dark dark:text-white">{item?.status}</p>
+                                        </div>
                                     </div>
-                                </div>
+                                )}
                                 {item?.builder && (
                                     <div className="flex items-center gap-3">
                                         <Icon icon="ph:user" width={24} height={24} className="text-[var(--color-primary)]" />
@@ -337,7 +359,7 @@ export default function Details() {
 
                         {/* Features Section */}
                         {item?.features && item.features.length > 0 && (
-                            <div className="mt-8 bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg">
+                            <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg mb-8">
                                 <h3 className='text-2xl font-semibold mb-6 text-dark dark:text-white'>Key Features</h3>
                                 <div className="grid grid-cols-2 gap-4">
                                     {item.features.map((feature, index) => (
@@ -352,7 +374,7 @@ export default function Details() {
 
                         {/* Amenities Section */}
                         {item?.amenities && item.amenities.length > 0 && (
-                            <div className="mt-8 bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg">
+                            <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg mb-8">
                                 <h3 className='text-2xl font-semibold mb-6 text-dark dark:text-white'>Amenities</h3>
                                 <div className="grid grid-cols-2 gap-4">
                                     {item.amenities.map((amenity, index) => (
@@ -366,109 +388,91 @@ export default function Details() {
                         )}
 
                         {/* Property Description Section */}
-                        <div className="mt-8 bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg">
-                            <h3 className='text-2xl font-semibold mb-6 text-dark dark:text-white'>Property Details</h3>
-                            <div className="space-y-6 text-dark dark:text-white">
-                                <p className="text-lg leading-relaxed">
-                                    {item?.description}
-                                </p>
-                                <div className="py-8 border-y border-dark/10 dark:border-white/20 flex flex-col gap-8">
-                                    <div className="flex items-center gap-6">
-                                        <div>
-                                            <Image src="/images/SVGs/energyefficient.svg" width={400} height={500} alt="" className='w-8 h-8 dark:hidden' unoptimized={true} />
-                                            <Image src="/images/SVGs/energyefficient-white.svg" width={400} height={500} alt="" className='w-8 h-8 dark:block hidden' unoptimized={true} />
-                                        </div>
-                                        <div>
-                                            <h3 className='text-dark dark:text-white text-xm'>Energy efficient</h3>
-                                            <p className='text-base text-dark/50 dark:text-white/50'>
-                                                Built in 2025 with sustainable and smart-home features.
-                                            </p>
+                        {item?.description && (
+                            <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg mb-8">
+                                <h3 className='text-2xl font-semibold mb-6 text-dark dark:text-white'>Property Details</h3>
+                                <div className="space-y-6 text-dark dark:text-white">
+                                    <p className="text-lg leading-relaxed">
+                                        {item?.description}
+                                    </p>
+                                    <div className="py-8 border-y border-dark/10 dark:border-white/20 flex flex-col gap-8">
+                                        <div className="flex items-center gap-6">
+                                            <div>
+                                                <Image src="/images/SVGs/energyefficient.svg" width={400} height={500} alt="" className='w-8 h-8 dark:hidden' unoptimized={true} />
+                                                <Image src="/images/SVGs/energyefficient-white.svg" width={400} height={500} alt="" className='w-8 h-8 dark:block hidden' unoptimized={true} />
+                                            </div>
+                                            <div>
+                                                <h3 className='text-dark dark:text-white text-xm'>Energy efficient</h3>
+                                                <p className='text-base text-dark/50 dark:text-white/50'>
+                                                    Built in 2025 with sustainable and smart-home features.
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        {/* Enhanced Map Section */}
-                        {/* <div className="mt-8">
-                            <h3 className='text-xl font-medium mb-6 text-dark dark:text-white'>Location & Map</h3>
-                            <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg">
-                                <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-                                    <div className="flex gap-2">
-                                        <button className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg text-sm font-medium">Map</button>
-                                        <button className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium">Satellite</button>
-                                    </div>
-                                </div>
-                                <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d938779.7831767448!2d71.05098621661072!3d23.20271516446136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e82dd003ff749%3A0x359e803f537cea25!2sGANESH%20GLORY%2C%20Gota%2C%20Ahmedabad%2C%20Gujarat%20382481!5e0!3m2!1sen!2sin!4v1715676641521!5m2!1sen!2sin"
-                                    width="100%" height="400" loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="w-full">
-                                </iframe>
-                                <div className="p-4 bg-gray-50 dark:bg-gray-900 text-xs text-gray-500 dark:text-gray-400 flex justify-between">
-                                    <span>Map data ©2025</span>
-                                    <span>Terms</span>
-                                    <span>Report a map error</span>
-                                </div>
-                            </div>
-                        </div> */}
+                        )}
                     </div>
                     <div className="lg:col-span-4 col-span-12">
-                        <div className="bg-primary/10 p-8 rounded-2xl relative z-10 overflow-hidden">
-                            <h4 className='text-dark text-3xl font-medium dark:text-white'>
-                                {item?.rate}
-                            </h4>
-                            <p className='text-sm text-dark/50 dark:text-white'>Discounted Price</p>
-                            {item?.ratePerSqft && (
-                                <p className='text-sm text-dark/50 dark:text-white mt-1'>{item.ratePerSqft}</p>
-                            )}
-                            {/* <Link href="#" className='py-4 px-8 bg-primary text-white rounded-full w-full block text-center hover:bg-dark duration-300 text-base mt-8 hover:cursor-pointer'>
-                                Get in touch
-                            </Link> */}
-                            <div className="absolute right-0 top-4 -z-[1]">
-                                <Image src="/images/properties/vector.svg" width={400} height={500} alt="vector" unoptimized={true} />
+                        {/* Price Display */}
+                        {item?.rate && (
+                            <div className="bg-primary/10 p-8 rounded-2xl relative z-10 overflow-hidden mb-4">
+                                <h4 className='text-dark text-3xl font-medium dark:text-white'>
+                                    {item?.rate}
+                                </h4>
+                                <p className='text-sm text-dark/50 dark:text-white'>Discounted Price</p>
+                                {item?.ratePerSqft && (
+                                    <p className='text-sm text-dark/50 dark:text-white mt-1'>{item.ratePerSqft}</p>
+                                )}
+                                <div className="absolute right-0 top-4 -z-[1]">
+                                    <Image src="/images/properties/vector.svg" width={400} height={500} alt="vector" unoptimized={true} />
+                                </div>
                             </div>
-                        </div>
+                        )}
 
                         {/* Contact Builder Section */}
-                        <div className="bg-primary/10 mt-4 p-8 rounded-2xl relative z-10 overflow-hidden">
-
-                        
-                            <h4 className="text-lg font-semibold mb-4">CONTACT BUILDER</h4>
-                            <div className="bg-white dark:bg-gray-800 p-4 rounded-xl mb-4">
-                                <div className="flex items-center gap-3 mb-3">
-                                    <Icon icon="ph:user" width={24} height={24} className="text-[var(--color-primary)]" />
-                                    <span className="text-gray-700 dark:text-gray-300 font-medium">{item?.builder || 'Developer'}</span>
+                        {(item?.builder || item?.agent) && (
+                            <div className="bg-primary/10 p-8 rounded-2xl relative z-10 overflow-hidden mb-8">
+                                <h4 className="text-lg font-semibold mb-4">CONTACT BUILDER</h4>
+                                <div className="bg-white dark:bg-gray-800 p-4 rounded-xl mb-4">
+                                    <div className="flex items-center gap-3 mb-3">
+                                        <Icon icon="ph:user" width={24} height={24} className="text-[var(--color-primary)]" />
+                                        <span className="text-gray-700 dark:text-gray-300 font-medium">{item?.builder || item?.agent || 'Developer'}</span>
+                                    </div>
+                                    <p className="text-gray-600 dark:text-gray-400 text-sm">+91 88835 78814</p>
                                 </div>
-                                <p className="text-gray-600 dark:text-gray-400 text-sm">+91 88835 78814</p>
+                                <Link 
+                                    href="tel:+918883578814" 
+                                    className='py-4 px-8 bg-primary text-white rounded-full w-full block text-center hover:bg-dark duration-300 text-base mt-8 hover:cursor-pointer'
+                                >
+                                    CONTACT BUILDER NOW
+                                </Link>
+                                <div className="absolute right-0 top-4 -z-[1]">
+                                    <Image src="/images/properties/vector.svg" width={400} height={500} alt="vector" unoptimized={true} />
+                                </div>
                             </div>
-                            <Link 
-                                href="tel:+918883578814" 
-                                className='py-4 px-8 bg-primary text-white rounded-full w-full block text-center hover:bg-dark duration-300 text-base mt-8 hover:cursor-pointer'
-                            >
-                                CONTACT BUILDER NOW
-                            </Link>
-                            <div className="absolute right-0 top-4 -z-[1]">
-                                <Image src="/images/properties/vector.svg" width={400} height={500} alt="vector" unoptimized={true} />
-                            </div>
-                        </div>
+                        )}
 
                         {/* Quick Links Section */}
-                        <div className="mt-8 bg-[var(--color-dark)] text-white p-6 rounded-2xl">
-                            <h4 className="text-lg font-semibold mb-4">QUICK LINKS</h4>
-                            <div className="bg-white dark:bg-gray-800 p-4 rounded-xl space-y-3">
-                                <Link href="#" className="block text-gray-700 dark:text-gray-300 hover:text-[var(--color-primary)] transition-colors duration-300">
-                                    Flats for sale in {item?.locality}
-                                </Link>
-                                <Link href="#" className="block text-gray-700 dark:text-gray-300 hover:text-[var(--color-primary)] transition-colors duration-300">
-                                    Individual House for sale in {item?.locality}
-                                </Link>
-                                <Link href="#" className="block text-gray-700 dark:text-gray-300 hover:text-[var(--color-primary)] transition-colors duration-300">
-                                    Plots for sale in {item?.locality}
-                                </Link>
+                        {item?.locality && (
+                            <div className="bg-[var(--color-dark)] text-white p-6 rounded-2xl mb-8">
+                                <h4 className="text-lg font-semibold mb-4">QUICK LINKS</h4>
+                                <div className="bg-white dark:bg-gray-800 p-4 rounded-xl space-y-3">
+                                    <Link href="#" className="block text-gray-700 dark:text-gray-300 hover:text-[var(--color-primary)] transition-colors duration-300">
+                                        Flats for sale in {item?.locality}
+                                    </Link>
+                                    <Link href="#" className="block text-gray-700 dark:text-gray-300 hover:text-[var(--color-primary)] transition-colors duration-300">
+                                        Individual House for sale in {item?.locality}
+                                    </Link>
+                                    <Link href="#" className="block text-gray-700 dark:text-gray-300 hover:text-[var(--color-primary)] transition-colors duration-300">
+                                        Plots for sale in {item?.locality}
+                                    </Link>
+                                </div>
                             </div>
-                        </div>
+                        )}
 
                         {/* EMI Calculator Section */}
-                        <div className="mt-8 bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+                        <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
                             <h4 className="text-lg font-semibold mb-6 text-dark dark:text-white">EMI Calculator</h4>
                             <div className="space-y-6">
                                 <div>
@@ -537,82 +541,81 @@ export default function Details() {
                                 </div>
                             </div>
                         </div>
-
-                      
                     </div>
                 </div>
 
                 {/* Photos & Videos Section */}
-                <div className="mt-4">
-                    {/* Photo Gallery Carousel */}
-                    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8">
-                        <h3 className="text-2xl font-semibold mb-6 text-dark dark:text-white">Property Gallery</h3>
-                        
-                        <Carousel className="w-full">
-                            <CarouselContent>
-                                {item?.images && item.images.map((imageUrl, index) => (
-                                    <CarouselItem key={index}>
-                                        <div className="relative group cursor-pointer" onClick={() => openModal(index)}>
+                {item?.images && item.images.length > 0 && (
+                    <div className="mt-8">
+                        {/* Photo Gallery Carousel */}
+                        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 mb-8">
+                            <h3 className="text-2xl font-semibold mb-6 text-dark dark:text-white">Property Gallery</h3>
+                            
+                            <Carousel className="w-full">
+                                <CarouselContent>
+                                    {item.images.map((imageUrl, index) => (
+                                        <CarouselItem key={index}>
+                                            <div className="relative group cursor-pointer" onClick={() => openModal(index)}>
+                                                <Image
+                                                    src={imageUrl}
+                                                    alt={`Property image ${index + 1}`}
+                                                    width={800}
+                                                    height={600}
+                                                    className="w-full h-[400px] object-cover rounded-xl transition-transform duration-300 group-hover:scale-105"
+                                                    unoptimized={true}
+                                                />
+                                                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl flex items-center justify-center">
+                                                    <div className="bg-white/90 backdrop-blur-sm rounded-full p-3">
+                                                        <Icon icon="ph:magnifying-glass-plus" width={24} height={24} className="text-gray-700" />
+                                                    </div>
+                                                </div>
+                                                <div className="absolute bottom-4 left-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm">
+                                                    {index + 1} / {item.images.length}
+                                                </div>
+                                            </div>
+                                        </CarouselItem>
+                                    ))}
+                                </CarouselContent>
+                                <CarouselPrevious className="left-4 bg-white/90 hover:bg-white border-0 shadow-lg" />
+                                <CarouselNext className="right-4 bg-white/90 hover:bg-white border-0 shadow-lg" />
+                            </Carousel>
+
+                            {/* Thumbnail Navigation */}
+                            {item.images.length > 1 && (
+                                <div className="mt-6 flex gap-3 overflow-x-auto pb-2 thumbnail-scrollbar">
+                                    {item.images.map((imageUrl, index) => (
+                                        <div
+                                            key={index}
+                                            className="flex-shrink-0 cursor-pointer group"
+                                            onClick={() => openModal(index)}
+                                        >
                                             <Image
                                                 src={imageUrl}
                                                 alt={`Property image ${index + 1}`}
-                                                width={800}
-                                                height={600}
-                                                className="w-full h-[400px] object-cover rounded-xl transition-transform duration-300 group-hover:scale-105"
+                                                width={120}
+                                                height={90}
+                                                className="w-24 h-18 object-cover rounded-lg border-2 border-transparent group-hover:border-[var(--color-primary)] transition-all duration-300"
                                                 unoptimized={true}
                                             />
-                                            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl flex items-center justify-center">
-                                                <div className="bg-white/90 backdrop-blur-sm rounded-full p-3">
-                                                    <Icon icon="ph:magnifying-glass-plus" width={24} height={24} className="text-gray-700" />
-                                                </div>
-                                            </div>
-                                            <div className="absolute bottom-4 left-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm">
-                                                {index + 1} / {item.images.length}
-                                            </div>
                                         </div>
-                                    </CarouselItem>
-                                ))}
-                            </CarouselContent>
-                            <CarouselPrevious className="left-4 bg-white/90 hover:bg-white border-0 shadow-lg" />
-                            <CarouselNext className="right-4 bg-white/90 hover:bg-white border-0 shadow-lg" />
-                        </Carousel>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
 
-                        {/* Thumbnail Navigation */}
-                        {item?.images && item.images.length > 1 && (
-                            <div className="mt-6 flex gap-3 overflow-x-auto pb-2 thumbnail-scrollbar">
-                                {item.images.map((imageUrl, index) => (
-                                    <div
-                                        key={index}
-                                        className="flex-shrink-0 cursor-pointer group"
-                                        onClick={() => openModal(index)}
-                                    >
-                                        <Image
-                                            src={imageUrl}
-                                            alt={`Property image ${index + 1}`}
-                                            width={120}
-                                            height={90}
-                                            className="w-24 h-18 object-cover rounded-lg border-2 border-transparent group-hover:border-[var(--color-primary)] transition-all duration-300"
-                                            unoptimized={true}
-                                        />
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Video Section */}
-                    <div className="mt-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8">
-                        <h3 className="text-2xl font-semibold mb-6 text-dark dark:text-white">Video Tour</h3>
-                        <div className="aspect-video bg-gray-100 dark:bg-gray-700 rounded-xl flex items-center justify-center">
-                            <div className="text-center">
-                                <Icon icon="ph:play-circle" width={64} height={64} className="text-gray-400 mx-auto mb-4" />
-                                <p className="text-gray-500 dark:text-gray-400">Video tour coming soon</p>
-                                <p className="text-sm text-gray-400 dark:text-gray-500 mt-2">Experience this property through our immersive video tour</p>
+                        {/* Video Section */}
+                        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8">
+                            <h3 className="text-2xl font-semibold mb-6 text-dark dark:text-white">Video Tour</h3>
+                            <div className="aspect-video bg-gray-100 dark:bg-gray-700 rounded-xl flex items-center justify-center">
+                                <div className="text-center">
+                                    <Icon icon="ph:play-circle" width={64} height={64} className="text-gray-400 mx-auto mb-4" />
+                                    <p className="text-gray-500 dark:text-gray-400">Video tour coming soon</p>
+                                    <p className="text-sm text-gray-400 dark:text-gray-500 mt-2">Experience this property through our immersive video tour</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                </div>
+                )}
 
                 {/* Image Modal */}
                 <Modal isOpen={isModalOpen} onClose={closeModal}>
